@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 } */
+
+:root{
+  --main-color: #c5d86d;
+  --second-color: #ffeddf;
+}
