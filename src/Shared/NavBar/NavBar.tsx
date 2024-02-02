@@ -5,16 +5,20 @@ const NavBar = () => {
       <nav className="bg-white text-black p-4 border-b border-gray-500">
       {/* <nav className={`"p-4${styles["bg-navbar"]}"`}> */}
         <div className="flex items-center justify-between">
-          <div className="pl-4s">Dashboard</div>
+          <div className="pl-4 hover:bg-orange-200
+           hover:rounded-xl
+          px-3 py-1 ">Dashboard</div>
 
           <div className="flex items-center space-x-4">
-            <button className=" rounded-full px-6  py-1 border-2 mr-4">
+            <button className="
+            hover:bg-orange-200 rounded-full px-6  py-1 border-2 mr-4">
             <i className="fa-solid fa-circle-plus"></i>
               New quiz
             </button>
 
             <div className="relative group">
-              <a href="#" className="">
+              <a href="#" className="hover:bg-orange-200 px-3 py-1
+           hover:rounded-xl">
               Instractor <i className="fa-solid fa-chevron-down"></i>
               </a>
               {/* Dropdown menu */}

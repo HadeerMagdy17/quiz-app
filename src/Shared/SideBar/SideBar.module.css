@@ -35,7 +35,10 @@ background-color: red;
 .ps-menu-button{
   padding: 1rem !important;
 }
-
+.bg-menu-item:hover {
+  /* background-color: #13395e;  */
+  border-right: 3px solid black;
+}
 
 /* .sidebar-cont{
     background-color: #1f263e;
