@@ -1,9 +1,7 @@
-import React from "react";
 import CustomLeftCard from "../../../Shared/CustomComponents/CustomLeftCard/CustomLeftCard";
 import imagCard from "../../../assets/images/1.webp";
 import CustomRightCard from "./../../../Shared/CustomComponents/CustomRightCard/CustomRightCard";
-import styles from './Dashboard.module.css'
-import Table from "../../../Shared/CustomComponents/Table/Table";
+import styles from './Dashboard.module.css';
 
 
 const Dashboard = () => {
@@ -72,7 +70,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <Table/>
+      
     </>
   );
 };
