@@ -8,14 +8,14 @@ const MasterLayout = () => {
         <>
             <>
                 <div className="container-fluid">
-                    <div className="flex">
+                    <div className="">
                         {/* Navbar at the top */}
                         <div className="col-12 p-0">
                             <NavBar />
                         </div>
                     </div>
 
-                    <div className="flex">
+                    <div className="">
                         {/* Sidebar on the left */}
                         <div >
                             <SideBar />
