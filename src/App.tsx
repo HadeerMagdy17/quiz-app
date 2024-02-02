@@ -8,7 +8,11 @@ import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
 import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+
 import Groups from './Features/Instructor/Groups/Groups';
+
+import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -35,8 +39,13 @@ function App() {
       ),
       errorElement: <Notfound />,
       children: [
+
         // { index: true, element: <Dashboard /> },
         { path: "groups", element: <Groups /> },
+
+        { index: true, element: <Dashboard /> },
+        // { path: "projects", element: <Projects /> },
+
         // { path: "projects/add-project", element: <AddProject /> },
         // { path: "users", element: <Users /> },
         // { path: "tasks", element: <Tasks /> },
