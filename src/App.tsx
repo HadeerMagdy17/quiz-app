@@ -8,6 +8,8 @@ import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
 import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import Quizzes from './Features/Instructor/Quizzes/Quizzes';
+import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
 
 function App() {
   const routes = createBrowserRouter([
@@ -37,7 +39,8 @@ function App() {
         // { index: true, element: <Dashboard /> },
         // { path: "projects", element: <Projects /> },
         // { path: "projects/add-project", element: <AddProject /> },
-        // { path: "users", element: <Users /> },
+        { path: "quizzes", element: <Quizzes /> },
+        { path: "quizzes/quiz-details", element: <QuizzesDetails/> },
         // { path: "tasks", element: <Tasks /> },
         // { path: "tasks/add-task", element: <AddTask /> },
       ],
