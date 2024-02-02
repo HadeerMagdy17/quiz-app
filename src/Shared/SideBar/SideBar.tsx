@@ -34,10 +34,7 @@ const SideBar = () => {
           // }}
         >
           <MenuItem className="border-b border-gray-500 pb-1 br-2" onClick={handleToggle}>
-            {/* <div className="">
-              <i className="fa-regular fa-circle-xmark font-bold text-1.5rem"></i>
-              <i className="fa-regular fa-circle-check font-bold text-1.5rem"></i>
-            </div> */}
+           
             <div >
               <i
                 className={`fa-regular fa-circle-xmark ${styles["bold-and-large"]}`}
