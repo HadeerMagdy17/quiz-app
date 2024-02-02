@@ -8,17 +8,17 @@ const NavBar = () => {
           <div className="pl-4s">Dashboard</div>
 
           <div className="flex items-center space-x-4">
-            <button className=" rounded-full pr-4">
+            <button className=" rounded-full px-6  py-1 border-2 mr-4">
             <i className="fa-solid fa-circle-plus"></i>
               New quiz
             </button>
 
             <div className="relative group">
               <a href="#" className="">
-                Instractor
+              Instractor <i className="fa-solid fa-chevron-down"></i>
               </a>
               {/* Dropdown menu */}
-              <div className="absolute hidden bg-gray-700 py-2 px-4 space-y-2 group-hover:block">
+              <div className="absolute hidden bg-gray-200 py-2 px-4 space-y-2 group-hover:block">
                 <a href="#" className="block">
                   Profile
                 </a>

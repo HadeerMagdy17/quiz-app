@@ -3,8 +3,13 @@ height: 100vh;
 background-color: red;
 }
 */
-.bg-sidbar{
+/* .bg-sidbar{
  background-color: #fff !important;
+} */
+
+/**sidbar bg*/
+.css-dip3t8{
+  background-color: #fff !important;
 }
 .bg-icon{
     background-color: var(--second-color);
@@ -16,6 +21,13 @@ background-color: red;
    padding: 1rem;
    border-bottom: 1px solid gray;
 }
+/* .bg-menu-item::after{
+  content:"";
+  width: 10px;
+  height: 5px;
+  background-color: blue;
+} */
+
 .bg-menu-item:hover .bg-icon{
   background-color: black;
   color: var(--second-color);
@@ -43,4 +55,17 @@ background-color: red;
   .bold-and-large {
     font-weight: bold;
     font-size: 1.5rem;
+    
   }
+
+  .css-1t8x7v1 >.ps-menu-button{
+    padding-right: 0;
+  }
+  /* .css-1t8x7v1 >.ps-menu-button:hover::after{ */
+  /* .css-1t8x7v1 >.ps-menu-button::after{
+    
+content:"";
+width: 10px;
+height: 5px;
+background-color: blue;
+  } */

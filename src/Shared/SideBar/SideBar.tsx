@@ -22,7 +22,7 @@ const SideBar = () => {
   };
   return (
     <>
-      <Sidebar collapsed={isCollapsed} className={`border-r border-gray-500 ${styles["bg-sidbar"]}`}>
+      <Sidebar collapsed={isCollapsed} className={` ${styles["bg-sidbar"]}`}>
         <Menu
           // menuItemStyles={{
           //   button: {
@@ -33,12 +33,12 @@ const SideBar = () => {
           //   },
           // }}
         >
-          <MenuItem className="logo-toggle" onClick={handleToggle}>
+          <MenuItem className="border-b border-gray-500 pb-1 br-2" onClick={handleToggle}>
             {/* <div className="">
               <i className="fa-regular fa-circle-xmark font-bold text-1.5rem"></i>
               <i className="fa-regular fa-circle-check font-bold text-1.5rem"></i>
             </div> */}
-            <div>
+            <div >
               <i
                 className={`fa-regular fa-circle-xmark ${styles["bold-and-large"]}`}
               ></i>
@@ -74,14 +74,14 @@ const SideBar = () => {
           <MenuItem className={styles["bg-menu-item"]}
             icon={
               <i
-                className={`fa-solid fa-hourglass-half mr-6 ${styles["bg-icon"]}`}
+                className={`fa-solid fa-square-poll-horizontal mr-6 ${styles["bg-icon"]}`}
               ></i>
             }
             component={<Link to="/dashboard/categories" />}
           >
             Results
           </MenuItem>
-
+          
           <MenuItem className={styles["bg-menu-item"]}
             // onClick={handleShow}
             icon={
