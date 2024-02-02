@@ -7,10 +7,12 @@ const MasterLayout = () => {
     return (
         <>
             <>
+
                 <div className="flex container-fluid">
                     
 
                     <div className="flex-3">
+
                         {/* Sidebar on the left */}
                         <div >
                             <SideBar />
