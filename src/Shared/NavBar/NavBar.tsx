@@ -1,9 +1,41 @@
-import React from 'react'
-
+// import styles from './NavBar.module.css'
 const NavBar = () => {
   return (
-    <div className='bg-red-500'>NavBar</div>
-  )
-}
+    <>
+      <nav className="bg-white text-black p-4 border-b border-gray-500">
+      {/* <nav className={`"p-4${styles["bg-navbar"]}"`}> */}
+        <div className="flex items-center justify-between">
+          <div className="font-semibold pl-4 hover:bg-orange-200
+           hover:rounded-xl
+          px-3 py-1 ">Dashboard</div>
 
-export default NavBar
+          <div className="flex items-center space-x-4">
+            <button className="
+            hover:bg-orange-200 rounded-lg px-3  py-1 border-2 mr-4">
+            <i className="fa-solid fa-circle-plus"></i>
+              New quiz
+            </button>
+
+            <div className="relative group">
+              <a href="#" className="hover:bg-orange-200 px-3 py-1
+           hover:rounded-xl">
+              Instractor <i className="fa-solid fa-chevron-down"></i>
+              </a>
+              {/* Dropdown menu */}
+              <div className="absolute hidden bg-gray-200 py-2 px-4 space-y-2 group-hover:block">
+                <a href="#" className="block">
+                  Profile
+                </a>
+                <a href="#" className="block">
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default NavBar;
