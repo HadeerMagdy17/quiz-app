@@ -24,18 +24,20 @@ const SideBar = () => {
     <>
       <Sidebar collapsed={isCollapsed} className={` ${styles["bg-sidbar"]}`}>
         <Menu
-          // menuItemStyles={{
-          //   button: {
-          //     [`&.active`]: {
-          //       backgroundColor: "#13395e",
-          //       color: "#b6c8d9",
-          //     },
-          //   },
-          // }}
+        // menuItemStyles={{
+        //   button: {
+        //     [`&.active`]: {
+        //       backgroundColor: "#13395e",
+        //       color: "#b6c8d9",
+        //     },
+        //   },
+        // }}
         >
-          <MenuItem className="border-b border-gray-500 pb-1 br-2" onClick={handleToggle}>
-           
-            <div >
+          <MenuItem
+            className="border-b border-gray-500 pb-1 br-2"
+            onClick={handleToggle}
+          >
+            <div>
               <i
                 className={`fa-regular fa-circle-xmark ${styles["bold-and-large"]}`}
               ></i>
@@ -44,20 +46,25 @@ const SideBar = () => {
               ></i>
             </div>
           </MenuItem>
-          <MenuItem className={styles["bg-menu-item"]}
-            icon={<i className={`fa-solid fa-house mr-6 ${styles["bg-icon"]}`}></i>}
+          <MenuItem
+            className={styles["bg-menu-item"]}
+            icon={
+              <i className={`fa-solid fa-house mr-6 ${styles["bg-icon"]}`}></i>
+            }
             component={<Link to="/dashboard" />}
           >
             Dashboard
           </MenuItem>
-          <MenuItem className={styles["bg-menu-item"]}
+          <MenuItem
+            className={styles["bg-menu-item"]}
             icon={<i className={`fa fa-users mr-6 ${styles["bg-icon"]}`}></i>}
             component={<Link to="/dashboard/users" />}
           >
             Groups
           </MenuItem>
 
-          <MenuItem className={styles["bg-menu-item"]}
+          <MenuItem
+            className={styles["bg-menu-item"]}
             icon={
               <i
                 className={`fa-solid fa-hourglass-half mr-6 ${styles["bg-icon"]}`}
@@ -68,7 +75,8 @@ const SideBar = () => {
             Quizzes
           </MenuItem>
 
-          <MenuItem className={styles["bg-menu-item"]}
+          <MenuItem
+            className={styles["bg-menu-item"]}
             icon={
               <i
                 className={`fa-solid fa-square-poll-horizontal mr-6 ${styles["bg-icon"]}`}
@@ -78,18 +86,22 @@ const SideBar = () => {
           >
             Results
           </MenuItem>
-          
-          <MenuItem className={styles["bg-menu-item"]}
+
+          <MenuItem
+            className={styles["bg-menu-item"]}
             // onClick={handleShow}
             icon={
-              <i className={`fa fa-unlock-keyhole mr-6 ${styles["bg-icon"]}`}></i>
+              <i
+                className={`fa fa-unlock-keyhole mr-6 ${styles["bg-icon"]}`}
+              ></i>
             }
             // component={<Link to="/change-pass" />}
           >
             Change Password
           </MenuItem>
 
-          <MenuItem className={styles["bg-menu-item"]}
+          <MenuItem
+            className={styles["bg-menu-item"]}
             onClick={logOut}
             icon={
               <i
@@ -100,10 +112,22 @@ const SideBar = () => {
           >
             Logout
           </MenuItem>
+          <MenuItem
+            className={`place-self-end ${styles["bg-menu-item"]}`}
+            icon={
+              <i
+                className={`fa-solid fa-circle-info mr-6 ${styles["bg-icon"]}`}
+              ></i>
+            }
+            component={<Link to="/login" />}
+          >
+            Help
+          </MenuItem>
         </Menu>
       </Sidebar>
     </>
   );
 };
+
 
 export default SideBar;

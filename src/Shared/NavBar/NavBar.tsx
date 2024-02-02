@@ -5,7 +5,7 @@ const NavBar = () => {
       <nav className="bg-white text-black p-4 border-b border-gray-500">
       {/* <nav className={`"p-4${styles["bg-navbar"]}"`}> */}
         <div className="flex items-center justify-between">
-          <div className="pl-4 hover:bg-orange-200
+          <div className="font-semibold pl-4 hover:bg-orange-200
            hover:rounded-xl
           px-3 py-1 ">Dashboard</div>
 
