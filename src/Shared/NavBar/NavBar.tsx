@@ -11,7 +11,7 @@ const NavBar = () => {
 
           <div className="flex items-center space-x-4">
             <button className="
-            hover:bg-orange-200 rounded-full px-6  py-1 border-2 mr-4">
+            hover:bg-orange-200 rounded-lg px-3  py-1 border-2 mr-4">
             <i className="fa-solid fa-circle-plus"></i>
               New quiz
             </button>

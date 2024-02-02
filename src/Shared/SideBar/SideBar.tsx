@@ -38,6 +38,8 @@ const SideBar = () => {
             onClick={handleToggle}
           >
             <div>
+            {/* <i className={`fa-solid fa-bars ${styles["bold-and-large"]}`}
+            ></i> */}
               <i
                 className={`fa-regular fa-circle-xmark ${styles["bold-and-large"]}`}
               ></i>

@@ -3,6 +3,7 @@ import CustomLeftCard from "../../../Shared/CustomComponents/CustomLeftCard/Cust
 import imagCard from "../../../assets/images/1.webp";
 import CustomRightCard from "./../../../Shared/CustomComponents/CustomRightCard/CustomRightCard";
 import styles from './Dashboard.module.css'
+import Table from "../../../Shared/CustomComponents/Table/Table";
 
 
 const Dashboard = () => {
@@ -23,7 +24,7 @@ const Dashboard = () => {
   };
   return (
     <>
-      <div className="container-fluid flex justify-center gap-x-5">
+      <div className="container-fluid flex justify-center gap-x-5 sm:flex-col lg:flex-row sm:gap-y-5">
         <div className={styles["left"]}>
           <div className={styles["details"]}>
             <h2 className="font-medium">Upcoming 5 quizzes</h2>
@@ -71,6 +72,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
+      <Table/>
     </>
   );
 };
