@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 } */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Add this if you want to allow vertical scrolling if needed */
+body {
+  overflow-y: auto;
+}
