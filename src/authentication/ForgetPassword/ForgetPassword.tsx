@@ -1,42 +1,51 @@
-import React from 'react'
+// import React from "react";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 
-const ForgetPassword = () => {
+const Login = () => {
   return (
-    <>
-     <div className="container mx-auto " style={{overflow:'hidden'}}>
-        <form className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
-          <div className="flex-1 ml-auto">
-          <img src={Logo} alt="Quizwiz" className='pt-5'/>
-            <p className="text-lime-300 p-5">Forgot password</p>
-            <div className="w-2/3 md:w-1/2 mt-5">
-              <label htmlFor="email" className="text-white mt-5 ">Registered email address</label>
-              
-              <input
-                id="email"
-                type="email"
-                className="w-80 bg-slate-950 text-white p-2 mb-2 border border-white rounded-md"
-                placeholder="Type your email"
-              />
+    <div className="flex items-center justify-center min-h-screen bg-slate-950">
+      <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
+        <img src={Logo} alt="Quizwiz" className="pb-12" />
+        <p className="text-lime-300 pb-10 font-bold ">Forget Password</p>
 
-            </div>
+        <div className="w-full relative">
+  <label htmlFor="email" className="text-white p-2">Email address</label>
+  <div className="relative">
+    <input
+      id="email"
+      type="email"
+      className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
+      placeholder="Type your email"
+    />
+    <i className="absolute left-2 top-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white p-1">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+      </svg>
+    </i>
+  </div>
 
-            <button
-              type="submit"
-              className="w-40 md:w-40 bg-white text-slate-950 hover:bg-white p-2 font-semibold mt-5 rounded-md"
-            >
-              Sign In
-            </button>
-          </div>
+  <div className="relative">
+  <button
+    type="submit"
+    className="flex items-center justify-center w-40 bg-white text-slate-950 hover:bg-white p-2 mt-6 font-semibold rounded-md"
+  >
+    
+    Sign In
 
-          <div className="flex-1 hidden md:flex items-center">
-            <img src={bgAuth} alt="bg" width="70%" />
-          </div>
-        </form>
-      </div> 
-    </>
-  )
-}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-slate-950 ml-2">
+      <path d="M20 6L9 17l-5-5"/>
+    </svg>
+  </button>
+</div>
+        </div>
+      </div>
 
-export default ForgetPassword
+      <div className="hidden md:flex w-1/2 items-center">
+        <img src={bgAuth} alt="bg" className="w-4/5" />
+      </div>
+    </div>
+  );
+};
+
+export default Login;
