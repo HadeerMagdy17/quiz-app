@@ -8,6 +8,7 @@ import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
 import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import ResetPassword from './authentication/ResetPassword/ResetPassword';
 
 function App() {
   const routes = createBrowserRouter([
@@ -22,6 +23,8 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "notfound", element: <Notfound /> },
         { path: "change-password", element: <ChangePassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
+
       ],
     },
     {
