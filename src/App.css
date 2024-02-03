@@ -1,3 +1,14 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Add this if you want to allow vertical scrolling if needed */
+body {
+  overflow-y: auto;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
