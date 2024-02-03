@@ -82,7 +82,7 @@ const SideBar = () => {
 </svg>
 
             </i>}
-            component={<Link to="/dashboard/users" />}
+            component={<Link to="/dashboard/groups" />}
           >
             Groups
           </MenuItem>
@@ -99,7 +99,7 @@ const SideBar = () => {
 
               </i>
             }
-            component={<Link to="/dashboard/recipes" />}
+            component={<Link to="/dashboard/quizes" />}
           >
             Quizzes
           </MenuItem>

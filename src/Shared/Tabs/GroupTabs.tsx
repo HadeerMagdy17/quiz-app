@@ -5,18 +5,19 @@ import {
   TETabsItem,
   TETabsPane,
 } from "tw-elements-react";
-// import imagCard from "../../../assets/images/1.webp";
-// import CustomRightCard from './../../../Shared/CustomComponents/CustomRightCard/CustomRightCard';
+import imagCard from "../../assets/images/1.webp";
+import CustomRightCard from "../CustomComponents/CustomRightCard/CustomRightCard";
+
 
 interface GroupTabsProps {}
 
 const GroupTabs: React.FC<GroupTabsProps> = () => {
-  // const data2 = {
-  //   name: 'william jos abou',
-  //   classRank: 'CM2',
-  //   score: 49,
-  //   image: imagCard,
-  // };
+  const data2 = {
+    name: 'william jos abou',
+    classRank: 'CM2',
+    score: 49,
+    image: imagCard,
+  };
   const [buttonActive, setButtonActive] = useState<string>("tab1");
 
   const handleButtonClick = (value: string) => {
@@ -70,29 +71,43 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
       <TETabsContent>
         {buttonActive === "tab1" && (
           <TETabsPane show={true}>
-            {/* <div className="bg-blue-100 p-4 rounded">Tab 11111111 content button version</div>
-             */}
+           
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-12 sm:col-span-6 lg:col-span-6">
-                <p className="bg-gray-200 p-4">group 1</p>
+                
 
-                {/* <CustomRightCard
+                <CustomRightCard
                   name={data2.name}
                   classRank={data2.classRank}
                   score={data2.score}
                   image={data2.image}
-                /> */}
+                />
+                     <CustomRightCard
+                  name={data2.name}
+                  classRank={data2.classRank}
+                  score={data2.score}
+                  image={data2.image}
+                />
 
               </div>
+             
               <div className="col-span-12 sm:col-span-6 lg:col-span-6">
-                <p className="bg-blue-200 p-4">Paragraph 1</p>
-                 {/* <CustomRightCard
+                
+                 <CustomRightCard
                   name={data2.name}
                   classRank={data2.classRank}
                   score={data2.score}
                   image={data2.image}
-                /> */}
+                />
+                     <CustomRightCard
+                  name={data2.name}
+                  classRank={data2.classRank}
+                  score={data2.score}
+                  image={data2.image}
+                />
               </div>
+             
+
             </div>
           </TETabsPane>
         )}
