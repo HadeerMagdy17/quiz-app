@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+import Results from './Features/Instructor/Results/Results';
+import ViewResults from './Features/Instructor/ViewResults/ViewResults';
 
 
 function App() {
@@ -44,8 +46,9 @@ function App() {
         { path: "groups", element: <Groups /> },
 
         { index: true, element: <Dashboard /> },
-        // { path: "projects", element: <Projects /> },
-
+        { path: "results", element: <Results /> },
+        { path: "results/viewresults", element: <ViewResults /> }
+        
         // { path: "projects/add-project", element: <AddProject /> },
         // { path: "users", element: <Users /> },
         // { path: "tasks", element: <Tasks /> },

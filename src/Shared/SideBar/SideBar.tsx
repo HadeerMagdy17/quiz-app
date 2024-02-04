@@ -117,7 +117,7 @@ const SideBar = () => {
 
               </i>
             }
-            component={<Link to="/dashboard/categories" />}
+            component={<Link to="/dashboard/results" />}
           >
             Results
           </MenuItem>
