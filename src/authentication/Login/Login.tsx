@@ -111,6 +111,7 @@ const Login = () => {
               <span className="text-red-600">Email is invalid</span>
             )}
 
+
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
