@@ -10,6 +10,7 @@ import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import Quizzes from './Features/Instructor/Quizzes/Quizzes';
 import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
+import Questions from './Features/Instructor/Quizzes/Questions/Questions';
 
 function App() {
   const routes = createBrowserRouter([
@@ -41,6 +42,7 @@ function App() {
         // { path: "projects/add-project", element: <AddProject /> },
         { path: "quizzes", element: <Quizzes /> },
         { path: "quizzes/quiz-details", element: <QuizzesDetails/> },
+        { path: "quizzes/questions", element: <Questions/> },
         // { path: "tasks", element: <Tasks /> },
         // { path: "tasks/add-task", element: <AddTask /> },
       ],
