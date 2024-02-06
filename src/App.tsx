@@ -15,8 +15,13 @@ import ChangePassword from './authentication/ChangePassword/ChangePassword';
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+
+import { Provider } from 'react-redux';
+import store from './Redux/Store.tsx'
+
 import Results from './Features/Instructor/Results/Results';
 import ViewResults from './Features/Instructor/ViewResults/ViewResults';
+
 
 
 function App() {
@@ -66,8 +71,10 @@ function App() {
   return (
     <>
       <div>
-        <ToastContainer />
-        <RouterProvider router={routes} />
+        <Provider store={store}>
+          <RouterProvider router={routes} />
+          {/* <ToastContainer /> */}
+        </Provider>
       </div>
     </>
   )
