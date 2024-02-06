@@ -1,23 +1,36 @@
 // import React from "react";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
+import { useForm } from "react-hook-form";
 
-const Login = () => {
+
+const ForgetPassword = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
         <img src={Logo} alt="Quizwiz" className="pb-12" />
         <p className="text-lime-300 pb-10 font-bold ">Forget Password</p>
 
-        <div className="w-full relative">
+        <form onSubmit={handleSubmit()} className="w-full relative">
   <label htmlFor="email" className="text-white p-2">Email address</label>
   <div className="relative">
     <input
+    {...register("email",
+    { required: true,
+      pattern:/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
+    })}
       id="email"
       type="email"
       className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
       placeholder="Type your email"
     />
+
+{errors.email && errors.email.type === "required" && (<span className='text-red-600'>Email is required</span>)}
+
+{errors.email && errors.email.type === "pattern" && (<span className='text-red-600'>Email is invalid</span>)}
+
     <i className="absolute left-2 top-2">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white p-1">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -38,7 +51,7 @@ const Login = () => {
     </svg>
   </button>
 </div>
-        </div>
+        </form>
       </div>
 
       <div className="hidden md:flex w-1/2 items-center">
@@ -48,4 +61,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPassword;
