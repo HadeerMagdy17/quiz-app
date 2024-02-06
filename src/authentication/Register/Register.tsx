@@ -1,9 +1,15 @@
-
+import { useForm } from "react-hook-form";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import OptionRegister from "../../assets/OptionRegister.png";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
@@ -14,7 +20,7 @@ const Register = () => {
 
         <img src={OptionRegister} alt="#" className="pb-2" />
 
-        <div className="w-full relative">
+        <form onSubmit={handleSubmit()} className="w-full relative">
           <div className="flex space-x-4">
             <div className="w-1/2 relative">
               <label htmlFor="firstName" className="text-white">
@@ -22,11 +28,26 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
+                  {...register("firstName", {
+                    required: true,
+                    pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
+                  })}
                   id="firstName"
                   type="text"
                   className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
                   placeholder="type your first name"
                 />
+
+                {errors.firstName && errors.firstName.type === "required" && (
+                  <span className="">first name is required</span>
+                )}
+                {errors.firstName && errors.firstName.type === "pattern" && (
+                  <span className=" ">
+                    The first name must contain characters and end with numbers
+                    without spaces
+                  </span>
+                )}
+
                 <i className="absolute left-2 top-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -50,11 +71,25 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
+                  {...register("lastName", {
+                    required: true,
+                    pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
+                  })}
                   id="lastName"
                   type="text"
                   className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
                   placeholder="type your last name"
                 />
+
+                {errors.lastName && errors.lastName.type === "required" && (
+                  <span className="text-red-600">last name is required</span>
+                )}
+                {errors.lastName && errors.lastName.type === "pattern" && (
+                  <span className="text-red-600">
+                    The last name must contain characters and end with numbers
+                    without spaces
+                  </span>
+                )}
                 <i className="absolute left-2 top-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,11 +113,23 @@ const Register = () => {
           </label>
           <div className="relative">
             <input
+              {...register("email", {
+                required: true,
+                pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              })}
               id="email"
               type="email"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
               placeholder="type your email address"
             />
+
+            {errors.email && errors.email.type === "required" && (
+              <span className="text-red-600">Email is required</span>
+            )}
+
+            {errors.email && errors.email.type === "pattern" && (
+              <span className="text-red-600 ">Email is invalid</span>
+            )}
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,11 +186,23 @@ const Register = () => {
             Password
             <div className="relative">
               <input
+                {...register("password", {
+                  required: true,
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                })}
                 id="password"
                 type="password"
                 className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
                 placeholder="type your password"
               />
+
+              {errors.password && errors.password.type === "required" && (
+                <span className="text-red-600">password is required</span>
+              )}
+              {errors.password && errors.password.type === "pattern" && (
+                <span className="text-red-600">password is invalid</span>
+              )}
               <i className="absolute left-2 top-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +242,7 @@ const Register = () => {
               </svg>
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       <div className="hidden md:flex w-1/2 items-center">
