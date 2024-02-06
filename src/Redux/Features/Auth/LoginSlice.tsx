@@ -18,28 +18,35 @@ const initialState: LoginState = {
     islogged: null
 };
 
- const loginUser = createAsyncThunk(
+const loginUser = createAsyncThunk(
     "login/loginUser", async (UserData) => {
         try {
-        const response = await axios.post(`${loginUrl}`, UserData)
-        localStorage.setItem("userRole", response?.data?.data?.profile.role);
-        localStorage.setItem("authToken", response?.data?.data?.accessToken);
-        localStorage.setItem("userId", response?.data?.data?.profile?._id);
-        console.log("response", response);
+            const response = await axios.post(`${loginUrl}`, UserData)
+            localStorage.setItem("userRole", response?.data?.data?.profile.role);
+            localStorage.setItem("authToken", response?.data?.data?.accessToken);
+            localStorage.setItem("userId", response?.data?.data?.profile?._id);
+            console.log("response", response);
 
-        toast.success(response.data.message, {
-            autoClose: 2000,
-            theme: "colored",
-          });
-          return response?.data?.data?.profile?.role;
+            toast.success(response.data.message, {
+                autoClose: 2000,
+                theme: "colored",
+            });
+            return response?.data?.data?.profile?.role;
         } catch (error) {
-          toast.error(error.response.data?.message, {
-            autoClose: 2000,
-            theme: "colored",
-          });
-          return error.response
+            console.log(error);
+
+            toast.error(
+                error.response?.data?.message || "An error occurred during login.",
+                {
+                    autoClose: 2000,
+                    theme: "colored",
+                }
+            );
+
+            throw error; // Make sure to re-throw the error to keep the rejection behavior
         }
-      });
+
+    });
 
 
 const loginSlice = createSlice({
@@ -58,6 +65,7 @@ const loginSlice = createSlice({
             state.role = action.payload;
             state.loading = false;
             state.islogged = action.payload
+            state.success = true // login successful
         });
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loading = false;
@@ -68,5 +76,5 @@ const loginSlice = createSlice({
 
 // export const selectUser = (state) => state.login.role;
 export const { loginDataIslogged } = loginSlice.actions;
-export {loginUser}
+export { loginUser }
 export default loginSlice.reducer

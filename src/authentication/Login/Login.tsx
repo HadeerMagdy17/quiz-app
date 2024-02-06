@@ -3,7 +3,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
-import Options from "../../assets/Options.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../Redux/Features/Auth/LoginSlice";
@@ -21,40 +20,20 @@ const Login = () => {
   } = useForm();
   const onSubmit = useCallback(async (data: { email: string; password: string }) => {
     try {
-      console.log("Before dispatch");
-
-      // Add your form validation logic here if needed
-
-      console.log("Before axios.post"); // Add this line
       await dispatch(loginUser(data));
-      console.log("After axios.post"); // Add this line
-      console.log(loginUser);
-
-      // Redirect after successful login
-      navigate("/dashboard");
+      // Check if login was successful before redirecting
+      const islogged = localStorage.getItem("userRole");
+      // if (islogged === "admin" || islogged === "user")
+      if (islogged === "Instructor")
+       {
+        navigate("/dashboard");
+      }
     } catch (error) {
-      // Handle errors, display toast, etc.
+
       console.error("Login error:", error);
     }
   }, [dispatch, navigate]);
-  // const onSubmit = useCallback(async (data: { email: string; password: string }) => {
-  //   dispatch(loginUser(data))
 
-  // }, [dispatch])
-
-  // if (islogged === "admin") {
-  //   navigate("/dashboard");
-  // } else if (islogged === "user") {
-  //   navigate("/");
-  // }
-
-  // navigate("/dashboard");
-
-
-  // useEffect(() => {
-
-  //   // dispatch(fetchDataStart(false));
-  // }, [dispatch]);
   return (
 
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
@@ -159,8 +138,8 @@ const Login = () => {
                 {...register("password", {
                   required: true,
                   pattern:
-                  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                 /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/
+                    // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/
                 })}
                 id="password"
                 type="password"
