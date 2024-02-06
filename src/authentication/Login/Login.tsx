@@ -43,8 +43,8 @@ const Login = () => {
 
 
           <div className="flex mt-3 ">
-            <Link to="/" className="signin w-1/2">
-              <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-lime-300">
+            <div className="signin w-1/2">
+              <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-lime-300 ">
                 <i>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -62,11 +62,11 @@ const Login = () => {
                   </svg>
                 </i>
 
-                <p className="text-base mb-2">Sign in</p>
+                <p className="text-base mt-2">Sign in</p>
               </div>
-            </Link>
+            </div>
             <Link to="/register" className="signup w-1/2">
-              <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-stone-700">
+              <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4  ">
                 <i>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -198,9 +198,9 @@ const Login = () => {
           <img src={bgAuth} alt="bg" className="w-4/5" />
         </div>
       </div>
-      </div>
-      );
+    </div>
+  );
 };
 
 
-      export default Login;
+export default Login;
