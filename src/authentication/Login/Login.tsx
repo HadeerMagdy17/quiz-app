@@ -15,6 +15,24 @@ const Login = () => {
   } = useForm();
 
   return (
+    <>
+    <div className="container mx-auto " style={{overflow:'hidden'}}>
+        <form className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
+          <div className="flex-1 ml-auto">
+            <img src={Logo} alt="Quizwiz" />
+            <p className="text-lime-300 pt-5">Continue your learning journey with QuizWiz!</p>
+
+            <img src={Options} alt="#" className="pt-5"/>
+
+            <div className="w-2/3 md:w-1/2">
+              <label htmlFor="email" className="text-white ">Registered email address</label>
+              
+              <input
+                id="email"
+                type="email"
+                className="w-80 bg-slate-950 text-white p-2 mb-2 border border-white rounded-md"
+                placeholder="Type your email"
+              />
 
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
@@ -93,6 +111,7 @@ const Login = () => {
               <span className="text-red-600">Email is invalid</span>
             )}
 
+
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,6 +141,7 @@ const Login = () => {
                 })}
                 id="password"
                 type="password"
+                className="w-80 bg-slate-950 text-white p-2 mb-2 border border-white rounded-md"
                 className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
                 placeholder="Type your password"
               />
@@ -154,6 +174,7 @@ const Login = () => {
           <div className="relative">
             <button
               type="submit"
+              className="w-40 md:w-40 bg-white text-slate-950 hover:bg-white p-2 font-semibold rounded-md"
               className="flex items-center justify-center w-40 bg-white text-slate-950 hover:bg-white p-2 mt-6 font-semibold rounded-md"
             >
               Sign In
@@ -170,6 +191,10 @@ const Login = () => {
                 <path d="M20 6L9 17l-5-5" />
               </svg>
             </button>
+          </div>
+
+          <div className="flex-1 hidden md:flex items-center">
+            <img src={bgAuth} alt="bg" width="70%" />
           </div>
         </form>
       </div>
