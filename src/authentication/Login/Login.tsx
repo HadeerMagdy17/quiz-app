@@ -3,42 +3,93 @@ import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import Options from "../../assets/Options.png";
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
-        <img src={Logo} alt="Quizwiz" />
-        <p className="text-lime-300 ">
+        <img src={Logo} alt="Quizwiz" className="pb-10"/>
+        <p className="text-lime-300 pb-5">
           Continue your learning journey with QuizWiz!
         </p>
 
-        <img src={Options} alt="#" className=" " />
+        <div className="flex mt-3 ">
+          <Link to="/" className="signin w-1/2">
+            <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-lime-300">
+              <i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                  />
+                </svg>
+              </i>
 
+              <p className="text-base mb-2">Sign in</p>
+            </div>
+          </Link>
+          <Link to="/register" className="signup w-1/2">
+            <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-stone-700">
+              <i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
+                  />
+                </svg>
+              </i>
+              <p className="text-base mt-2">Sign Up</p>
+            </div>
+          </Link>
+          <div className="signup w-1/2"></div>
+        </div>
         <form onSubmit={handleSubmit()} className="w-full relative">
           <label htmlFor="email" className="text-white">
             Registered email address
           </label>
           <div className="relative">
             <input
-            {...register("email",
-            { required: true,
-              pattern:/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
-            })}
+              {...register("email", {
+                required: true,
+                pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              })}
               id="email"
               type="email"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
               placeholder="Type your email"
             />
-           
-           {errors.email && errors.email.type === "required" && (<span className='text-red-600'>Email is required</span>)}
 
-           {errors.email && errors.email.type === "pattern" && (<span className='text-red-600'>Email is invalid</span>)}
-                
-            
+            {errors.email && errors.email.type === "required" && (
+              <span className="text-red-600">Email is required</span>
+            )}
+
+            {errors.email && errors.email.type === "pattern" && (
+              <span className="text-red-600">Email is invalid</span>
+            )}
+
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,18 +112,23 @@ const Login = () => {
             Password
             <div className="relative">
               <input
-              {...register("password",
-              { required: true,
-                pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-              })}
+                {...register("password", {
+                  required: true,
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                })}
                 id="password"
                 type="password"
                 className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
                 placeholder="Type your password"
               />
 
-              {errors.password && errors.password.type === "required" && (<span className='text-red-600'>Password is required</span>)}
-              {errors.password && errors.password.type === "pattern" && (<span className='text-red-600'>password is invalid</span>)}
+              {errors.password && errors.password.type === "required" && (
+                <span className="text-red-600">Password is required</span>
+              )}
+              {errors.password && errors.password.type === "pattern" && (
+                <span className="text-red-600">password is invalid</span>
+              )}
               <i className="absolute left-2 top-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
