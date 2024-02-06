@@ -35,35 +35,14 @@ const Login = () => {
 
   return (
     <>
-      <div className="container mx-auto" style={{ overflow: 'hidden' }}>
-        <div className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
-          <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
-            <img src={Logo} alt="Quizwiz" className="pb-10" />
-            <p className="text-lime-300 pb-5">Continue your learning journey with QuizWiz!</p>
+      
 
-            <form onSubmit={handleSubmit()} className="w-full relative">
-              <label htmlFor="email" className="text-white">
-                Registered email address
-              </label>
-              <div className="relative">
-                <input
-                  {...register("email", {
-                    required: true,
-                    pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
-                  })}
-                  id="email"
-                  type="email"
-                  className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
-                  placeholder="Type your email"
-                />
-
-
-    <div className="container mx-auto" style={{ overflow: 'hidden' }}>
-      <div className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
+      <div className="flex items-center justify-center min-h-screen bg-slate-950">
         <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
           <img src={Logo} alt="Quizwiz" className="pb-10" />
-          <p className="text-lime-300 pb-5">Continue your learning journey with QuizWiz!</p>
-
+          <p className="text-lime-300 font-bold pb-10 ">
+            Continue your learning journey with QuizWiz!
+          </p>
 
           <div className="flex mt-3 ">
             <div className="signin w-1/2">
@@ -226,9 +205,9 @@ const Login = () => {
 
         </div>
       </div>
-</>
-      );
+
+
+    </>
+  );
 };
-
-
-      export default Login;
+export default Login;
