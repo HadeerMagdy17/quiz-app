@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+import { Provider } from 'react-redux';
+import store from './Redux/Store.tsx'
 
 
 function App() {
@@ -58,8 +60,10 @@ function App() {
   return (
     <>
       <div>
-        <ToastContainer />
-        <RouterProvider router={routes} />
+        <Provider store={store}>
+          <RouterProvider router={routes} />
+          {/* <ToastContainer /> */}
+        </Provider>
       </div>
     </>
   )

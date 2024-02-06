@@ -1,24 +1,65 @@
 
 // import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import Options from "../../assets/Options.png";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../Redux/Features/Auth/LoginSlice";
+import { useCallback, useEffect } from "react";
 
 const Login = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { loading, islogged } = useSelector((state) => state.login || {});
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
+    try {
+      console.log("Before dispatch");
 
+      // Add your form validation logic here if needed
+
+      console.log("Before axios.post"); // Add this line
+      await dispatch(loginUser(data));
+      console.log("After axios.post"); // Add this line
+      console.log(loginUser);
+
+      // Redirect after successful login
+      navigate("/dashboard");
+    } catch (error) {
+      // Handle errors, display toast, etc.
+      console.error("Login error:", error);
+    }
+  }, [dispatch, navigate]);
+  // const onSubmit = useCallback(async (data: { email: string; password: string }) => {
+  //   dispatch(loginUser(data))
+
+  // }, [dispatch])
+
+  // if (islogged === "admin") {
+  //   navigate("/dashboard");
+  // } else if (islogged === "user") {
+  //   navigate("/");
+  // }
+
+  // navigate("/dashboard");
+
+
+  // useEffect(() => {
+
+  //   // dispatch(fetchDataStart(false));
+  // }, [dispatch]);
   return (
 
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
-        <img src={Logo} alt="Quizwiz" className="pb-10"/>
+        <img src={Logo} alt="Quizwiz" className="pb-10" />
         <p className="text-lime-300 pb-5">
           Continue your learning journey with QuizWiz!
         </p>
@@ -69,7 +110,7 @@ const Login = () => {
           </Link>
           <div className="signup w-1/2"></div>
         </div>
-        <form onSubmit={handleSubmit()} className="w-full relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
           <label htmlFor="email" className="text-white">
             Registered email address
           </label>
@@ -118,7 +159,8 @@ const Login = () => {
                 {...register("password", {
                   required: true,
                   pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                 /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/
                 })}
                 id="password"
                 type="password"
