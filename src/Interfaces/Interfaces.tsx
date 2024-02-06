@@ -13,4 +13,12 @@ export interface CustomLeftCardProps {
     image: string;
   }
 
+  export interface TableProps{
+    title:string,
+  name:string,
+  personsNo:string,
+  participants:string,
+  date:number
+  }
+
 
