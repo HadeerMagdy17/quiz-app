@@ -6,8 +6,11 @@ import ForgetPassword from './authentication/ForgetPassword/ForgetPassword';
 import Login from './authentication/Login/Login';
 import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
-import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import ResetPassword from './authentication/ResetPassword/ResetPassword';
+
+import ChangePassword from './authentication/ChangePassword/ChangePassword';
+
 
 import Groups from './Features/Instructor/Groups/Groups';
 
@@ -27,6 +30,8 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "notfound", element: <Notfound /> },
         { path: "change-password", element: <ChangePassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
+
       ],
     },
     {
