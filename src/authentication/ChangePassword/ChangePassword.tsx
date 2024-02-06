@@ -1,25 +1,42 @@
 // import React from "react";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
+import { useForm } from "react-hook-form";
+
 
 const ChangePassword = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
         <img src={Logo} alt="Quizwiz" className="pb-10" />
         <p className="text-lime-300 font-bold pb-10 ">Change password</p>
 
-        <div className="w-full relative">
-          <label htmlFor="email" className="text-white">
+        <form onSubmit={handleSubmit()} className="w-full relative">
+          <label htmlFor="password" className="text-white">
             Old Password
           </label>
           <div className="relative">
             <input
-              id="email"
-              type="email"
+            {...register("oldPassword", {
+              required: true,
+              pattern:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            })}
+              id="password"
+              type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
               placeholder="type your old password"
             />
+
+        {errors.oldPassword && errors.oldPassword.type === "required" && (
+              <span className="text-red-600">Password is required</span>
+            )}
+            {errors.oldPassword && errors.oldPassword.type === "pattern" && (
+              <span className="text-red-600">password is invalid</span>
+            )}
+              
+            
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,16 +55,29 @@ const ChangePassword = () => {
             </i>
           </div>
 
-          <label htmlFor="email" className="text-white">
+          <label htmlFor="password" className="text-white">
             New Password
           </label>
           <div className="relative">
             <input
-              id="email"
-              type="email"
+            {...register("newPassword", {
+              required: true,
+              pattern:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            })}
+              id="password"
+              type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
               placeholder="Type your new password"
             />
+
+
+          {errors.newPassword && errors.newPassword.type === "required" && (
+              <span className="text-danger">Password is required</span>
+            )}
+            {errors.newPassword && errors.newPassword.type === "pattern" && (
+              <span className="text-danger ">password is invalid</span>
+            )}
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,11 +100,26 @@ const ChangePassword = () => {
             Confirm New Password
             <div className="relative">
               <input
+              {...register("confirmNewPassword", {
+                required: true,
+                pattern:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              })}
                 id="password"
                 type="password"
                 className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
                 placeholder="type your confirm password"
               />
+
+            {errors.confirmNewPassword &&
+              errors.confirmNewPassword.type === "required" && (
+                <span className="text-danger">Password is required</span>
+              )}
+            {errors.confirmNewPassword &&
+              errors.confirmNewPassword.type === "pattern" && (
+                <span className="text-danger ">password is invalid</span>
+              )}
+
               <i className="absolute left-2 top-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +159,7 @@ const ChangePassword = () => {
               </svg>
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       <div className="hidden md:flex w-1/2 items-center">
