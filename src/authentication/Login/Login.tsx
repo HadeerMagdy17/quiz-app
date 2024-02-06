@@ -1,9 +1,11 @@
+
 // import React from "react";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import Options from "../../assets/Options.png";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
 
 const Login = () => {
   const {
@@ -13,6 +15,7 @@ const Login = () => {
   } = useForm();
 
   return (
+
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
         <img src={Logo} alt="Quizwiz" className="pb-10"/>
@@ -177,5 +180,6 @@ const Login = () => {
     </div>
   );
 };
+
 
 export default Login;

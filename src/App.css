@@ -1,3 +1,8 @@
+body{
+  font-family: 'Montserrat', sans-serif;
+font-family: 'Nunito', sans-serif;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -41,6 +46,7 @@
   color: #888;
 } */
 
+
 body, html {
   margin: 0;
   padding: 0;
@@ -51,3 +57,10 @@ body, html {
 body {
   overflow-y: auto;
 }
+
+:root{
+  --main-color: #c5d86d;
+  --second-color: #ffeddf;
+}
+
+
