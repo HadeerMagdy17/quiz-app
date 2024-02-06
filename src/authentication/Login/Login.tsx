@@ -34,6 +34,29 @@ const Login = () => {
   }, [dispatch, navigate]);
 
   return (
+    <>
+      <div className="container mx-auto" style={{ overflow: 'hidden' }}>
+        <div className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
+          <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
+            <img src={Logo} alt="Quizwiz" className="pb-10" />
+            <p className="text-lime-300 pb-5">Continue your learning journey with QuizWiz!</p>
+
+            <form onSubmit={handleSubmit()} className="w-full relative">
+              <label htmlFor="email" className="text-white">
+                Registered email address
+              </label>
+              <div className="relative">
+                <input
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
+                  })}
+                  id="email"
+                  type="email"
+                  className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
+                  placeholder="Type your email"
+                />
+
 
     <div className="container mx-auto" style={{ overflow: 'hidden' }}>
       <div className="flex items-center justify-center min-h-screen bg-slate-950 p-12">
@@ -46,17 +69,21 @@ const Login = () => {
             <div className="signin w-1/2">
               <div className="content flex flex-col items-center text-8xl py-3 bg-stone-700 me-3 rounded-lg text-center border-4 border-lime-300 ">
                 <i>
+
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+
+                    className="w-6 h-6 text-white p-1"
+
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
+
                       d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                     />
                   </svg>
@@ -196,11 +223,12 @@ const Login = () => {
 
         <div className="hidden md:flex w-1/2 items-center">
           <img src={bgAuth} alt="bg" className="w-4/5" />
+
         </div>
       </div>
-    </div>
-  );
+</>
+      );
 };
 
 
-export default Login;
+      export default Login;

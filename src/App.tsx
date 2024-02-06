@@ -6,14 +6,22 @@ import ForgetPassword from './authentication/ForgetPassword/ForgetPassword';
 import Login from './authentication/Login/Login';
 import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
-import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import ResetPassword from './authentication/ResetPassword/ResetPassword';
+
+import ChangePassword from './authentication/ChangePassword/ChangePassword';
+
 
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+
 import { Provider } from 'react-redux';
 import store from './Redux/Store.tsx'
+
+import Results from './Features/Instructor/Results/Results';
+import ViewResults from './Features/Instructor/ViewResults/ViewResults';
+
 
 
 function App() {
@@ -29,6 +37,8 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "notfound", element: <Notfound /> },
         { path: "change-password", element: <ChangePassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
+
       ],
     },
     {
@@ -46,8 +56,9 @@ function App() {
         { path: "groups", element: <Groups /> },
 
         { index: true, element: <Dashboard /> },
-        // { path: "projects", element: <Projects /> },
-
+        { path: "results", element: <Results /> },
+        { path: "results/viewresults", element: <ViewResults /> }
+        
         // { path: "projects/add-project", element: <AddProject /> },
         // { path: "users", element: <Users /> },
         // { path: "tasks", element: <Tasks /> },
