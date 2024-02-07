@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+import Students from './Features/Instructor/Students/Students';
 
 
 function App() {
@@ -40,10 +41,9 @@ function App() {
       errorElement: <Notfound />,
       children: [
 
-        // { index: true, element: <Dashboard /> },
-        { path: "groups", element: <Groups /> },
-
         { index: true, element: <Dashboard /> },
+        { path: "students", element: <Students /> },
+        { path: "groups", element: <Groups /> },
         // { path: "projects", element: <Projects /> },
 
         // { path: "projects/add-project", element: <AddProject /> },
