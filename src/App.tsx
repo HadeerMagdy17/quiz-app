@@ -15,6 +15,7 @@ import ChangePassword from './authentication/ChangePassword/ChangePassword';
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+import Students from './Features/Instructor/Students/Students';
 
 import { Provider } from 'react-redux';
 import store from './Redux/Store.tsx'
@@ -52,13 +53,13 @@ function App() {
       errorElement: <Notfound />,
       children: [
 
-        // { index: true, element: <Dashboard /> },
-        { path: "groups", element: <Groups /> },
-
         { index: true, element: <Dashboard /> },
+        { path: "students", element: <Students /> },
+        { path: "groups", element: <Groups /> },
         { path: "results", element: <Results /> },
         { path: "results/viewresults", element: <ViewResults /> }
         
+
         // { path: "projects/add-project", element: <AddProject /> },
         // { path: "users", element: <Users /> },
         // { path: "tasks", element: <Tasks /> },
