@@ -4,7 +4,7 @@ export const requestHeaders = `${localStorage.getItem("accessToken")}`;
 // ******** Login ********
 export const loginUrl = `${baseUrl}/auth/login`;
 // ******** Register ********
-export const regisrterUrl = `${baseUrl}/auth/register`;
+export const registerUrl = `${baseUrl}/auth/register`;
 // ******** Reset-Password ********
 export const resetPassUrl = `${baseUrl}/auth/reset-password`;
 // ******** forget-Password ********
