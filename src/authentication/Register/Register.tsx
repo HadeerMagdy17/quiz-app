@@ -1,14 +1,36 @@
 import { useForm } from "react-hook-form";
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { registerUser } from "../../Redux/Features/Auth/RegisterSlice";
 
 const Register = () => {
+
+  const dispatch = useDispatch();
+  const { isRegister } = useSelector((state) => state.register);
+  const navigate = useNavigate();
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
+
+  const onSubmit = () => {
+    const data = getValues();
+    dispatch(registerUser(data));
+  };
+  
+  
+  useEffect(() => {
+    console.log("isRegister:", isRegister);
+    if (isRegister) {
+      navigate("/login");
+    }
+  }, [isRegister, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
@@ -64,7 +86,7 @@ const Register = () => {
           <div className="signup w-1/2"></div>
         </div>
 
-        <form onSubmit={handleSubmit()} className="w-full relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
           <div className="flex space-x-4">
             <div className="w-1/2 relative">
               <label htmlFor="firstName" className="text-white">
@@ -72,9 +94,9 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
-                  {...register("firstName", {
+                  {...register("first_name", {
                     required: true,
-                    pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
+                    // pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
                   })}
                   id="firstName"
                   type="text"
@@ -82,10 +104,10 @@ const Register = () => {
                   placeholder="type your first name"
                 />
 
-                {errors.firstName && errors.firstName.type === "required" && (
+                {errors.first_name && errors.first_name.type === "required" && (
                   <span className="">first name is required</span>
                 )}
-                {errors.firstName && errors.firstName.type === "pattern" && (
+                {errors.first_name && errors.first_name.type === "pattern" && (
                   <span className=" ">
                     The first name must contain characters and end with numbers
                     without spaces
@@ -115,9 +137,9 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
-                  {...register("lastName", {
+                  {...register("last_name", {
                     required: true,
-                    pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
+                    // pattern: /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/,
                   })}
                   id="lastName"
                   type="text"
@@ -125,10 +147,10 @@ const Register = () => {
                   placeholder="type your last name"
                 />
 
-                {errors.lastName && errors.lastName.type === "required" && (
+                {errors.last_name && errors.last_name.type === "required" && (
                   <span className="text-red-600">last name is required</span>
                 )}
-                {errors.lastName && errors.lastName.type === "pattern" && (
+                {errors.last_name && errors.last_name.type === "pattern" && (
                   <span className="text-red-600">
                     The last name must contain characters and end with numbers
                     without spaces
@@ -201,12 +223,15 @@ const Register = () => {
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
               id="groupType"
               defaultValue=""
+              {...register("role", {
+                required: true,             
+              })}
             >
               <option value="" disabled>
                 Choose your role
               </option>
-              <option value="type1">instructor</option>
-              <option value="type2">student</option>
+              <option value="Instructor">instructor</option>
+              <option value="Learner">student</option>
             </select>
             <i className="absolute left-2 top-2">
               <svg
@@ -233,7 +258,8 @@ const Register = () => {
                 {...register("password", {
                   required: true,
                   pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/
                 })}
                 id="password"
                 type="password"
