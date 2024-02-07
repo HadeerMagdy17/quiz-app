@@ -179,7 +179,7 @@ const SideBar = () => {
                 </svg>
               </i>
             }
-            component={<Link to="/dashboard/categories" />}
+            component={<Link to="/dashboard/results" />}
           >
             Results
           </MenuItem>

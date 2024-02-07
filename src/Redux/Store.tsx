@@ -1,9 +1,10 @@
-import React from 'react'
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from  './Features/Auth/LoginSlice'
 
-const Store = () => {
-  return (
-    <div>Store</div>
-  )
-}
+const store = configureStore ({
+  reducer: {
+    users: userReducer,
+  }
+})
 
-export default Store
+export default store;
