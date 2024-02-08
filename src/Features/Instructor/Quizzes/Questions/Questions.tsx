@@ -135,8 +135,10 @@ import { QuestionsData } from '../../../../Redux/Features/Instructor/Questions/G
 
 const Questions = () => {
     const dispatch = useDispatch();
-    const { data, loading, error } = useSelector((state) => state.QuestionsData) || {};
+    const { data, loading, error } = useSelector((state) => state.questionsData) || {};
     // Dispatch the async action when your component mounts
+    console.log(data);
+
     useEffect(() => {
         dispatch(QuestionsData());
     }, [dispatch]);
@@ -203,6 +205,8 @@ const Questions = () => {
                                 <td className="border border-slate-400 px-2 rounded-r-md">{question.type}</td>
                             </tr>
                         ))}
+                        {/* ---------- */}
+
                     </tbody>
                 </table>
             </div>

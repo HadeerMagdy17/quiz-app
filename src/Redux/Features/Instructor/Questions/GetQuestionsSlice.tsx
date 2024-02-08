@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export interface Props {
-  data: any[];
+  data: [];
   loading: boolean;
   error: null | string;
 }
@@ -20,9 +20,9 @@ export const QuestionsData = createAsyncThunk<any, void>(
 
       });
       console.log(requestHeaders);
-
+      console.log(data.data);
       return data.data;
-      console.log(data);
+
 
     } catch (error) {
       // Handle errors
@@ -52,6 +52,8 @@ export const GetQuestionsSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
         // state.data = true;
+        console.log(state.data);
+
       }
     );
     builder.addCase(QuestionsData.rejected, (state, action: PayloadAction<any>) => {
