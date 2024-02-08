@@ -151,7 +151,7 @@ const SideBar = () => {
                 </svg>
               </i>
             }
-            component={<Link to="/dashboard/quizes" />}
+            component={<Link to="/dashboard/quizzes" />}
           >
             Quizzes
           </MenuItem>

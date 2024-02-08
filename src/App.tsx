@@ -22,6 +22,10 @@ import store from './Redux/Store.tsx'
 
 import Results from './Features/Instructor/Results/Results';
 import ViewResults from './Features/Instructor/ViewResults/ViewResults';
+import Quizzes from './Features/Instructor/Quizzes/Quizzes.tsx';
+import Questions from './Features/Instructor/Quizzes/Questions/Questions.tsx';
+// import { QuizzesDetails } from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
+
 
 
 
@@ -57,8 +61,15 @@ function App() {
         { path: "students", element: <Students /> },
         { path: "groups", element: <Groups /> },
         { path: "results", element: <Results /> },
-        { path: "results/viewresults", element: <ViewResults /> }
-        
+        { path: "results/viewresults", element: <ViewResults /> },
+
+
+
+
+
+        { path: "quizzes", element: <Quizzes /> },
+        // { path: "quizzes/quiz-details", element: <QuizzesDetails /> },
+        { path: "quizzes/questions", element: <Questions /> },
 
         // { path: "projects/add-project", element: <AddProject /> },
         // { path: "users", element: <Users /> },
