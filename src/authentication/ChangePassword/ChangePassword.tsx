@@ -2,17 +2,27 @@
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import { useForm } from "react-hook-form";
+import { changePassword } from "../../Redux/Features/Auth/ChangePasswordSlice"; 
 
 
 const ChangePassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+
+const onSubmit = async (formData) => {
+  try {
+    await dispatch(changePassword(formData)); 
+  } catch (error) {
+    console.error("Change password error:", error);
+  }
+};
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
         <img src={Logo} alt="Quizwiz" className="pb-10" />
         <p className="text-lime-300 font-bold pb-10 ">Change password</p>
 
-        <form onSubmit={handleSubmit()} className="w-full relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
           <label htmlFor="password" className="text-white">
             Old Password
           </label>
@@ -21,7 +31,7 @@ const ChangePassword = () => {
             {...register("oldPassword", {
               required: true,
               pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
             })}
               id="password"
               type="password"
@@ -63,7 +73,7 @@ const ChangePassword = () => {
             {...register("newPassword", {
               required: true,
               pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
             })}
               id="password"
               type="password"
@@ -103,7 +113,7 @@ const ChangePassword = () => {
               {...register("confirmNewPassword", {
                 required: true,
                 pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
               })}
                 id="password"
                 type="password"
