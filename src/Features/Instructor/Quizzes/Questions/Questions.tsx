@@ -132,6 +132,8 @@ import { PlusCircleIcon } from '@heroicons/react/solid';
 import SharedModal from '../../../../Shared/SharedModal/SharedModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { QuestionsData } from '../../../../Redux/Features/Instructor/Questions/GetQuestionsSlice';
+import { createQuestion } from '../../../../Redux/Features/Instructor/Questions/CreateQuestionsSlice';
+import { useForm } from 'react-hook-form';
 
 const Questions = () => {
     const dispatch = useDispatch();
@@ -142,6 +144,44 @@ const Questions = () => {
     useEffect(() => {
         dispatch(QuestionsData());
     }, [dispatch]);
+
+    const { creating } = useSelector((state) => state.createQuestionData);
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    // create Questions part
+    // const handleCreateQuestion = async (newQuestionData) => {
+    //     try {
+    //         await dispatch(createQuestion(newQuestionData));
+    //     } catch (error) {
+
+    //         console.error("Error creating question:", error);
+    //     }
+    // };
+    const handleCreateQuestion = async (newQuestionData) => {
+        try {
+            // Extracting options and type from the form data
+            const { options, type, ...rest } = newQuestionData;
+
+            // Creating the payload with the correct structure
+            const payload = {
+                ...rest,
+                options: {
+                    A: options.A,
+                    B: options.B,
+                    C: options.C,
+                    D: options.D,
+                },
+                type,
+            };
+
+            await dispatch(createQuestion(payload));
+            // Optionally, you can handle success here
+        } catch (error) {
+            // Handle error
+            console.error("Error creating question:", error);
+        }
+    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -211,27 +251,33 @@ const Questions = () => {
                 </table>
             </div>
             {isModalOpen && (
-                <SharedModal closeModal={closeModal} onSave={handleSave}>
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleCreateQuestion)}>
 
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">Title:</label>
-                        <input type="text" id="title" className="w-full border p-2 rounded focus:outline-none
-                              focus:border-blue-500"/>
+                        <input {...register("title", { required: "Title is required" })} type="text" id="title" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500" />
+                        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Question:</label>
-                        <textarea id="question" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"></textarea>
-                    </div>
+                        <label className="block text-gray-700 font-bold mb-2">Question Descruption:</label>
+                        <textarea {...register("description", { required: "description is required" })} id="question" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"></textarea>
+                        {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
+                    </div>
+                    {/*
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">Answers A and B:</label>
                         <div className="flex">
-                            <input type="text" placeholder="A" className="w-1/2 mr-2 border p-2
+                            <input {...register("A", { required: "First option is required" })} type="text" placeholder="A" className="w-1/2 mr-2 border p-2
                                   rounded focus:outline-none focus:border-blue-500"/>
-                            <input type="text" placeholder="B" className="w-1/2 border p-2 rounded
+                            {errors.A && <p className="text-red-500">{errors.A.message}</p>}
+
+                            <input {...register("B", { required: "Second option is required" })} type="text" placeholder="B" className="w-1/2 border p-2 rounded
                                      focus:outline-none focus:border-blue-500"/>
+                            {errors.B && <p className="text-red-500">{errors.B.message}</p>}
+
                         </div>
                     </div>
 
@@ -239,25 +285,47 @@ const Questions = () => {
 
                         <label className="block text-gray-700 font-bold mb-2">Answers C and D:</label>
                         <div className="flex">
-                            <input type="text" placeholder="C" className="w-1/2 mr-2 border p-2 rounded
+                            <input {...register("C", { required: "Second option is required" })} type="text" placeholder="C" className="w-1/2 mr-2 border p-2 rounded
                                      focus:outline-none focus:border-blue-500"/>
-                            <input type="text" placeholder="D" className="w-1/2 border p-2 rounded
+                            {errors.C && <p className="text-red-500">{errors.C.message}</p>}
+
+                            <input {...register("D", { required: "thired option is required" })} type="text" placeholder="D" className="w-1/2 border p-2 rounded
                                          focus:outline-none focus:border-blue-500"/>
+                            {errors.D && <p className="text-red-500">{errors.D.message}</p>}
+
+                        </div>
+                    </div> */}
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">Answers A, B, C, and D:</label>
+                        <div className="flex">
+                            <input {...register("options.A", { required: "First option is required" })} type="text" placeholder="A" className="w-1/4 mr-2 border p-2 rounded focus:outline-none focus:border-blue-500" />
+                            {errors.options?.A && <p className="text-red-500">{errors.options.A.message}</p>}
+
+                            <input {...register("options.B", { required: "Second option is required" })} type="text" placeholder="B" className="w-1/4 mr-2 border p-2 rounded focus:outline-none focus:border-blue-500" />
+                            {errors.options?.B && <p className="text-red-500">{errors.options.B.message}</p>}
+
+                            <input {...register("options.C", { required: "Third option is required" })} type="text" placeholder="C" className="w-1/4 mr-2 border p-2 rounded focus:outline-none focus:border-blue-500" />
+                            {errors.options?.C && <p className="text-red-500">{errors.options.C.message}</p>}
+
+                            <input {...register("options.D", { required: "Fourth option is required" })} type="text" placeholder="D" className="w-1/4 border p-2 rounded focus:outline-none focus:border-blue-500" />
+                            {errors.options?.D && <p className="text-red-500">{errors.options.D.message}</p>}
                         </div>
                     </div>
-
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">Correct Answer:</label>
-                        <input type="text" id="correctAnswer" className="w-full border p-2 rounded
+                        <input {...register("answer", { required: "forth option is required" })} type="text" id="correctAnswer" className="w-full border p-2 rounded
                                      focus:outline-none focus:border-blue-500"/>
+                        {errors.answer && <p className="text-red-500">{errors.answer.message}</p>}
+
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">Dropdown Menu:</label>
-                        <select id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
+                        <select
+                            {...register("type", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
+                            <option value="BE">BE</option>
+                            <option value="FE">FE</option>
+                            <option value="DO">DO</option>
                         </select>
                     </div>
 
