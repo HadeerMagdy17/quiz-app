@@ -106,9 +106,9 @@ export default studentsSlice.reducer;
 //     //   return data.data;
 
 
-//     // } 
+//     // }
 //     // catch (error) {
-      
+
 //     //   throw error;
 //     // }
 //   }
