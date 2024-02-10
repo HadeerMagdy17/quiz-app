@@ -18,5 +18,5 @@ export const changePassUrl = `${baseUrl}/auth/change-password`;
 export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
-console.log(getAllStudentsUrl)
+export const  deleteStudentUrl = `${baseUrl}/student`;
 
