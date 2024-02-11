@@ -45,6 +45,7 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
     dispatch(deleteStudent({ id: studentIdToDelete })); // Dispatching action to delete student
     setIsDeleteModalOpen(false); 
     setStudentIdToDelete(""); // Resetting student ID to delete
+    dispatch(fetchStudents());
   };
   const [buttonActive, setButtonActive] = useState<string>("tab0");
 
