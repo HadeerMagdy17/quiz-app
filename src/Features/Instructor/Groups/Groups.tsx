@@ -29,6 +29,15 @@ const Groups: React.FC = () => {
     // Handle the button click logic here
   };
 
+
+//   const dispatch = useDispatch();
+//  const { data, loading, error } = useSelector((state) => state.questionsData) || {};
+//     // Dispatch the async action when your component mounts
+//     console.log(data);
+
+//     useEffect(() => {
+//         dispatch(QuestionsData());
+//     }, [dispatch]);
   return (
     <div style={{ width: "100%", padding: "1rem" }}>
       <div className="container w-full mx-auto p-4 border rounded">
