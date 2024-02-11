@@ -210,6 +210,7 @@ const Questions = () => {
             if (questionId !== undefined) {
                 await dispatch(updateQuestionAnswer({ questionId, newAnswer: updatedAnswer }));
                 // Optionally, you can handle success here
+                dispatch(QuestionsData());
             } else {
                 throw new Error("questionId is undefined");
             }
@@ -225,6 +226,7 @@ const Questions = () => {
         try {
           await dispatch(deleteQuestion(questionId));
           // Optionally, you can handle success here
+          dispatch(QuestionsData());
         } catch (error) {
           // Handle error
           console.error("Error deleting question:", error);
