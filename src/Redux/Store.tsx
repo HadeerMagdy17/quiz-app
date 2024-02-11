@@ -6,7 +6,7 @@ const store = configureStore({
   reducer: {
     users: userReducer,
     register: registerReducer,
-    groupsData: groupsReducer,
+    groupsSlice: groupsReducer,
   },
 });
 

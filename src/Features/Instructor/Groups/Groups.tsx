@@ -1,7 +1,9 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import CustomModal from "../../../Shared/CustomModal/CustomModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import groupsImg from "../../../assets/images/groups.png"
+import { fetchGroups } from "../../../Redux/Features/Instructor/Groups/GroupsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Groups: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,14 +32,16 @@ const Groups: React.FC = () => {
   };
 
 
-//   const dispatch = useDispatch();
-//  const { data, loading, error } = useSelector((state) => state.questionsData) || {};
-//     // Dispatch the async action when your component mounts
-//     console.log(data);
+  const dispatch = useDispatch();
+ const { data:groups, loading, error } = useSelector((state) => state.groupsSlice) || {};
+    // Dispatch the async action when your component mounts
+    
 
-//     useEffect(() => {
-//         dispatch(QuestionsData());
-//     }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchGroups());
+    }, [dispatch]);
+
+    console.log(groups);
   return (
     <div style={{ width: "100%", padding: "1rem" }}>
       <div className="container w-full mx-auto p-4 border rounded">
@@ -52,7 +56,9 @@ const Groups: React.FC = () => {
           </button>
         </div>
         <br />
-        <div className="grid grid-cols-12 gap-4">
+
+        {/* <div className="grid grid-cols-12 gap-4">
+          
           <div className="col-span-12 sm:col-span-6 lg:col-span-6">
             <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
               <div className="p-4">
@@ -132,7 +138,27 @@ const Groups: React.FC = () => {
             </div>
           </div>
          
+        </div> */}
+
+<div className="grid grid-cols-12 gap-4">
+          {groups.map((group) => (
+            <div className="col-span-12 sm:col-span-6 lg:col-span-6" key={group._id}>
+              <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                    <p className="text-lg font-semibold">{group.name}</p>
+                    <div className="flex space-x-2">
+                      {/* ... (autres boutons) */}
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mt-2">num of students: {group.students?.length || 0}.</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+
+
         {/* add custom modal */}
         <div>
           <CustomModal

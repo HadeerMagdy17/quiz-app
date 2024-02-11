@@ -9,7 +9,7 @@ export interface GroupsState {
   error: string | null;
 }
 
-interface Group {
+export interface Group {
   _id: string;
   name: string;
   status: string;
@@ -20,26 +20,7 @@ interface Group {
   max_students: 25;
 }
 
-export const fetchGroups = createAsyncThunk<Group[]>(
-  "GroupsSlice/fetchGroups",
-  async () => {
-    // eslint-disable-next-line no-useless-catch
-    try {
-      // const data = await axios.get(`${allGroupUrl}`, {
-      const data = await axios.get<Group[]>(`${allGroupUrl}`, {
-        headers: requestHeaders,
-      });
-      console.log(requestHeaders);
-      console.log(data.data);
-      return data.data;
 
-
-    } catch (error) {
-      // Handle errors
-      throw error;
-    }
-  }
-);
 
 
 const initialState: GroupsState = {
@@ -73,5 +54,25 @@ export const GroupsSlice = createSlice({
     });
   },
 });
+
+export const fetchGroups = createAsyncThunk<Group[]>(
+  "GroupsSlice/fetchGroups",
+  async () => {
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const data = await axios.get<Group[]>(`${allGroupUrl}`, {
+        headers: requestHeaders,
+      });
+      console.log(requestHeaders);
+      console.log(data.data);
+      return data.data;
+
+
+    } catch (error) {
+      // Handle errors
+      throw error;
+    }
+  }
+);
 
 export default GroupsSlice.reducer;
