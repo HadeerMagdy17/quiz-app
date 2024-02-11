@@ -128,12 +128,15 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { PlusCircleIcon } from '@heroicons/react/solid';
+import { PlusCircleIcon, TrashIcon, PencilIcon, EyeIcon } from '@heroicons/react/solid';
 import SharedModal from '../../../../Shared/SharedModal/SharedModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { QuestionsData } from '../../../../Redux/Features/Instructor/Questions/GetQuestionsSlice';
 import { createQuestion } from '../../../../Redux/Features/Instructor/Questions/CreateQuestionsSlice';
 import { useForm } from 'react-hook-form';
+import { updateQuestionAnswer } from '../../../../Redux/Features/Instructor/Questions/UpdateQuestionsSlice';
+import { deleteQuestion } from '../../../../Redux/Features/Instructor/Questions/DeleteQuestionsSlice';
+
 
 const Questions = () => {
     const dispatch = useDispatch();
@@ -146,8 +149,9 @@ const Questions = () => {
     }, [dispatch]);
 
     const { creating } = useSelector((state) => state.createQuestionData);
+    const { updating, error: updateError } = useSelector((state) => state.updateQuestionData);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
 
     // create Questions part
     // const handleCreateQuestion = async (newQuestionData) => {
@@ -183,28 +187,91 @@ const Questions = () => {
         }
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // Upadte the Answer
 
-    const openModal = () => {
+    const openUpdateModal = (question) => {
+        setModalType('update');
+
+        // Check if question._id exists before setting the value
+        if (question._id !== undefined) {
+            setQuestionId(question._id);
+            setValue("answer", question.answer || ''); // Set the answer if available
+            setIsModalOpen(true);
+        } else {
+            console.error('Question ID is undefined:', question);
+        }
+    };
+
+    const handleUpdateAnswer = async () => {
+        try {
+            const updatedAnswer = getValues("answer");
+
+            // Ensure questionId is defined before dispatching
+            if (questionId !== undefined) {
+                await dispatch(updateQuestionAnswer({ questionId, newAnswer: updatedAnswer }));
+                // Optionally, you can handle success here
+            } else {
+                throw new Error("questionId is undefined");
+            }
+        } catch (error) {
+            // Handle error
+            console.error("Error updating question answer:", error);
+        }
+    };
+
+
+    const handleDeleteQuestion = async (question) => {
+        console.log("Question object:", question);
+        try {
+          await dispatch(deleteQuestion(questionId));
+          // Optionally, you can handle success here
+        } catch (error) {
+          // Handle error
+          console.error("Error deleting question:", error);
+        }
+      };
+    const openDeleteModal = (question) => {
+        setModalType('delete');
+        // setQuestionId(question._id);
+        // setIsModalOpen(true);
+
+        if (question._id !== undefined) {
+            setQuestionId(question._id);
+            setIsModalOpen(true);
+        } else {
+            console.error('Question ID is undefined:', question);
+        }
+    };
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState('add'); // 'add' or 'update'
+    const [questionId, setQuestionId] = useState(0);
+
+
+    const openAddModal = () => {
+        setModalType('add');
         setIsModalOpen(true);
     };
 
+
+
     const closeModal = () => {
         setIsModalOpen(false);
+        setModalType('add'); // Reset modal type to 'add' when closing
     };
 
-    const handleSave = () => {
-        // Add your save logic here
-        // For now, just close the modal
-        closeModal();
-    };
+    // const handleSave = () => {
+    //     // Add your save logic here
+    //     // For now, just close the modal
+    //     closeModal();
+    // };
+
 
     return (
         <>
             <div className="header flex justify-between px-4 py-2">
                 <h3>Bank Of Questions</h3>
                 <button
-                    onClick={openModal}
+                    onClick={openAddModal}
                     className="bg-white text-black border border-gray-900 px-4 py-2 rounded-md flex items-center"
                 >
                     <PlusCircleIcon className="h-5 w-5 mr-1" />
@@ -243,6 +310,21 @@ const Questions = () => {
                                 <td className="border border-slate-400 px-2">{question?.difficulty}</td>
 
                                 <td className="border border-slate-400 px-2 rounded-r-md">{question.type}</td>
+                                <td className="border border-slate-400 px-2 rounded-r-md " >
+
+                                    <EyeIcon className="h-6 w-6 text-yellow-500" />
+                                    <PencilIcon className="h-6 w-6 text-yellow-500"
+                                        onClick={() => openUpdateModal(question)}
+                                    // onClick={openUpdateModal}
+                                    />
+                                    <TrashIcon className="h-6 w-6 text-yellow-500"
+                                        //  onClick={() => openDeleteModal(question._id)}
+
+                                        onClick={() => openDeleteModal(question)}
+                                    />
+
+
+                                </td>
                             </tr>
                         ))}
                         {/* ---------- */}
@@ -250,7 +332,8 @@ const Questions = () => {
                     </tbody>
                 </table>
             </div>
-            {isModalOpen && (
+            {/* Add Modal */}
+            {isModalOpen && modalType === 'add' && (
                 <SharedModal closeModal={closeModal} onSave={handleSubmit(handleCreateQuestion)}>
 
 
@@ -320,19 +403,66 @@ const Questions = () => {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Dropdown Menu:</label>
-                        <select
-                            {...register("type", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
-                            <option value="BE">BE</option>
-                            <option value="FE">FE</option>
-                            <option value="DO">DO</option>
-                        </select>
+                        <div className='flex'>
+                            <label className="block text-gray-700 font-bold mb-2">Type:</label>
+                            <select
+                                {...register("type", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
+                                <option value="" disabled selected>Select Type</option>
+                                <option value="BE">BE</option>
+                                <option value="FE">FE</option>
+                                <option value="DO">DO</option>
+                            </select>
+                            {/*  */}
+                            <label className="block text-gray-700 font-bold mb-2">Difficulty:</label>
+                            <select
+
+                                {...register("difficulty", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
+                                <option value="" disabled selected>Select Difficulty Level</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+
                     </div>
 
                     {/* Add more content as needed */}
                 </SharedModal>
             )}
 
+            {/* Update Modal */}
+            {/* {isModalOpen && modalType === 'update' && (
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleUpdateAnswer)}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">Correct Answer:</label>
+                        <input {...register("answer", { required: "Answer is required" })} type="text" id="correctAnswer" className="w-full border p-2 rounded
+                                     focus:outline-none focus:border-blue-500"/>
+                        {errors.answer && <p className="text-red-500">{errors.answer.message}</p>}
+
+                    </div>
+
+
+                </SharedModal>
+            )} */}
+            {/* Update Modal */}
+            {isModalOpen && modalType === 'update' && (
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleUpdateAnswer)}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">Correct Answer:</label>
+                        <input {...register("answer", { required: "Answer is required" })} type="text" id="correctAnswer" className="w-full border p-2 rounded
+                             focus:outline-none focus:border-blue-500"/>
+                        {errors.answer && <p className="text-red-500">{errors.answer.message}</p>}
+                    </div>
+                </SharedModal>
+            )}
+            {/* Delete Modal */}
+            {isModalOpen && modalType === 'delete' && (
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleDeleteQuestion)}>
+                    <div className="mb-4">
+                        <p>Are you sure to delete this ?</p>
+                    </div>
+                </SharedModal>
+            )}
         </>
     );
 };

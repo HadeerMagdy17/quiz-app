@@ -22,4 +22,7 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 
 // ******** Questions API ********
 export const  getAllQuestionsUrl = `${baseUrl}/question`;
+// ******** Update Questions API ********
+export const updateQuestionUrl =`${baseUrl}/question`; //with id
+export const QuestionUrl =`${baseUrl}/question`; //with id
 
