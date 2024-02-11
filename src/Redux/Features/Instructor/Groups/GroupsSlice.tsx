@@ -32,7 +32,9 @@ const initialState: GroupsState = {
 export const GroupsSlice = createSlice({
   name: "GroupsData",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchGroups.pending, (state) => {
       state.loading = true;

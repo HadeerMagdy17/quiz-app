@@ -29,5 +29,6 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 
 // ******** Group Url ********
 export const allGroupUrl = `${baseUrl}/group`;
-
+// ******** deleteGroupUrl  ********
+export const deleteGroupUrl = `${baseUrl}/group`; //with Id
 
