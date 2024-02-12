@@ -27,23 +27,22 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
     dispatch(fetchStudents());
   }, [dispatch]);
 
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Initializing state for delete modal visibility
   const [studentIdToDelete, setStudentIdToDelete] = useState(""); // Initializing state for student ID to delete
 
-  const handleOpenDeleteModal = (studentId: string) => { 
-    setIsDeleteModalOpen(true); 
-    setStudentIdToDelete(studentId); 
+  const handleOpenDeleteModal = (studentId: string) => {
+    setIsDeleteModalOpen(true);
+    setStudentIdToDelete(studentId);
   };
 
-  const handleCloseDeleteModal = () => { 
-    setIsDeleteModalOpen(false); 
-    setStudentIdToDelete(""); 
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setStudentIdToDelete("");
   };
 
-  const handleDeleteStudent = () => { 
+  const handleDeleteStudent = () => {
     dispatch(deleteStudent({ id: studentIdToDelete })); // Dispatching action to delete student
-    setIsDeleteModalOpen(false); 
+    setIsDeleteModalOpen(false);
     setStudentIdToDelete(""); // Resetting student ID to delete
     dispatch(fetchStudents());
   };
@@ -71,7 +70,6 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
         >
           All Students Groups
         </TETabsItem>
-      
       </TETabs>
 
       <TETabsContent>
@@ -89,6 +87,10 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
                         src={studentcardImg}
                         alt="Student Image"
                         className="w-10 h-10"
+                        style={{
+                          backgroundColor: "#FFEDDF",
+                          borderRadius: "10px",
+                        }}
                       />
                       <p className="text-lg font-semibold">{`${student.first_name} ${student.last_name}`}</p>
                       {/* <p>{student.status}</p> */}
@@ -96,7 +98,6 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
                         <button
                           className="cursor-pointer"
                           onClick={() => handleOpenDeleteModal(student._id)} // Click handler to open delete modal
-
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -118,16 +119,15 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
                 </div>
               </div>
             ))}
-         
         </div>
       </TETabsContent>
 
       {/* delete custom modal */}
       <div>
         <CustomModal
-           isOpen={isDeleteModalOpen} // Prop to control modal visibility
-           onClose={handleCloseDeleteModal} // Prop for close modal action
-           onButtonClick={handleDeleteStudent}
+          isOpen={isDeleteModalOpen} // Prop to control modal visibility
+          onClose={handleCloseDeleteModal} // Prop for close modal action
+          onButtonClick={handleDeleteStudent}
           buttonLabel="delete Student"
           width="100%"
           height="350px"
