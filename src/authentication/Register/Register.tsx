@@ -231,7 +231,7 @@ const Register = () => {
                 Choose your role
               </option>
               <option value="Instructor">instructor</option>
-              <option value="Learner">student</option>
+              <option value="Student">student</option>
             </select>
             <i className="absolute left-2 top-2">
               <svg
