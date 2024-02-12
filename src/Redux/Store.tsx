@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
+import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
+// import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
+
 const store = configureStore({
   reducer: {
     users: userReducer,
     register: registerReducer,
+    studentsData: studentsReducer,
+    // deleteItem: deleteItemReducer, 
   },
 });
 
