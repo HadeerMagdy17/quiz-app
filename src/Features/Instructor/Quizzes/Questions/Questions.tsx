@@ -136,7 +136,8 @@ import { createQuestion } from '../../../../Redux/Features/Instructor/Questions/
 import { useForm } from 'react-hook-form';
 import { updateQuestionAnswer } from '../../../../Redux/Features/Instructor/Questions/UpdateQuestionsSlice';
 import { deleteQuestion } from '../../../../Redux/Features/Instructor/Questions/DeleteQuestionsSlice';
-
+import updateImg from '../../../../assets/images/QuestionUpdateIcon.svg'
+import deleteImg from '../../../../assets/images/QuestionDeleteIcon.svg'
 
 const Questions = () => {
     const dispatch = useDispatch();
@@ -180,6 +181,8 @@ const Questions = () => {
             };
 
             await dispatch(createQuestion(payload));
+            closeModal();
+            dispatch(QuestionsData());
             // Optionally, you can handle success here
         } catch (error) {
             // Handle error
@@ -211,6 +214,7 @@ const Questions = () => {
                 await dispatch(updateQuestionAnswer({ questionId, newAnswer: updatedAnswer }));
                 // Optionally, you can handle success here
                 dispatch(QuestionsData());
+                closeModal();
             } else {
                 throw new Error("questionId is undefined");
             }
@@ -224,14 +228,15 @@ const Questions = () => {
     const handleDeleteQuestion = async (question) => {
         console.log("Question object:", question);
         try {
-          await dispatch(deleteQuestion(questionId));
-          // Optionally, you can handle success here
-          dispatch(QuestionsData());
+            await dispatch(deleteQuestion(questionId));
+            // Optionally, you can handle success here
+            dispatch(QuestionsData());
+            closeModal();
         } catch (error) {
-          // Handle error
-          console.error("Error deleting question:", error);
+            // Handle error
+            console.error("Error deleting question:", error);
         }
-      };
+    };
     const openDeleteModal = (question) => {
         setModalType('delete');
         // setQuestionId(question._id);
@@ -312,7 +317,7 @@ const Questions = () => {
                                 <td className="border border-slate-400 px-2">{question?.difficulty}</td>
 
                                 <td className="border border-slate-400 px-2 rounded-r-md">{question.type}</td>
-                                <td className="border border-slate-400 px-2 rounded-r-md " >
+                                {/* <td className="border border-slate-400 px-2 rounded-r-md " >
 
                                     <EyeIcon className="h-6 w-6 text-yellow-500" />
                                     <PencilIcon className="h-6 w-6 text-yellow-500"
@@ -326,7 +331,13 @@ const Questions = () => {
                                     />
 
 
+                                </td> */}
+                                <td className="border border-slate-400 px-2 rounded-r-md flex items-center" >
+                                    <EyeIcon className="h-6 w-6 text-yellow-500" />
+                                    <PencilIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openUpdateModal(question)} />
+                                    <TrashIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openDeleteModal(question)} />
                                 </td>
+
                             </tr>
                         ))}
                         {/* ---------- */}
@@ -449,7 +460,9 @@ const Questions = () => {
             {/* Update Modal */}
             {isModalOpen && modalType === 'update' && (
                 <SharedModal closeModal={closeModal} onSave={handleSubmit(handleUpdateAnswer)}>
-                    <div className="mb-4">
+
+                    <div className="mb-4 text-center">
+                        <img src={updateImg} width={100} alt="Update Image" className="mx-auto" />
                         <label className="block text-gray-700 font-bold mb-2">Correct Answer:</label>
                         <input {...register("answer", { required: "Answer is required" })} type="text" id="correctAnswer" className="w-full border p-2 rounded
                              focus:outline-none focus:border-blue-500"/>
@@ -460,7 +473,8 @@ const Questions = () => {
             {/* Delete Modal */}
             {isModalOpen && modalType === 'delete' && (
                 <SharedModal closeModal={closeModal} onSave={handleSubmit(handleDeleteQuestion)}>
-                    <div className="mb-4">
+                    <div className="mb-4 text-center">
+                        <img src={deleteImg} width={100} alt="Update Image" className="mx-auto" />
                         <p>Are you sure to delete this ?</p>
                     </div>
                 </SharedModal>
