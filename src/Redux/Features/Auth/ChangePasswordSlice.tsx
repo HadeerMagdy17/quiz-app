@@ -7,12 +7,18 @@ interface ChangePasswordState {
   loading: boolean;
   errors: string | null;
   success: boolean;
+  data: []
+//   password:string;
+//   password_new:string
 }
 
 const initialState: ChangePasswordState = {
   loading: false,
   errors: null,
   success: false,
+  data: []
+//   password:'',
+//   password_new:''
 };
 
 // const changePassword = createAsyncThunk(
@@ -38,13 +44,13 @@ const initialState: ChangePasswordState = {
 //   }
 // );
 
-const changePassword = createAsyncThunk(
-  "changePassword/changePassword",
-  async (passwordData: { oldPassword: string, newPassword: string }, { rejectWithValue }) => {
+const changePasswordApi = createAsyncThunk(
+  "changePassword/changePasswordApi",
+  async (passwordData,{ rejectWithValue }) => {
     try {
       const response = await axios.post(`${changePassUrl}`, {
-        password: passwordData.oldPassword,
-        password_new: passwordData.newPassword,
+        passwordData,
+       
       });
 
       toast.success(response.data.message, {
@@ -69,32 +75,32 @@ const changePassword = createAsyncThunk(
 
 const changePasswordSlice = createSlice({
   name: 'changePassword',
-  initialState: initialState,
+  initialState,
   reducers: {
-    resetChangePasswordState: (state) => {
-      state.loading = false;
-      state.errors = null;
-      state.success = false;
+    changePasswordd: (state,action) => {
+    //   state.password= action.payload;
+    //   state.password_new = action.payload;
+
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(changePassword.pending, (state) => {
+      .addCase(changePasswordApi.pending, (state) => {
         state.loading = true;
       })
-      .addCase(changePassword.fulfilled, (state) => {
-        state.loading = false;
-        state.success = true;
-        state.data = action.payload.data;
-
+      .addCase(changePasswordApi.fulfilled, (state,action) => {
+        // state.password= action.payload;
+        // state.password_new = action.payload;
+        
+  
       })
-      .addCase(changePassword.rejected, (state, action) => {
+      .addCase(changePasswordApi.rejected, (state, action) => {
         state.loading = false;
         state.errors = action.payload || "Failed to change password.";
       });
   },
 });
 
-export const { resetChangePasswordState } = changePasswordSlice.actions;
-export { changePassword };
+export const { changePasswordd } = changePasswordSlice.actions;
+export { changePasswordApi };
 export default changePasswordSlice.reducer;

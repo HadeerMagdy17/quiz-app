@@ -2,37 +2,29 @@
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import { useForm } from "react-hook-form";
-import { changePassword } from "../../Redux/Features/Auth/ChangePasswordSlice";
-import axios from "axios";
-import { changePassUrl, requestHeaders } from "../../Services/api";
+import { changePasswordApi } from "../../Redux/Features/Auth/ChangePasswordSlice";
 import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { useNavigate } from "react-router";
 
 
 const ChangePassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-
-
-  // const onSubmit = async (formData) => {
-  //  try {
-  //   const data = await axios.get(`${changePassUrl}`, {
-  //     headers: requestHeaders,
-  //   });
-  // } catch (error) {
-  //   console.error('An error occurred:', error);
-  // }
-
-  // };
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const onSubmit = async (formData) => {
+  const onSubmit = useCallback(async (data: { password: string,password_new:string}) => {
     try {
-      // Use dispatch to call the changePassword action
-      await dispatch(changePassword(formData));
+    console.log(data);    
+      await dispatch(changePasswordApi(data));
+        navigate("/login");
+      
     } catch (error) {
-      console.error("Change password error:", error);
-    }
-  };
 
+      console.error(" error:", error);
+    }
+  }, [
+    dispatch, navigate
+  ]);
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
@@ -50,7 +42,7 @@ const ChangePassword = () => {
                 pattern:
                   /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
               })}
-              id="password"
+              // id="password"
               type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
               placeholder="type your old password"
@@ -92,7 +84,7 @@ const ChangePassword = () => {
                 pattern:
                   /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
               })}
-              id="password"
+              // id="password"
               type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
               placeholder="Type your new password"
