@@ -93,11 +93,11 @@ const GroupTabs: React.FC<GroupTabsProps> = () => {
                         }}
                       />
                       <p className="text-lg font-semibold">{`${student.first_name} ${student.last_name}`}</p>
-                      {/* <p>{student.status}</p> */}
+                      
                       <div className="flex space-x-2">
                         <button
                           className="cursor-pointer"
-                          onClick={() => handleOpenDeleteModal(student._id)} // Click handler to open delete modal
+                          onClick={() => handleOpenDeleteModal(student._id)} 
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
