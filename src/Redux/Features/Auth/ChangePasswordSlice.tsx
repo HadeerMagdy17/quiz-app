@@ -15,15 +15,43 @@ const initialState: ChangePasswordState = {
   success: false,
 };
 
+// const changePassword = createAsyncThunk(
+//   "user/changePassword",
+//   async (passwordData: { userId: string, newPassword: string }, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.post(`${changePassUrl}`, { newPassword: passwordData.newPassword });
+//       toast.success(response.data.message, {
+//         autoClose: 2000,
+//         theme: "colored",
+//       });
+//       return response.data;
+//     } catch (error) {
+//       toast.error(
+//         error.response?.data?.message || "An error occurred while changing password.",
+//         {
+//           autoClose: 2000,
+//           theme: "colored",
+//         }
+//       );
+//       return rejectWithValue(error.response?.data?.message);
+//     }
+//   }
+// );
+
 const changePassword = createAsyncThunk(
-  "user/changePassword",
-  async (passwordData: { userId: string, newPassword: string }, { rejectWithValue }) => {
+  "changePassword/changePassword",
+  async (passwordData: { oldPassword: string, newPassword: string }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${changePassUrl}/${passwordData.userId}`, { newPassword: passwordData.newPassword });
+      const response = await axios.post(`${changePassUrl}`, {
+        password: passwordData.oldPassword,
+        password_new: passwordData.newPassword,
+      });
+
       toast.success(response.data.message, {
         autoClose: 2000,
         theme: "colored",
       });
+
       return response.data;
     } catch (error) {
       toast.error(
@@ -38,9 +66,10 @@ const changePassword = createAsyncThunk(
   }
 );
 
+
 const changePasswordSlice = createSlice({
   name: 'changePassword',
-  initialState:initialState,
+  initialState: initialState,
   reducers: {
     resetChangePasswordState: (state) => {
       state.loading = false;
@@ -56,6 +85,8 @@ const changePasswordSlice = createSlice({
       .addCase(changePassword.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
+        state.data = action.payload.data;
+
       })
       .addCase(changePassword.rejected, (state, action) => {
         state.loading = false;

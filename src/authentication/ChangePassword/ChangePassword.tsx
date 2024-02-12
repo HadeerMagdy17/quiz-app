@@ -2,25 +2,36 @@
 import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import { useForm } from "react-hook-form";
-import { changePassword } from "../../Redux/Features/Auth/ChangePasswordSlice"; 
+import { changePassword } from "../../Redux/Features/Auth/ChangePasswordSlice";
 import axios from "axios";
 import { changePassUrl, requestHeaders } from "../../Services/api";
+import { useDispatch } from "react-redux";
 
 
 const ChangePassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
 
-const onSubmit = async (formData) => {
- try {
-  const data = await axios.get(`${changePassUrl}`, {
-    headers: requestHeaders,
-  });
-} catch (error) {
-  console.error('An error occurred:', error);
-}
+  // const onSubmit = async (formData) => {
+  //  try {
+  //   const data = await axios.get(`${changePassUrl}`, {
+  //     headers: requestHeaders,
+  //   });
+  // } catch (error) {
+  //   console.error('An error occurred:', error);
+  // }
 
-};
+  // };
+  const dispatch = useDispatch();
+
+  const onSubmit = async (formData) => {
+    try {
+      // Use dispatch to call the changePassword action
+      await dispatch(changePassword(formData));
+    } catch (error) {
+      console.error("Change password error:", error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
@@ -34,25 +45,25 @@ const onSubmit = async (formData) => {
           </label>
           <div className="relative">
             <input
-            {...register("password", {
-              required: true,
-              pattern:
-              /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
-            })}
+              {...register("password", {
+                required: true,
+                pattern:
+                  /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
+              })}
               id="password"
               type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8" // Added pl-8 for left padding
               placeholder="type your old password"
             />
 
-           {errors.password && errors.password.type === "required" && (
+            {errors.password && errors.password.type === "required" && (
               <span className="text-red-600">Password is required</span>
             )}
             {errors.password && errors.password.type === "pattern" && (
               <span className="text-red-600">password is invalid</span>
             )}
-              
-            
+
+
             <i className="absolute left-2 top-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,11 +87,11 @@ const onSubmit = async (formData) => {
           </label>
           <div className="relative">
             <input
-            {...register("password_new", {
-              required: true,
-              pattern:
-              /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
-            })}
+              {...register("password_new", {
+                required: true,
+                pattern:
+                  /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
+              })}
               id="password"
               type="password"
               className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
@@ -88,7 +99,7 @@ const onSubmit = async (formData) => {
             />
 
 
-          {errors.password_new && errors.password_new.type === "required" && (
+            {errors.password_new && errors.password_new.type === "required" && (
               <span className="text-danger">Password is required</span>
             )}
             {errors.password_new && errors.password_new.type === "pattern" && (
@@ -112,7 +123,7 @@ const onSubmit = async (formData) => {
             </i>
           </div>
 
-         
+
           <div className="relative">
             <button
               type="submit"
