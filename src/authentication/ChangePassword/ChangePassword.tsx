@@ -3,17 +3,23 @@ import bgAuth from "../../assets/image.png";
 import Logo from "../../assets/Logo.png";
 import { useForm } from "react-hook-form";
 import { changePassword } from "../../Redux/Features/Auth/ChangePasswordSlice"; 
+import axios from "axios";
+import { changePassUrl, requestHeaders } from "../../Services/api";
 
 
 const ChangePassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+
 const onSubmit = async (formData) => {
-  try {
-    await dispatch(changePassword(formData)); 
-  } catch (error) {
-    console.error("Change password error:", error);
-  }
+ try {
+  const data = await axios.get(`${changePassUrl}`, {
+    headers: requestHeaders,
+  });
+} catch (error) {
+  console.error('An error occurred:', error);
+}
+
 };
 
   return (
@@ -28,7 +34,7 @@ const onSubmit = async (formData) => {
           </label>
           <div className="relative">
             <input
-            {...register("oldPassword", {
+            {...register("password", {
               required: true,
               pattern:
               /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
@@ -39,10 +45,10 @@ const onSubmit = async (formData) => {
               placeholder="type your old password"
             />
 
-        {errors.oldPassword && errors.oldPassword.type === "required" && (
+           {errors.password && errors.password.type === "required" && (
               <span className="text-red-600">Password is required</span>
             )}
-            {errors.oldPassword && errors.oldPassword.type === "pattern" && (
+            {errors.password && errors.password.type === "pattern" && (
               <span className="text-red-600">password is invalid</span>
             )}
               
@@ -70,7 +76,7 @@ const onSubmit = async (formData) => {
           </label>
           <div className="relative">
             <input
-            {...register("newPassword", {
+            {...register("password_new", {
               required: true,
               pattern:
               /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
@@ -82,10 +88,10 @@ const onSubmit = async (formData) => {
             />
 
 
-          {errors.newPassword && errors.newPassword.type === "required" && (
+          {errors.password_new && errors.password_new.type === "required" && (
               <span className="text-danger">Password is required</span>
             )}
-            {errors.newPassword && errors.newPassword.type === "pattern" && (
+            {errors.password_new && errors.password_new.type === "pattern" && (
               <span className="text-danger ">password is invalid</span>
             )}
             <i className="absolute left-2 top-2">
@@ -106,55 +112,13 @@ const onSubmit = async (formData) => {
             </i>
           </div>
 
-          <label htmlFor="password" className="text-white relative">
-            Confirm New Password
-            <div className="relative">
-              <input
-              {...register("confirmNewPassword", {
-                required: true,
-                pattern:
-                /^(?=.*[0-9])(?=.*\d)[a-zA-Z\d]{7,}$/,
-              })}
-                id="password"
-                type="password"
-                className="w-full bg-slate-950 text-white p-2 mb-2 border border-white rounded-md pl-8"
-                placeholder="type your confirm password"
-              />
-
-            {errors.confirmNewPassword &&
-              errors.confirmNewPassword.type === "required" && (
-                <span className="text-danger">Password is required</span>
-              )}
-            {errors.confirmNewPassword &&
-              errors.confirmNewPassword.type === "pattern" && (
-                <span className="text-danger ">password is invalid</span>
-              )}
-
-              <i className="absolute left-2 top-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 p-1 text-white"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
-                  />
-                </svg>
-              </i>
-            </div>
-          </label>
-
+         
           <div className="relative">
             <button
               type="submit"
               className="flex items-center justify-center w-40 bg-white text-slate-950 hover:bg-white p-2 mt-6 font-semibold rounded-md"
             >
-              Sign In
+              Send
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

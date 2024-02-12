@@ -1,6 +1,7 @@
 // ******** Base Url **********
 export const baseUrl = "https://upskilling-egypt.com:3005/api";
-export const requestHeaders = `${localStorage.getItem("accessToken")}`;
+// export const requestHeaders = `${localStorage.getItem("accessToken")}`;
+export const requestHeaders = {Authorization:`Bearer ${localStorage.getItem("authToken")}`};
 // ******** Login ********
 export const loginUrl = `${baseUrl}/auth/login`;
 // ******** Register ********
@@ -13,5 +14,7 @@ export const forgetPassUrl = `${baseUrl}/auth/forgot-password`;
 export const changePassUrl = `${baseUrl}/auth/change-password`;
 // ******** Logout ********
 export const logoutUrl = `${baseUrl}/auth/logout`;
+//***authToken */
+
 
 
