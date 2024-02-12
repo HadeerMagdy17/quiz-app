@@ -52,7 +52,7 @@ function App() {
         // { path: "projects/add-project", element: <AddProject /> },
         { path: "quizzes", element: <Quizzes /> },
         { path: "quizzes/quiz-details", element: <QuizzesDetails/> },
-        { path: "quizzes/questions", element: <Questions/> },
+        // { path: "quizzes/questions", element: <Questions/> },
         // { path: "tasks", element: <Tasks /> },
         // { path: "tasks/add-task", element: <AddTask /> },
       ],
