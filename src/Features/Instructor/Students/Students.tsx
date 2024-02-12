@@ -34,7 +34,7 @@ const Students: React.FC = () => {
         </div>
         <br />
         <GroupTabs />
-        {/* custom modal */}
+        {/* add custom modal */}
         <div>
           <CustomModal
             isOpen={isModalOpen}
