@@ -8,14 +8,18 @@ interface LoginState {
     data: [];
     loading: boolean;
     errors: string | null;
-    islogged: null
+    islogged: null;
+    success: boolean; // Add this line if not already present
+
 }
 const initialState: LoginState = {
     role: null,
     data: [],
     loading: false,
     errors: null,
-    islogged: null
+    islogged: null,
+    success: true // Add this line if not already present
+
 };
 
 const loginUser = createAsyncThunk(

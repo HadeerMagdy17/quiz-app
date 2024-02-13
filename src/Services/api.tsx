@@ -4,7 +4,6 @@ export const baseUrl = "https://upskilling-egypt.com:3005/api";
 export const requestHeaders = {
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
-// export const requestHeaders = `${localStorage.getItem("accessToken")}`;
 
 // ******** Login ********
 export const loginUrl = `${baseUrl}/auth/login`;
@@ -22,4 +21,31 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ******** Questions API ********
+export const  getAllQuestionsUrl = `${baseUrl}/question`;
+// ******** Update Questions API ********
+export const updateQuestionUrl =`${baseUrl}/question`; //with id
+export const QuestionUrl =`${baseUrl}/question`; //with id
 
