@@ -1,57 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { changePassUrl } from "../../../Services/api";
+import { changePassUrl, requestHeaders } from "../../../Services/api";
 
 interface ChangePasswordState {
   loading: boolean;
   errors: string | null;
   success: boolean;
-  data: []
-//   password:string;
-//   password_new:string
+  data: {}
+ 
 }
 
 const initialState: ChangePasswordState = {
   loading: false,
   errors: null,
   success: false,
-  data: []
-//   password:'',
-//   password_new:''
+  data: {}
+
 };
 
-// const changePassword = createAsyncThunk(
-//   "user/changePassword",
-//   async (passwordData: { userId: string, newPassword: string }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(`${changePassUrl}`, { newPassword: passwordData.newPassword });
-//       toast.success(response.data.message, {
-//         autoClose: 2000,
-//         theme: "colored",
-//       });
-//       return response.data;
-//     } catch (error) {
-//       toast.error(
-//         error.response?.data?.message || "An error occurred while changing password.",
-//         {
-//           autoClose: 2000,
-//           theme: "colored",
-//         }
-//       );
-//       return rejectWithValue(error.response?.data?.message);
-//     }
-//   }
-// );
 
 const changePasswordApi = createAsyncThunk(
   "changePassword/changePasswordApi",
-  async (passwordData,{ rejectWithValue }) => {
+  async (passwordData: { password: string, password_new: string }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${changePassUrl}`, {
-        passwordData,
-       
-      });
+        password: passwordData.password,
+        password_new: passwordData.password_new,
+      },
+      {
+        headers: requestHeaders,
+      }
+      );
 
       toast.success(response.data.message, {
         autoClose: 2000,
@@ -77,9 +57,9 @@ const changePasswordSlice = createSlice({
   name: 'changePassword',
   initialState,
   reducers: {
-    changePasswordd: (state,action) => {
-    //   state.password= action.payload;
-    //   state.password_new = action.payload;
+    changePasswordd: (state, action) => {
+      //   state.password= action.payload;
+      //   state.password_new = action.payload;
 
     },
   },
@@ -88,11 +68,14 @@ const changePasswordSlice = createSlice({
       .addCase(changePasswordApi.pending, (state) => {
         state.loading = true;
       })
-      .addCase(changePasswordApi.fulfilled, (state,action) => {
+      .addCase(changePasswordApi.fulfilled, (state, action) => {
         // state.password= action.payload;
         // state.password_new = action.payload;
-        
-  
+        state.loading = false;
+        state.success = true;
+        state.data = action.payload;
+
+
       })
       .addCase(changePasswordApi.rejected, (state, action) => {
         state.loading = false;

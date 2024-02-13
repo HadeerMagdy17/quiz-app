@@ -9,22 +9,46 @@ import { useNavigate } from "react-router";
 
 
 const ChangePassword = () => {
+  // const { register, handleSubmit, formState: { errors } } = useForm();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const onSubmit = useCallback(async (data: { password: string,password_new:string}) => {
+  //   try {
+  //   console.log(data);
+  //     await dispatch(changePasswordApi(data));
+  //       navigate("/login");
+
+  //   } catch (error) {
+
+  //     console.error(" error:", error);
+  //   }
+  // }, [
+  //   dispatch, navigate
+  // ]);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onSubmit = useCallback(async (data: { password: string,password_new:string}) => {
-    try {
-    console.log(data);    
-      await dispatch(changePasswordApi(data));
-        navigate("/login");
-      
-    } catch (error) {
 
-      console.error(" error:", error);
+  // const onSubmit = useCallback(async (data: { password: string, password_new: string }) => {
+  //   try {
+  //     console.log(data);
+  //     await dispatch(changePasswordApi({ password: data.password, password_new: data.password_new }));
+  //     navigate("/login");
+  //   } catch (error) {
+  //     console.error("error:", error);
+  //   }
+  // }, [dispatch, navigate]);
+
+  const onSubmit = useCallback(async (data: { password: string, password_new: string }) => {
+    try {
+      console.log(data);
+      await dispatch(changePasswordApi(data));
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("error:", error);
     }
-  }, [
-    dispatch, navigate
-  ]);
+  }, [dispatch, navigate]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full md:w-1/2 p-12 bg-slate-950 text-white">
