@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllQuestionsUrl, requestHeaders } from "../../../../Services/api";
+import { toast } from "react-toastify";
 
 export const createQuestion = createAsyncThunk(
   "CreateQuestionSlice/createQuestion",
@@ -11,8 +12,20 @@ export const createQuestion = createAsyncThunk(
       const response = await axios.post(getAllQuestionsUrl, newQuestionData, {
         headers: requestHeaders,
       });
+      toast.success(response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
       return response.data;
     } catch (error) {
+      toast.error(
+        error.response?.data?.message || "An error occurred during Create",
+        {
+          autoClose: 2000,
+          theme: "colored",
+        }
+      );
+
       throw error;
     }
   }

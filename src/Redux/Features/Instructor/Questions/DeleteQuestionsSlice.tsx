@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { QuestionUrl, requestHeaders } from "../../../../Services/api";
+import { toast } from "react-toastify";
 
 interface DeleteQuestionState {
   data: any[];
@@ -26,9 +27,20 @@ export const deleteQuestion = createAsyncThunk(
       const response = await axios.delete(`${QuestionUrl}/${questionId}`, {
         headers: requestHeaders,
       });
+      toast.success(response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
       return response.data;
 
     } catch (error) {
+      toast.error(
+        error.response?.data?.message || "An error occurred during Delete",
+        {
+          autoClose: 2000,
+          theme: "colored",
+        }
+      );
       throw error;
     }
   }

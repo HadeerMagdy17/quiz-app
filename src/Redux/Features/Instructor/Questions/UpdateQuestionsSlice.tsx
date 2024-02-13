@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { updateQuestionUrl, requestHeaders } from "../../../../Services/api";
+import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -53,9 +54,20 @@ export const updateQuestionAnswer = createAsyncThunk(
           headers: requestHeaders,
         }
       );
-
+      toast.success(response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
       return response.data;
     } catch (error) {
+      toast.error(
+        error.response?.data?.message || "An error occurred during Update",
+        {
+          autoClose: 2000,
+          theme: "colored",
+        }
+      );
+
       throw error;
     }
   }
@@ -75,10 +87,10 @@ const updateQuestion = createSlice({
       console.log('Received data:', action.payload);
       // Update state with the received data
       state.data = action.payload;
-      
+
     });
     builder.addCase(updateQuestionAnswer.rejected, (state, action: PayloadAction<any>) => {
-      state.loading= false;
+      state.loading = false;
       state.error = action.error.message;
       console.error('Update question answer rejected:', action.error); // Log the error details
 
