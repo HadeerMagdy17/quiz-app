@@ -5,6 +5,7 @@ import questionsReducer from "./Features/Instructor/Questions/GetQuestionsSlice"
 import createQuestionReducer from "./Features/Instructor/Questions/CreateQuestionsSlice"
 import updateQuestionReducer from './Features/Instructor/Questions/UpdateQuestionsSlice'
 import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestionsSlice'
+import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     createQuestionData: createQuestionReducer,
     updateQuestionData:updateQuestionReducer,
     deleteQuestion: deleteQuestionReducer,
+    questionsDetails:detailsQuestionReducer,
 
   },
 });
