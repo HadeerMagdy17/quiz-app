@@ -10,12 +10,10 @@ export default function DataStructuresQuiz() {
     return (
         <>
             <div className="flex items-center justify-center min-h-screen bg-white">
-                <div className="w-full md:w-1/2 p-12 bg-white text-slate-950">
-                    <div className="input-container pb-20">
+                <div className="w-full md:w-1/2 p-12 bg-white border rounded-xl border-stone-400 text-slate-950">
                         <p className="text-slate-950 pb-5 font-semibold " style={{ fontWeight: 700 }}>Data Structures Quiz One</p>
                         <input type="time" style={{ marginRight: '10px' }} />
                         <input type="date" />
-                    </div>
                     <div className="flex justify-between rounded-md border border-gray-300 w-80 m-2">
                         <div className="bg-orange-100 w-60  rounded-md border pl-5 border-orange-100 ">Duration</div>
                         <div className="bg-white  border-white rounded-md pr-2 ">10 mins</div>
@@ -45,11 +43,9 @@ export default function DataStructuresQuiz() {
                             onChange={handleCheckboxChange}
                             style={{ transform: 'scale(1.5)' }}
                         />
-
                         <p>Randomize questions</p>
                     </div>
-
-                    <div className="relative flex justify-end">
+                    <div className="relative flex ">
                         <button
                             type="submit"
                             className="flex items-center justify-center w-20 bg-slate-950 text-white hover:bg-slate-950 p-2 mt-6 font-semibold rounded-md"
