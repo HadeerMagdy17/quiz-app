@@ -161,7 +161,6 @@ const Questions = () => {
         setModalType('add'); // Reset modal type to 'add' when closing
     };
 
-
     return (
         <>
             <div className="header flex justify-between px-4 py-2">
