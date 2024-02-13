@@ -49,6 +49,7 @@ import SideBar from '../SideBar/SideBar';
 import NavBar from '../NavBar/NavBar';
 
 const MasterLayout = () => {
+
   return (
     <div className="flex h-screen">
       <div className="flex-3">
@@ -72,3 +73,4 @@ const MasterLayout = () => {
 };
 
 export default MasterLayout;
+

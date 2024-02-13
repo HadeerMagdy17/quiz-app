@@ -7,9 +7,15 @@ import Login from './authentication/Login/Login';
 import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
 import { ToastContainer } from 'react-toastify';
+
+import Quizzes from './Features/Instructor/Quizzes/Quizzes';
+import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
+// import Questions from './Features/Instructor/Quizzes/Questions/Questions';
+
 import ResetPassword from './authentication/ResetPassword/ResetPassword';
 
 import ChangePassword from './authentication/ChangePassword/ChangePassword';
+
 
 
 import Groups from './Features/Instructor/Groups/Groups';
@@ -61,7 +67,9 @@ function App() {
         
 
         // { path: "projects/add-project", element: <AddProject /> },
-        // { path: "users", element: <Users /> },
+        { path: "quizzes", element: <Quizzes /> },
+        { path: "quizzes/quiz-details", element: <QuizzesDetails/> },
+        // { path: "quizzes/questions", element: <Questions/> },
         // { path: "tasks", element: <Tasks /> },
         // { path: "tasks/add-task", element: <AddTask /> },
       ],

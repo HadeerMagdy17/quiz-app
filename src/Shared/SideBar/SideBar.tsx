@@ -21,6 +21,7 @@ const SideBar = () => {
     navigate("/login");
   };
   return (
+
     <>
       <Sidebar collapsed={isCollapsed} className={` ${styles["bg-sidbar"]}`}>
         <Menu
@@ -76,6 +77,7 @@ const SideBar = () => {
             className={styles["bg-menu-item"]}
             icon={
               <i className={`mr-6 ${styles["bg-icon"]}`}>
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -87,6 +89,7 @@ const SideBar = () => {
                 </svg>
               </i>
             }
+
             component={<Link to="/dashboard" />}
           >
             Dashboard
@@ -151,7 +154,9 @@ const SideBar = () => {
                 </svg>
               </i>
             }
-            component={<Link to="/dashboard/quizes" />}
+
+            component={<Link to="/dashboard/quizzes" />}
+
           >
             Quizzes
           </MenuItem>
@@ -251,6 +256,7 @@ const SideBar = () => {
           </MenuItem>
         </Menu>
       </Sidebar>
+
     </>
   );
 };
