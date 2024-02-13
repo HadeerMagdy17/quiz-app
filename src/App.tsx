@@ -6,15 +6,29 @@ import ForgetPassword from './authentication/ForgetPassword/ForgetPassword';
 import Login from './authentication/Login/Login';
 import Register from './authentication/Register/Register';
 import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
-import { ChangePassword } from './authentication/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+
 import Quizzes from './Features/Instructor/Quizzes/Quizzes';
 import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
-import Questions from './Features/Instructor/Quizzes/Questions/Questions';
+// import Questions from './Features/Instructor/Quizzes/Questions/Questions';
+
+import ResetPassword from './authentication/ResetPassword/ResetPassword';
+
+import ChangePassword from './authentication/ChangePassword/ChangePassword';
+
+
 
 import Groups from './Features/Instructor/Groups/Groups';
 
 import Dashboard from './Features/Instructor/Dashboard/Dashboard';
+import Students from './Features/Instructor/Students/Students';
+
+import { Provider } from 'react-redux';
+import store from './Redux/Store.tsx'
+
+import Results from './Features/Instructor/Results/Results';
+import ViewResults from './Features/Instructor/ViewResults/ViewResults';
+
 
 
 function App() {
@@ -30,6 +44,8 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "notfound", element: <Notfound /> },
         { path: "change-password", element: <ChangePassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
+
       ],
     },
     {
@@ -43,11 +59,12 @@ function App() {
       errorElement: <Notfound />,
       children: [
 
-        // { index: true, element: <Dashboard /> },
-        { path: "groups", element: <Groups /> },
-
         { index: true, element: <Dashboard /> },
-        // { path: "projects", element: <Projects /> },
+        { path: "students", element: <Students /> },
+        { path: "groups", element: <Groups /> },
+        { path: "results", element: <Results /> },
+        { path: "results/viewresults", element: <ViewResults /> }
+        
 
         // { path: "projects/add-project", element: <AddProject /> },
         { path: "quizzes", element: <Quizzes /> },
@@ -63,8 +80,10 @@ function App() {
   return (
     <>
       <div>
-        <ToastContainer />
-        <RouterProvider router={routes} />
+        <Provider store={store}>
+          <RouterProvider router={routes} />
+          {/* <ToastContainer /> */}
+        </Provider>
       </div>
     </>
   )
