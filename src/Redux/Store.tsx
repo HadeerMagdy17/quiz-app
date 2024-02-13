@@ -10,6 +10,25 @@ const store = configureStore({
   reducer: {
     users: userReducer,
     register: registerReducer,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     questionsData: questionsReducer,
     createQuestionData: createQuestionReducer,
     updateQuestionData:updateQuestionReducer,

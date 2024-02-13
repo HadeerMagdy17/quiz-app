@@ -67,6 +67,18 @@ function App() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+        
         { path: "quizzes", element: <Quizzes /> },
         // { path: "quizzes/quiz-details", element: <QuizzesDetails /> },
         { path: "quizzes/questions", element: <Questions /> },
