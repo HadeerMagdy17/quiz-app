@@ -9,7 +9,7 @@ import { AuthLayout } from './Shared/AuthLayout/AuthLayout';
 import { ToastContainer } from 'react-toastify';
 
 import Quizzes from './Features/Instructor/Quizzes/Quizzes';
-import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails';
+import {QuizzesDetails}  from './Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails.tsx';
 // import Questions from './Features/Instructor/Quizzes/Questions/Questions';
 
 import ResetPassword from './authentication/ResetPassword/ResetPassword';
@@ -63,8 +63,8 @@ function App() {
         { path: "students", element: <Students /> },
         { path: "groups", element: <Groups /> },
         { path: "results", element: <Results /> },
-        { path: "results/viewresults", element: <ViewResults /> }
-        
+        { path: "results/viewresults", element: <ViewResults /> },
+
 
         // { path: "projects/add-project", element: <AddProject /> },
         { path: "quizzes", element: <Quizzes /> },
