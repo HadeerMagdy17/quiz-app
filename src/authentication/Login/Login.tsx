@@ -24,7 +24,7 @@ const Login = () => {
       // Check if login was successful before redirecting
       const islogged = localStorage.getItem("userRole");
       // if (islogged === "admin" || islogged === "user")
-      if (islogged === "Instructor") {
+      if (islogged === "Instructor" || "Student") {
         navigate("/dashboard");
       }
     } catch (error) {
