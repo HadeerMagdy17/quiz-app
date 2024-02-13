@@ -204,7 +204,7 @@ const SideBar = () => {
                 </svg>
               </i>
             }
-            // component={<Link to="/change-pass" />}
+             component={<Link to="/change-password" />}
           >
             Change Password
           </MenuItem>
