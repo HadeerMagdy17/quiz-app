@@ -22,6 +22,7 @@ import store from './Redux/Store.tsx'
 
 import Results from './Features/Instructor/Results/Results';
 import ViewResults from './Features/Instructor/ViewResults/ViewResults';
+import DataStructuresQuiz from './Features/Instructor/Quizzes/DataStructuresQuiz.tsx';
 
 
 
@@ -39,6 +40,7 @@ function App() {
         { path: "notfound", element: <Notfound /> },
         { path: "change-password", element: <ChangePassword /> },
         { path: "reset-password", element: <ResetPassword /> },
+        { path: "test", element: <DataStructuresQuiz /> },
 
       ],
     },
