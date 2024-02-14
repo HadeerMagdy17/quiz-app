@@ -7,7 +7,7 @@ import Login from "./authentication/Login/Login";
 import Register from "./authentication/Register/Register";
 import { AuthLayout } from "./Shared/AuthLayout/AuthLayout";
 import { ToastContainer } from "react-toastify";
-import { QuizzesDetails } from "./Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails.tsx";
+import QuizzesDetails  from "./Features/Instructor/Quizzes/QuizzesDetails/QuizzesDetails.tsx";
 // import Questions from './Features/Instructor/Quizzes/Questions/Questions';
 import ResetPassword from "./authentication/ResetPassword/ResetPassword";
 import ChangePassword from "./authentication/ChangePassword/ChangePassword";
