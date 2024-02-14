@@ -9,7 +9,7 @@ export default function DataStructuresQuiz() {
     };
     return (
         <>
-            <div className="flex items-center justify-center min-h-screen bg-white">
+            <div className="flex items-center justify-center  bg-white">
                 <div className="w-full md:w-1/2 p-12 bg-white border rounded-xl border-stone-400 text-slate-950">
                         <p className="text-slate-950 pb-5 font-semibold " style={{ fontWeight: 700 }}>Data Structures Quiz One</p>
                         <input type="time" style={{ marginRight: '10px' }} />
