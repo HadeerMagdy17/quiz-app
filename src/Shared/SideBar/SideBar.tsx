@@ -3,7 +3,12 @@ import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SideBar.module.css";
 import "tailwindcss/tailwind.css";
+
+import { useDispatch } from "react-redux";
+import { logoutUser } from '../../Redux/Features/Auth/LogoutSlice'
+
 import { useSelector } from "react-redux";
+
 
 const SideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -16,10 +21,14 @@ const SideBar = () => {
   const handleToggle = () => {
     setIsCollapsed(!isCollapsed);
   };
-  const logOut = () => {
-    localStorage.removeItem("adminToken");
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    localStorage.removeItem("authToken");
     navigate("/login");
   };
+
   return (
     <>
       <Sidebar collapsed={isCollapsed} className={` ${styles["bg-sidbar"]}`}>
@@ -227,7 +236,7 @@ const SideBar = () => {
 
           <MenuItem
             className={styles["bg-menu-item"]}
-            onClick={logOut}
+            onClick={handleLogout}
             icon={
               <i className={`mr-6 ${styles["bg-icon"]}`}>
                 <svg
