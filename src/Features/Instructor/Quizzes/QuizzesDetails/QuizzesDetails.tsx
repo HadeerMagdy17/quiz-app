@@ -6,15 +6,23 @@ export default function DataStructuresQuiz() {
 
     const [isChecked, setIsChecked] = useState(false);
    
-    
+    const dispatch = useDispatch();
     const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
   };
-  const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.quizDetails) || {};
+//   const dispatch = useDispatch();
+//   const { data } = useSelector((state) => state.quizDetailsData) || {};
+// console.log(data);
+
+//   useEffect(() => {
+//       dispatch(quizDetails());
+//   }, [dispatch]);
+// Get the Details of Question
+  const { data, loading, error } = useSelector(state => state.quizDetailsData);
 
   useEffect(() => {
-      dispatch(quizDetails());
+    // Dispatch the action to fetch quiz details when the component mounts
+    dispatch(quizDetails({ id: "65cbc7aad4c8a4a443181782" }));
   }, [dispatch]);
     return (
         <>
@@ -74,4 +82,5 @@ export default function DataStructuresQuiz() {
         </>
     )
 }
+
 

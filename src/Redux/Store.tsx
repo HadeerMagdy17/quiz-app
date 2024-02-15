@@ -7,7 +7,8 @@ import updateQuestionReducer from './Features/Instructor/Questions/UpdateQuestio
 import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestionsSlice'
 import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice'
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
-import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
+import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice";
+import quizDetailsReducer from "./Features/Instructor/Quizes/QuizesDetaiksSlice";
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
 
 const store = configureStore({
@@ -22,6 +23,7 @@ const store = configureStore({
     changePassword: changePasswordReducer,
     studentsData: studentsReducer,
     // deleteItem: deleteItemReducer,
+    quizDetailsData:quizDetailsReducer,
   },
 });
 

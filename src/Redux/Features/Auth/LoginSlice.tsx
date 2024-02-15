@@ -4,16 +4,18 @@ import axios from "axios";
 import { toast } from "react-toastify";
  
 interface LoginState {
-    role: null;
+    role: null|string;
     data: [];
     loading: boolean;
     errors: string | null;
     islogged: null;
     success: boolean; // Add this line if not already present
 
+
 }
+const storedUserRole = localStorage.getItem("userRole");
 const initialState: LoginState = {
-    role: null,
+    role: storedUserRole,
     data: [],
     loading: false,
     errors: null,

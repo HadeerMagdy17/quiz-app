@@ -21,7 +21,7 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
-export const  quizDetailsUrl = `${baseUrl}/student`;
+export const  quizDetailsUrl = `${baseUrl}/quiz`;
 
 
 
