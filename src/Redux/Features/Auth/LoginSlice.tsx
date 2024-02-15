@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginUrl } from "../../../Services/api";
 import axios from "axios";
 import { toast } from "react-toastify";
- 
+
 interface LoginState {
-    role: null;
+    role: string | null;
     data: [];
     loading: boolean;
     errors: string | null;
@@ -12,8 +12,10 @@ interface LoginState {
     success: boolean; // Add this line if not already present
 
 }
+const storedUserRole = localStorage.getItem("userRole");
+
 const initialState: LoginState = {
-    role: null,
+    role: storedUserRole,
     data: [],
     loading: false,
     errors: null,
@@ -25,7 +27,7 @@ const initialState: LoginState = {
 const loginUser = createAsyncThunk(
     "login/loginUser", async (UserData) => {
         try {
-            
+
             const response = await axios.post(`${loginUrl}`, UserData)
             localStorage.setItem("userRole", response?.data?.data?.profile.role);
             localStorage.setItem("authToken", response?.data?.data?.accessToken);
