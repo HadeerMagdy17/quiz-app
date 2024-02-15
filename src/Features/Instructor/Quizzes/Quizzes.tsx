@@ -12,24 +12,39 @@ import { fetchQuizzesData } from '../../../Redux/Features/Instructor/Quizzes/get
 import { fetchCreateQuizz } from '../../../Redux/Features/Instructor/Quizzes/createQuizzesSlice';
 import SharedModal from '../../../Shared/SharedModal/SharedModal';
 import { useForm } from 'react-hook-form';
+import { fetchGroups } from '../../../Redux/Features/Instructor/Groups/GroupsSlice';
 
 const Quizzes = () => {
   const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
   const dispatch = useDispatch();
-
+  const durationOptions = [10, 15, 30, 45, 60, 90, 120]; // Add more values as needed
 
   const { data, loading, error } = useSelector((state) => state.quizzesData) || {};
 
   useEffect(() => {
     dispatch(fetchQuizzesData());
   }, [dispatch]);
+  // Groups
+  const groups = useSelector((state) => state.groupsSlice.data); // Assuming your slice is named GroupsData
+  const questionNumbers = Array.from({ length: 10 }, (_, index) => index + 1); // Create an array from 1 to 10
+  const scorePerQuestion = Array.from({ length: 10 }, (_, index) => index + 1); // Create an array from 1 to 10
 
+  // Fetch groups on component mount
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
   // Add Quizz
-  const handleCreateQuiz = () => {
+  const handleCreateQuiz = (formData) => {
     const newQuizzData = {
-      // Your data for creating a new quiz
-      // Make sure to provide the required data according to your API endpoint
-      // Example: title, description, schadule, duration, etc.
+      title: formData.title,
+      description: formData.description,
+      group: formData.group,
+      questions_number: formData.questions_number,
+      difficulty: formData.difficulty,
+      type: formData.type,
+      schadule: formData.schadule,
+      duration: formData.duration,
+      score_per_question: formData.score_per_question,
     };
 
     // Dispatch the fetchCreateQuizz action
@@ -235,7 +250,7 @@ const Quizzes = () => {
 
       {/* Add Modal */}
       {isModalOpen && modalType === 'add' && (
-        <SharedModal closeModal={closeModal} onSave={handleSubmit()} width="1/2" onHide={closeModal}>
+        <SharedModal closeModal={closeModal} onSave={handleSubmit(handleCreateQuiz)} width="1/2" onHide={closeModal}>
           {/* First Row: Input Title */}
           <div className="mb-4">
             <label htmlFor="title" className="block text-sm font-medium text-gray-600">Title</label>
@@ -243,49 +258,67 @@ const Quizzes = () => {
               type="text"
               id="title"
               className="mt-1 p-2 pl-20 w-full border rounded-md"
-              {...register('title')}
+              {...register('title', { required: "Title is required" })}
             />
+            {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+
           </div>
 
           {/* Second Row: 3 Dropdowns */}
           <div className="flex mb-4">
             <div className="w-1/3 mr-2">
-              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Dropdown 1</label>
+              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Duration
+                <span className='text-orange-200'>(in min)</span></label>
               <select
-                id="dropdown1"
-                name="dropdown1"
+                id="duration"
+                {...register('duration', { required: "duration is required" })}
                 className="mt-1 p-2 w-full border rounded-md"
               >
-                {/* Dropdown options here */}
+                {durationOptions.map((value) => (
+                  <option key={value} value={value}>
+                    {value} minutes
+                  </option>
+                ))}
               </select>
+              {errors.duration && <p className="text-red-500">{errors.duration.message}</p>}
+
             </div>
             <div className="w-1/3 mx-2">
-              <label htmlFor="dropdown2" className="block text-sm font-medium text-gray-600">Dropdown 2</label>
+              <label htmlFor="dropdown2" className="block text-sm font-medium text-gray-600">Question Number</label>
               <select
-                id="dropdown2"
-                name="dropdown2"
-
+                id="questions_number"
+                {...register('questions_number', { required: "Question No required" })}
                 className="mt-1 p-2 w-full border rounded-md"
               >
-                {/* Dropdown options here */}
+                {questionNumbers.map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
               </select>
+              {errors.questions_number && <p className="text-red-500">{errors.questions_number.message}</p>}
+
             </div>
             <div className="w-1/3 ml-2">
-              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Dropdown 3</label>
+              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Score Per Question</label>
               <select
-                id="dropdown3"
-                name="dropdown3"
-
+                id="score_per_question"
+                {...register('score_per_question', { required: "Secore per question required" })}
                 className="mt-1 p-2 w-full border rounded-md"
               >
-                {/* Dropdown options here */}
+                {scorePerQuestion.map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
               </select>
+              {errors.score_per_question && <p className="text-red-500">{errors.score_per_question.message}</p>}
             </div>
           </div>
 
           {/* Third Row: Textarea */}
           <div className="mb-4">
-            <label htmlFor="textarea" className="block text-sm font-medium text-gray-600">Textarea</label>
+            <label htmlFor="textarea" className="block text-sm font-medium text-gray-600">Description</label>
             <textarea
               id="textarea"
               className="mt-1 p-2 w-full border rounded-md"
@@ -296,57 +329,58 @@ const Quizzes = () => {
           {/* ... Fourth and Fifth Rows and other rows as needed ... */}
           {/* Combined Schedule and Time Row */}
           <div className="mb-4">
-            <label htmlFor="dateTime" className="block text-sm font-medium text-gray-600">Schedule and Time</label>
+            <label htmlFor="dateTime" className="block text-sm font-medium text-gray-600">Schedule</label>
             <div className="flex items-center">
               <input
-                type="date"
+                type="datetime-local"
                 id="schedule"
                 className="mt-1 p-2 border rounded-md mr-2"
-                {...register('schadule')}
+                {...register('schadule', { required: "Schedule is required" })}
               />
-              <input
-                type="time"
-                id="time"
-                className="mt-1 p-2 border rounded-md"
-                {...register('duration')}
-              />
+              {errors.schadule && <p className="text-red-500">{errors.schadule.message}</p>}
             </div>
           </div>
 
           {/* Second Row: 3 Dropdowns */}
           <div className="flex mb-4">
             <div className="w-1/3 mr-2">
-              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Dropdown 1</label>
+              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Difficulty 1</label>
               <select
-                id="dropdown1"
-                name="dropdown1"
-
-                className="mt-1 p-2 w-full border rounded-md"
-              >
-                {/* Dropdown options here */}
+                {...register("difficulty", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
+                <option value="" disabled defaultValue>Select Difficulty Level</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
               </select>
+              {errors.difficulty && <p className="text-red-500">{errors.difficulty.message}</p>}
             </div>
             <div className="w-1/3 mx-2">
-              <label htmlFor="dropdown2" className="block text-sm font-medium text-gray-600">Dropdown 2</label>
+              <label className="block text-sm font-medium text-gray-600">Type:</label>
               <select
-                id="dropdown2"
-                name="dropdown2"
-
-                className="mt-1 p-2 w-full border rounded-md"
-              >
-                {/* Dropdown options here */}
+                {...register("type", { required: "type is required" })} id="dropdown" className="w-full border p-2 rounded focus:outline-none focus:border-blue-500">
+                <option value="" disabled selected>Select Type</option>
+                <option value="BE">BE</option>
+                <option value="FE">FE</option>
+                <option value="DO">DO</option>
               </select>
+              {errors.type && <p className="text-red-500">{errors.type.message}</p>}
             </div>
             <div className="w-1/3 ml-2">
-              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Dropdown 3</label>
+              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Groups</label>
               <select
-                id="dropdown3"
-                name="dropdown3"
+                id="group"
 
+                {...register('group')}
                 className="mt-1 p-2 w-full border rounded-md"
               >
-                {/* Dropdown options here */}
+                {groups.map((group) => (
+                  <option key={group._id} value={group._id}>
+                    {group.name}
+                  </option>
+                ))}
               </select>
+              {errors.group && <p className="text-red-500">{errors.group.message}</p>}
+
             </div>
           </div>
 
