@@ -4,23 +4,30 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 interface LoginState {
-    role: null;
+    role: string | null;
     data: [];
     loading: boolean;
     errors: string | null;
-    islogged: null
+    islogged: null;
+    success: boolean; // Add this line if not already present
+
 }
+const storedUserRole = localStorage.getItem("userRole");
+
 const initialState: LoginState = {
-    role: null,
+    role: storedUserRole,
     data: [],
     loading: false,
     errors: null,
-    islogged: null
+    islogged: null,
+    success: true // Add this line if not already present
+
 };
 
 const loginUser = createAsyncThunk(
     "login/loginUser", async (UserData) => {
         try {
+
             const response = await axios.post(`${loginUrl}`, UserData)
             localStorage.setItem("userRole", response?.data?.data?.profile.role);
             localStorage.setItem("authToken", response?.data?.data?.accessToken);
