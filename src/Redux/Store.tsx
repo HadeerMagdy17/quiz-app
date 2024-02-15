@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
-import questionsReducer from "./Features/Instructor/Questions/GetQuestionsSlice"
-import createQuestionReducer from "./Features/Instructor/Questions/CreateQuestionsSlice"
-import updateQuestionReducer from './Features/Instructor/Questions/UpdateQuestionsSlice'
-import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestionsSlice'
-import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice'
+import questionsReducer from "./Features/Instructor/Questions/GetQuestionsSlice";
+import createQuestionReducer from "./Features/Instructor/Questions/CreateQuestionsSlice";
+import updateQuestionReducer from './Features/Instructor/Questions/UpdateQuestionsSlice';
+import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestionsSlice';
+import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice';
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
+import updateQuizesReducer from "./Features/Instructor/Quizes/QuizesUpdateSlice";
 import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice";
 import quizDetailsReducer from "./Features/Instructor/Quizes/QuizesDetaiksSlice";
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
@@ -18,6 +19,7 @@ const store = configureStore({
     questionsData: questionsReducer,
     createQuestionData: createQuestionReducer,
     updateQuestionData:updateQuestionReducer,
+    updateQuizesData:updateQuizesReducer,
     deleteQuestion: deleteQuestionReducer,
     questionsDetails:detailsQuestionReducer,
     changePassword: changePasswordReducer,

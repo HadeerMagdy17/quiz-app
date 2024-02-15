@@ -22,27 +22,7 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
 export const  quizDetailsUrl = `${baseUrl}/quiz`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const UpdateQuizessUrl =`${baseUrl}/quiz`; //with id
 
 // ******** Questions API ********
 export const  getAllQuestionsUrl = `${baseUrl}/question`;
