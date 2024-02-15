@@ -221,9 +221,19 @@ const Questions = () => {
 
                                 </td> */}
                                 <td className="border border-slate-400 px-2 rounded-r-md flex items-center justify-center" >
-                                    <EyeIcon className="h-6 w-6 text-yellow-500" onClick={() => openDetailsModal(question)} />
-                                    <PencilIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openUpdateModal(question)} />
-                                    <TrashIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openDeleteModal(question)} />
+
+                                    <button>
+                                        <EyeIcon className="h-6 w-6 text-yellow-500" onClick={() => openDetailsModal(question)} />
+
+                                    </button>
+                                    <button>
+                                        <PencilIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openUpdateModal(question)} />
+
+                                    </button>
+                                    <button>
+                                        <TrashIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openDeleteModal(question)} />
+
+                                    </button>
                                 </td>
 
                             </tr>

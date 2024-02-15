@@ -30,6 +30,9 @@ export const  deleteStudentUrl = `${baseUrl}/student`;
 
 
 
+// ******** Quizzes APIs ********
+export const  quizzesUrl = `${baseUrl}/quiz`;
+
 
 
 

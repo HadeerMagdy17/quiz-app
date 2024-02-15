@@ -9,7 +9,7 @@ import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuest
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
 import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
-
+import quizzessReducer from './Features/Instructor/Quizzes/getQuizzesSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -22,6 +22,9 @@ const store = configureStore({
     changePassword: changePasswordReducer,
     studentsData: studentsReducer,
     // deleteItem: deleteItemReducer,
+
+    quizzesData: quizzessReducer,
+
   },
 });
 

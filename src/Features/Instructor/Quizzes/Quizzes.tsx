@@ -1,23 +1,98 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import imagCard from '../../../assets/images/computer.jpg';
 import style from './Quizzes.module.css';
-import CustomLeftCard from '../../../Shared/CustomLeftCard/CustomLeftCard';
+import CustomLeftCard from '../../../Shared/CustomComponents/CustomLeftCard/CustomLeftCard';
 import Modal from '../../../Shared/Modal/Modal';
 import { ClockIcon } from "@heroicons/react/solid";
 import newQuiz from '../../../assets/images/new quiz icon.png';
 import questionBank from '../../../assets/images/Vault icon.png';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchQuizzesData } from '../../../Redux/Features/Instructor/Quizzes/getQuizzesSlice';
+import { fetchCreateQuizz } from '../../../Redux/Features/Instructor/Quizzes/createQuizzesSlice';
+import SharedModal from '../../../Shared/SharedModal/SharedModal';
+import { useForm } from 'react-hook-form';
 
 const Quizzes = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
+  const dispatch = useDispatch();
 
-  const openModal = () => {
+
+  const { data, loading, error } = useSelector((state) => state.quizzesData) || {};
+
+  useEffect(() => {
+    dispatch(fetchQuizzesData());
+  }, [dispatch]);
+
+  // Add Quizz
+  const handleCreateQuiz = () => {
+    const newQuizzData = {
+      // Your data for creating a new quiz
+      // Make sure to provide the required data according to your API endpoint
+      // Example: title, description, schadule, duration, etc.
+    };
+
+    // Dispatch the fetchCreateQuizz action
+    dispatch(fetchCreateQuizz(newQuizzData));
+  };
+  // ******* Modals***********
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('add'); // 'add' or 'update'
+  const [questionId, setQuestionId] = useState(0);
+
+
+  //Modal --- Add Questions
+  const openAddModal = () => {
+    setModalType('add');
     setIsModalOpen(true);
   };
 
+  //Modal --- Upadte the Answer
+  // const openUpdateModal = (question) => {
+  //     setModalType('update');
+
+  //     // Check if question._id exists before setting the value
+  //     if (question._id !== undefined) {
+  //         setQuestionId(question._id);
+  //         setValue("answer", question.answer || ''); // Set the answer if available
+  //         setIsModalOpen(true);
+  //     } else {
+  //         console.error('Question ID is undefined:', question);
+  //     }
+  // };
+  //Modal --- Delete Question
+  // const openDeleteModal = (question) => {
+  //     setModalType('delete');
+  //     // setQuestionId(question._id);
+  //     // setIsModalOpen(true);
+
+  //     if (question._id !== undefined) {
+  //         setQuestionId(question._id);
+  //         setIsModalOpen(true);
+  //     } else {
+  //         console.error('Question ID is undefined:', question);
+  //     }
+  // };
+  //Modal --- Detials
+  // const openDetailsModal = (question) => {
+  //     setModalType('details');
+
+  //     if (question._id !== undefined) {
+  //         setQuestionId(question._id);
+  //         setIsModalOpen(true);
+
+  //         // Dispatch the action to fetch details
+  //         dispatch(getQuestionDetails(question._id));
+  //     } else {
+  //         console.error('Question ID is undefined:', question);
+  //     }
+  // };
+  // Close
   const closeModal = () => {
     setIsModalOpen(false);
+    setModalType('add'); // Reset modal type to 'add' when closing
   };
+
 
   const data1 = {
     title: "Cours 1",
@@ -37,7 +112,7 @@ const Quizzes = () => {
           {/* First card (25%) */}
           <div className={`w-1/2 md:w-1/4 border-2 p-4 flex flex-col items-center ${style['fixed-height-card']}`}>
             <button>
-              <img src={newQuiz} alt="setup new quizz" onClick={openModal} />
+              <img src={newQuiz} alt="setup new quizz" onClick={openAddModal} />
 
             </button>
             <span className="text-black">Setup new quiz</span>
@@ -45,10 +120,10 @@ const Quizzes = () => {
 
           {/* Second card (25%) */}
           <div className={`w-1/2 md:w-1/4 border-2 p-4 flex flex-col items-center ${style['fixed-height-card']}`}>
-          <Link to="/dashboard/quizzes/questions">
-            <button>
-              <img src={questionBank}  alt="Question" />
-            </button>
+            <Link to="/dashboard/quizzes/questions">
+              <button>
+                <img src={questionBank} alt="Question" />
+              </button>
             </Link>
             <span className="text-black">Question Bank</span>
           </div>
@@ -62,21 +137,46 @@ const Quizzes = () => {
           </div>
 
           {/* CustomLeftCard component */}
-          {/* <CustomLeftCard
-            title={data1.title}
-            date={data1.date}
-            time={data1.time}
-            enrolledStudents={data1.enrolledStudents}
-            image={data1.image}
-          />
+          <div className="container flex flex-col sm:flex-row md:flex-row lg:flex-row gap-x-5 sm:gap-y-5 ">
+            {/*left upcoming quizes */}
 
-          <CustomLeftCard
-            title={data1.title}
-            date={data1.date}
-            time={data1.time}
-            enrolledStudents={data1.enrolledStudents}
-            image={data1.image}
-          /> */}
+            <div className={style["left"]}>
+              <div className={style["details"]}>
+                <h2 className="font-medium">Upcoming quizzes</h2>
+              </div>
+
+              <CustomLeftCard
+                title={data1.title}
+                date={data1.date}
+                time={data1.time}
+                enrolledStudents={data1.enrolledStudents}
+                image={data1.image}
+              />
+              <CustomLeftCard
+                title={data1.title}
+                date={data1.date}
+                time={data1.time}
+                enrolledStudents={data1.enrolledStudents}
+                image={data1.image}
+              />
+            </div>
+
+            {/*  upcoming quizes   */}
+            {/* right table */}
+            {/* <div className={styles["right"]}>
+              <div className="flex flex-col">
+                <h2 className="font-medium mb-3">Completed quizzes</h2>
+                <Table
+                  title={data.title}
+                  name={data.name}
+                  personsNo={data.personsNo}
+                  participants={data.participants}
+                  date={data.date}
+                />
+              </div>
+            </div> */}
+            {/* // right table */}
+          </div>
 
           {/* Table */}
           <div className="overflow-x-auto mt-4">
@@ -127,13 +227,132 @@ const Quizzes = () => {
       </div>
 
       {/* Custom modal */}
-      <div className="">
-        {/* <button onClick={openModal} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Open Modal
-        </button> */}
+      {/* <div className="">
+
         {isModalOpen && <Modal onClose={closeModal} />}
-      </div>
+      </div> */}
       {/* // Custom modal */}
+
+      {/* Add Modal */}
+      {isModalOpen && modalType === 'add' && (
+        <SharedModal closeModal={closeModal} onSave={handleSubmit()} width="1/2" onHide={closeModal}>
+          {/* First Row: Input Title */}
+          <div className="mb-4">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-600">Title</label>
+            <input
+              type="text"
+              id="title"
+              className="mt-1 p-2 pl-20 w-full border rounded-md"
+              {...register('title')}
+            />
+          </div>
+
+          {/* Second Row: 3 Dropdowns */}
+          <div className="flex mb-4">
+            <div className="w-1/3 mr-2">
+              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Dropdown 1</label>
+              <select
+                id="dropdown1"
+                name="dropdown1"
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+            <div className="w-1/3 mx-2">
+              <label htmlFor="dropdown2" className="block text-sm font-medium text-gray-600">Dropdown 2</label>
+              <select
+                id="dropdown2"
+                name="dropdown2"
+
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+            <div className="w-1/3 ml-2">
+              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Dropdown 3</label>
+              <select
+                id="dropdown3"
+                name="dropdown3"
+
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+          </div>
+
+          {/* Third Row: Textarea */}
+          <div className="mb-4">
+            <label htmlFor="textarea" className="block text-sm font-medium text-gray-600">Textarea</label>
+            <textarea
+              id="textarea"
+              className="mt-1 p-2 w-full border rounded-md"
+              {...register('description')}
+            ></textarea>
+          </div>
+
+          {/* ... Fourth and Fifth Rows and other rows as needed ... */}
+          {/* Combined Schedule and Time Row */}
+          <div className="mb-4">
+            <label htmlFor="dateTime" className="block text-sm font-medium text-gray-600">Schedule and Time</label>
+            <div className="flex items-center">
+              <input
+                type="date"
+                id="schedule"
+                className="mt-1 p-2 border rounded-md mr-2"
+                {...register('schadule')}
+              />
+              <input
+                type="time"
+                id="time"
+                className="mt-1 p-2 border rounded-md"
+                {...register('duration')}
+              />
+            </div>
+          </div>
+
+          {/* Second Row: 3 Dropdowns */}
+          <div className="flex mb-4">
+            <div className="w-1/3 mr-2">
+              <label htmlFor="dropdown1" className="block text-sm font-medium text-gray-600">Dropdown 1</label>
+              <select
+                id="dropdown1"
+                name="dropdown1"
+
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+            <div className="w-1/3 mx-2">
+              <label htmlFor="dropdown2" className="block text-sm font-medium text-gray-600">Dropdown 2</label>
+              <select
+                id="dropdown2"
+                name="dropdown2"
+
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+            <div className="w-1/3 ml-2">
+              <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Dropdown 3</label>
+              <select
+                id="dropdown3"
+                name="dropdown3"
+
+                className="mt-1 p-2 w-full border rounded-md"
+              >
+                {/* Dropdown options here */}
+              </select>
+            </div>
+          </div>
+
+
+        </SharedModal>
+      )}
     </>
   );
 };
