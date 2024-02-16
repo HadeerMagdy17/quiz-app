@@ -139,21 +139,50 @@ const Quizzes = () => {
     <>
       <div className="grid grid-cols-2 gap-4">
         {/* Left side */}
+
+
         <div className="col-span-1">
-          <div className={` grid-cols-2 border-2 p-4 ${style['fixed-height-card']}`}>
+              {/* First card (25%) */}
+              <div className="flex flex-wrap">
+  <div className="w-full flex justify-center mb-3">
+              <div
+            className="w-1/2 md:w-1/4 border-2 py-5 mb-3 ml-2 flex flex-col items-center"
+            style={{ border: "1px solid #ccc", borderRadius: "5px" }}
+          >
+            <button onClick={openAddModal}>
+              <img src={newQuiz} alt="setup new quizz" />
+            </button>
+            <span className="text-black  mt-2">setup new quizz</span>
+          </div>
+
+              {/* sec card (25%) */}
+              <div
+            className="w-1/2 md:w-1/4 border-2 py-5 mb-3 ml-2 flex flex-col items-center"
+            style={{ border: "1px solid #ccc", borderRadius: "5px" }}
+          >
+             <Link to="/dashboard/quizzes/questions">
+              <button>
+                <img src={questionBank} alt="Question" />
+              </button>
+            </Link>
+            <span className="text-black  mt-2">Question Bank</span>
+          </div>
+          </div>
+          </div>
+          {/* <div className={` grid-cols-2 border-2 p-4 ${style['fixed-height-card']}`}>
             <button>
               <img src={newQuiz} alt="setup new quizz" onClick={openAddModal} />
             </button>
             <span className="text-black">Setup new quiz</span>
-          </div>
-          <div className={`grid-cols-2 border-2 p-4 ${style['fixed-height-card']}`}>
+          </div> */}
+          {/* <div className={`grid-cols-2 border-2 p-4 ${style['fixed-height-card']}`}>
             <Link to="/dashboard/quizzes/questions">
               <button>
                 <img src={questionBank} alt="Question" />
               </button>
             </Link>
             <span className="text-black">Question Bank</span>
-          </div>
+          </div> */}
           <div>
             {quiz.map((quiz) => (
               <div key={quiz._id} className="mb-4">
@@ -197,6 +226,12 @@ const Quizzes = () => {
             ))}
           </div>
         </div>
+
+
+
+
+
+
 
         {/* Right side */}
         <div className="col-span-1">
