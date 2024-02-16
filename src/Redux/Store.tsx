@@ -14,6 +14,7 @@ import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestio
 import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice'
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
 import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
+import questionWithoutAnswersReducer from "./Features/Learner/QuestionsWithoutAnswerSlice"
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
 
 
@@ -33,6 +34,10 @@ const store = configureStore({
     questionsDetails:detailsQuestionReducer,
     changePassword: changePasswordReducer,
     studentsData: studentsReducer,
+
+
+
+    questionWithoutAnswers: questionWithoutAnswersReducer,
     // deleteItem: deleteItemReducer,
 
   },
