@@ -11,6 +11,7 @@ import { getQuestionDetails } from '../../../../Redux/Features/Instructor/Questi
 import updateImg from '../../../../assets/images/QuestionUpdateIcon.svg'
 import deleteImg from '../../../../assets/images/QuestionDeleteIcon.svg'
 import detailsImg from '../../../../assets/images/illust58-6486-01-removebg-preview.png'
+import style from './Questions.module.css'
 const Questions = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.questionsData) || {};
@@ -220,20 +221,22 @@ const Questions = () => {
 
 
                                 </td> */}
-                                <td className="border border-slate-400 px-2 rounded-r-md flex items-center justify-center" >
+                                <td className={`border border-slate-400 px-2 rounded-r-md ${style.actionsCell}`} >
+                                    <div className={`${style.actionsButtons}`}>
+                                        <button>
+                                            <EyeIcon className="h-6 w-6 text-yellow-500" onClick={() => openDetailsModal(question)} />
 
-                                    <button>
-                                        <EyeIcon className="h-6 w-6 text-yellow-500" onClick={() => openDetailsModal(question)} />
+                                        </button>
+                                        <button>
+                                            <PencilIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openUpdateModal(question)} />
 
-                                    </button>
-                                    <button>
-                                        <PencilIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openUpdateModal(question)} />
+                                        </button>
+                                        <button>
+                                            <TrashIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openDeleteModal(question)} />
 
-                                    </button>
-                                    <button>
-                                        <TrashIcon className="h-6 w-6 text-yellow-500 ml-2" onClick={() => openDeleteModal(question)} />
+                                        </button>
+                                    </div>
 
-                                    </button>
                                 </td>
 
                             </tr>
