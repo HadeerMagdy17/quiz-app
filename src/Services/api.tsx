@@ -32,6 +32,9 @@ export const questionsWithoutAnswers =`${baseUrl}/quiz/without-answers`
 
 
 
+// ******** Quizzes APIs ********
+export const  quizzesUrl = `${baseUrl}/quiz`;
+
 
 
 
