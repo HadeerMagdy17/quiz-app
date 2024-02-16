@@ -26,6 +26,8 @@ const SideBar = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
 
