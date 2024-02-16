@@ -22,6 +22,7 @@ import store from "./Redux/Store.tsx";
 import Results from "./Features/Instructor/Results/Results";
 import ViewResults from "./Features/Instructor/ViewResults/ViewResults";
 import LearnerQuizzes from "./Features/Learner/LearnerQuizzes/LearnerQuizzes";
+import QuizWithoutAnswer from "./Features/Learner/LearnerQuizzes/QuizWithoutAnswer/QuizWithoutAnswer.tsx";
 
 function App() {
   const routes = createBrowserRouter([
@@ -60,6 +61,7 @@ function App() {
         { path: "quizzes", element: <Quizzes /> },
         { path: "quizzes/quiz-details", element: <QuizzesDetails /> },
         { path: "learnerquiz", element: <LearnerQuizzes /> },
+        { path: "quizwithoutans", element: <QuizWithoutAnswer /> },
       ],
     },
   ]);
