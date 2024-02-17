@@ -31,6 +31,7 @@ background-color: red;
 .bg-menu-item:hover .bg-icon{
   background-color: black;
   color: var(--second-color);
+  transition: all .7s ease-in-out;
 }
 .ps-menu-button{
   padding: 1rem !important;

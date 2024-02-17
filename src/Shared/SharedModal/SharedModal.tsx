@@ -20,6 +20,7 @@ const SharedModal = ({ closeModal, onSave,onHide, children, width }) => {
                             </svg> */}
 
                             <XIcon className="h-10 w-10   hover:text-red-700 ml-2" />
+                            <span className='sr-only'>close</span>
 
                         </button>
                         <button onClick={onSave} className="text-black ">
@@ -27,6 +28,7 @@ const SharedModal = ({ closeModal, onSave,onHide, children, width }) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                             </svg> */}
                             <CheckIcon className="h-10 w-10  hover:text-green-700 ml-2" />
+                            <span className='sr-only'>save</span>
 
                         </button>
 

@@ -26,6 +26,7 @@ export default function DataStructuresQuiz() {
   }, [dispatch]);
     return (
         <>
+
             {data && data.map((details) => (
               <div key={details._id} className="flex items-center justify-center min-h-screen bg-white">
               <div className="w-full md:w-1/2 p-12 bg-white border rounded-xl border-stone-400 text-slate-950">
@@ -52,6 +53,7 @@ export default function DataStructuresQuiz() {
                       <div className="bg-orange-100 w-60  rounded-md border pl-5 border-orange-100 ">Question bank used</div>
                       <div className="bg-white  border-white rounded-md pr-2 ">Bank one</div>
                   </div>
+
 
                   <div className="flex justify-between w-80 m-2">
                       <input

@@ -1,34 +1,120 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import CustomModal from "../../../Shared/CustomModal/CustomModal";
-import { useState } from "react";
-import groupsImg from "../../../assets/images/groups.png"
-
+import { useEffect, useState } from "react";
+import groupsImg from "../../../assets/images/groups.png";
+import { fetchGroups } from "../../../Redux/Features/Instructor/Groups/GroupsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
+import { deleteGroup } from '../../../Redux/Features/Instructor/Groups/DeleteGroupSlice'
+import { fetchStudents } from "../../../Redux/Features/Instructor/Students/GetAllStudentsSlice";
+import { useForm } from "react-hook-form";
+import { addGroup } from "../../../Redux/Features/Instructor/Groups/AddGroupSlice";
+import { updateGroup } from "../../../Redux/Features/Instructor/Groups/UpdateGroupeSlice";
 const Groups: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdatModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  
-
+  const [groupIdToDelete, setGroupIdToDelete] = useState(""); // Initializing state for student ID to delete
+  const [groupIdToUpdate, setGroupIdToUpdate] = useState(""); // Initializing state for student ID to delete
+  const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
+  const [quizId, setQuizId] = useState(0);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOpenUpdateModal = () => {
+  const openUpdateModal = (groupId: string) => {
     setIsUpdatModalOpen(true);
+    setIsDeleteModalOpen(false);
+    setGroupIdToUpdate(groupId);
   };
- const handleOpenDeleteModal = () => {
-  setIsDeleteModalOpen(true);
+  const openDeleteModal = (groupId: string) => {
+    setIsDeleteModalOpen(true);
+    setIsUpdatModalOpen(false); // Close update modal if it's open
+    setGroupIdToDelete(groupId);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsUpdatModalOpen(false);
+    setIsDeleteModalOpen(false);
   };
   const handleButtonClick = () => {
     console.log("Button clicked!");
     // Handle the button click logic here
   };
+  const handleDeleteGroup = () => {
+    console.log('gg')
+    dispatch(deleteGroup({ id: groupIdToDelete })); // Dispatching action to delete student
+    setIsDeleteModalOpen(false);
+    setGroupIdToDelete(""); // Resetting student ID to delete
 
+    // Retrigger loading of groups after deletion
+    //Redéclencher le chargement des groupes après la suppression
+    dispatch(fetchGroups());
+  }
+  const dispatch = useDispatch();
+  const {
+    data: groups,
+    loading,
+    error,
+  } = useSelector((state) => state.groupsSlice) || {};
+  // Dispatch the async action when your component mounts
+
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
+
+
+
+
+  const { data: students } = useSelector((state) => state.studentsData) || {};
+
+  useEffect(() => {
+    dispatch(fetchStudents());
+  }, [dispatch]);
+
+  const handleAddGroup = async (data) => {
+    try {
+      console.log('Selected students:', data.students);
+
+      if (!Array.isArray(data.students)) {
+        throw new Error('Students must be selected');
+      }
+
+      dispatch(addGroup({
+        name: data.groupName,
+        students: data.students || [],
+      }));
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error adding group:', error);
+    }
+  };
+
+  const handleUpdateGroup = async (data) => {
+    try {
+      console.log('Updated group data:', data);
+
+      if (!Array.isArray(data.updatedStudents)) {
+        throw new Error('Students must be selected');
+      }
+
+      dispatch(updateGroup({
+        groupId: groupIdToUpdate,
+        groupData: {
+          name: data.updatedGroupName,
+          students: data.updatedStudents || [],
+        },
+      }));
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error updating group:', error);
+    }
+  };
+
+
+  console.log(groups);
   return (
     <div style={{ width: "100%", padding: "1rem" }}>
       <div className="container w-full mx-auto p-4 border rounded">
@@ -43,93 +129,48 @@ const Groups: React.FC = () => {
           </button>
         </div>
         <br />
+
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 sm:col-span-6 lg:col-span-6">
-            <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
-              <div className="p-4">
-                <div className="flex justify-between items-center">
-                  <p className="text-lg font-semibold">Group Name</p>
-                  <div className="flex space-x-2">
-                  <button className="cursor-pointer"  onClick={handleOpenUpdateModal}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                      </svg>
-                    </button>
-
-                    <button className="cursor-pointer"  onClick={handleOpenDeleteModal}>
-                      
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </button>
+          {groups.map((group) => (
+            <div
+              className="col-span-12 sm:col-span-6 lg:col-span-6"
+              key={group._id}
+            >
+              <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                    <p className="text-lg font-semibold">{group.name}</p>
+                    <div className="flex space-x-2">
+                      {/* ...*/}
+                      <PencilIcon
+                        className="h-6 w-6 text-yellow-500"
+                        onClick={() => openUpdateModal(group)}
+                      // onClick={openUpdateModal}
+                      />
+                      <TrashIcon
+                        className="h-6 w-6 text-yellow-500"
+                        onClick={() => openDeleteModal(group._id)}
+                      />
+                      {/* ...*/}
+                    </div>
                   </div>
+                  <p className="text-gray-600 mt-2">
+                    num of students: {group.students?.length || 0}.
+                  </p>
                 </div>
-                <p className="text-gray-600 mt-2">num of students:20.</p>
               </div>
             </div>
-          </div>
-          <div className="col-span-12 sm:col-span-6 lg:col-span-6">
-            <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
-              <div className="p-4">
-                <div className="flex justify-between items-center">
-                  <p className="text-lg font-semibold">Group Name</p>
-                  <div className="flex space-x-2">
-                  <button className="cursor-pointer"  onClick={handleOpenUpdateModal}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                      </svg>
-                    </button>
-
-                    <button className="cursor-pointer"  onClick={handleOpenDeleteModal}>
-                      
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <p className="text-gray-600 mt-2">num of students:30.</p>
-              </div>
-            </div>
-          </div>
-         
+          ))}
         </div>
+
         {/* add custom modal */}
         <div>
           <CustomModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
+            // onButtonClick={handleButtonClick}
+            onButtonClick={handleSubmit(handleAddGroup)}
+
             buttonLabel="Add Group"
             width="100%"
             height="350px"
@@ -149,33 +190,41 @@ const Groups: React.FC = () => {
                 id="groupName"
                 type="text"
                 placeholder="Group name"
+                {...register('groupName', { required: 'Group name is required' })}  // Use register to associate the field with React Hook Form
               />
             </div>
+            {/* Select Option Field */}
             {/* Select Option Field */}
             <div className="mb-2">
               <select
                 style={{ width: "410px" }}
                 className="border rounded w-full py-2 px-3 mb-5"
                 id="groupType"
-                defaultValue="" // You can set a default value if needed
+                defaultValue=""
+                {...register('students', { required: 'Students must be selected' })}
+                multiple
               >
                 <option value="" disabled>
                   Students List
                 </option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                {/* Add more options as needed */}
+                {students.map((student) => (
+                  <option key={student._id} value={student._id}>
+                    {student.first_name}
+                  </option>
+                ))}
               </select>
+              {errors.student && <p className="text-red-500">{errors.student.message}</p>}
             </div>
+
           </CustomModal>
         </div>
         {/* //add custom modal */}
-          {/* update custom modal */}
-          <div>
+        {/* update custom modal */}
+        <div>
           <CustomModal
             isOpen={isUpdateModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
+            onButtonClick={handleSubmit(handleUpdateGroup)}
             buttonLabel="update Group"
             width="100%"
             height="350px"
@@ -195,33 +244,40 @@ const Groups: React.FC = () => {
                 id="groupName"
                 type="text"
                 placeholder="Group name"
+                {...register('updatedGroupName', { required: 'Group name is required' })}
               />
             </div>
+            {/* Select Option Field */}
             {/* Select Option Field */}
             <div className="mb-2">
               <select
                 style={{ width: "410px" }}
                 className="border rounded w-full py-2 px-3 mb-5"
                 id="groupType"
-                defaultValue="" // You can set a default value if needed
+                defaultValue=""
+                {...register('updatedStudents', { required: 'Students must be selected' })}
+                multiple
               >
                 <option value="" disabled>
                   Students List
                 </option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                {/* Add more options as needed */}
+                {students.map((student) => (
+                  <option key={student._id} value={student._id}>
+                    {student.first_name}
+                  </option>
+                ))}
               </select>
+              {errors.updatedStudents && <p className="text-red-500">{errors.updatedStudents.message}</p>}
             </div>
           </CustomModal>
         </div>
         {/* //update custom modal */}
-           {/* delete custom modal */}
-           <div>
+        {/* delete custom modal */}
+        <div>
           <CustomModal
             isOpen={isDeleteModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
+            onButtonClick={handleDeleteGroup}
             buttonLabel="delete Group"
             width="100%"
             height="350px"
@@ -235,9 +291,8 @@ const Groups: React.FC = () => {
 
             {/* Text Field */}
             <div className="m-auto">
-        <img src={groupsImg} style={{height:"100px"}}/>
+              <img src={groupsImg} style={{ height: "100px" }} />
             </div>
-         
           </CustomModal>
         </div>
         {/* //delete custom modal */}

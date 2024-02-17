@@ -8,9 +8,18 @@ const CustomLeftCard: React.FC<CustomLeftCardProps> = ({
   time,
   enrolledStudents,
   image,
+  customWidth,
+
 }) => {
+  const scheduleDate = new Date(date);
+
+  // Format the date to a more readable format (adjust based on your preference)
+  const formattedDate = scheduleDate.toLocaleDateString();
+  const formattedTime = scheduleDate.toLocaleTimeString();
+  const cardClasses = [styles.card, customWidth && styles["custom-width-card"]].join(" ");
+
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${cardClasses}`}>
       <div className={styles["card-content"]}>
         <div className={styles["img-card"]}>
           <img src={image} alt="" />
@@ -18,8 +27,8 @@ const CustomLeftCard: React.FC<CustomLeftCardProps> = ({
 
         <div className={styles["card-details"]}>
           <h3 className="font-medium pb-2">{title}</h3>
-          <span className="pr-2 border-r-2 ">{date}</span>
-          <span className="pl-2">{time}</span>
+          <span className="pr-2 border-r-2 ">{formattedDate}</span>
+          <span className="pl-2">{formattedTime}</span>
           <div className={styles["card-open"]}>
             <span className="font-medium text-sm">
               No. of student’s enrolled:<span>{enrolledStudents} </span>

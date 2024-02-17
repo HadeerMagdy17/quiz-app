@@ -4,11 +4,13 @@ export interface CustomLeftCardProps {
     time: string;
     enrolledStudents: number;
     image: string;
+    customWidth?: string;
+
   }
 
   export interface CustomRightCardProps{
     name: string;
-    classRank: string;  
+    classRank: string;
     score: number;
     image: string;
   }
