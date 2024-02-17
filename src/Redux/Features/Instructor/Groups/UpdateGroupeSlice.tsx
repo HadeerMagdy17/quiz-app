@@ -14,19 +14,7 @@ const initialState: UpdateGroupState = {
   error: null,
 };
 
-export const updateGroup = createAsyncThunk(
-  "UpdateGroupSlice/updateGroup",
-  async ({ groupId, groupData }: { groupId: string; groupData: { name: string; students?: string[] } }) => {
-    // eslint-disable-next-line no-useless-catch
-    try {
-      await axios.put(`${allGroupUrl}/${groupId}`, groupData, {
-        headers: requestHeaders,
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+
 
 export const UpdateGroupSlice = createSlice({
   name: "UpdateGroupSlice",
@@ -47,4 +35,17 @@ export const UpdateGroupSlice = createSlice({
   },
 });
 
+export const updateGroup = createAsyncThunk(
+    "UpdateGroupSlice/updateGroup",
+    async ({ groupId, groupData }: { groupId: string; groupData: { name: string; students?: string[] } }) => {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        await axios.put(`${allGroupUrl}/${groupId}`, groupData, {
+          headers: requestHeaders,
+        });
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
 export default UpdateGroupSlice.reducer;

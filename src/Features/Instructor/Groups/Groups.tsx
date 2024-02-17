@@ -23,11 +23,25 @@ const Groups: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  // const openUpdateModal = (groupId: string) => {
+  //   setIsUpdatModalOpen(true);
+  //   setIsDeleteModalOpen(false);
+  //   setGroupIdToUpdate(groupId);
+  // };
+
   const openUpdateModal = (groupId: string) => {
+    const groupToUpdate = groups.find(group => group._id === groupId);
+
+    if (groupToUpdate) {
+      setValue('updatedGroupName', groupToUpdate.name);
+      setValue('updatedStudents', groupToUpdate.students.map(student => student._id));
+    }
+
     setIsUpdatModalOpen(true);
     setIsDeleteModalOpen(false);
     setGroupIdToUpdate(groupId);
   };
+
   const openDeleteModal = (groupId: string) => {
     setIsDeleteModalOpen(true);
     setIsUpdatModalOpen(false); // Close update modal if it's open
@@ -92,9 +106,10 @@ const Groups: React.FC = () => {
     }
   };
 
+
   const handleUpdateGroup = async (data) => {
     try {
-      console.log('Updated group data:', data);
+      console.log('Selected students:', data.updatedStudents);
 
       if (!Array.isArray(data.updatedStudents)) {
         throw new Error('Students must be selected');
@@ -104,10 +119,10 @@ const Groups: React.FC = () => {
         groupId: groupIdToUpdate,
         groupData: {
           name: data.updatedGroupName,
-          students: data.updatedStudents || [],
+          students: data.updatedStudents,
         },
       }));
-      handleCloseModal();
+      setIsUpdatModalOpen(false);
     } catch (error) {
       console.error('Error updating group:', error);
     }
