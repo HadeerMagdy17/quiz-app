@@ -147,6 +147,7 @@ const Quizzes = () => {
     time: "09:00 AM",
     enrolledStudents: 32,
     image: imagCard,
+    
   };
 
 
