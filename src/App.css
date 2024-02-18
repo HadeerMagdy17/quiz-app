@@ -1,7 +1,7 @@
-body{
+body {
   font-family: 'Montserrat', sans-serif;
-font-family: 'Nunito', sans-serif;
-transition: all .7s ease-in-out;
+  font-family: 'Nunito', sans-serif;
+  /* transition: all .7s ease-in-out; */
 }
 
 
@@ -16,9 +16,7 @@ body {
   overflow-y: auto;
 }
 
-:root{
+:root {
   --main-color: #c5d86d;
   --second-color: #ffeddf;
 }
-
-

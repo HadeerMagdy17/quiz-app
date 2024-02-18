@@ -209,7 +209,8 @@ const Groups: React.FC = () => {
             onButtonClick={() => handleAddGroup(getValues())}
             buttonLabel="Add Group"
             width="100%"
-            height="350px"
+
+            height="370px"
 
           >
             <div
@@ -266,7 +267,7 @@ const Groups: React.FC = () => {
             // Call handleAddGroup with form values
             buttonLabel="Update Group"
             width="100%"
-            height="350px"
+            height="370px"
           >
             <div
               style={{ width: "410px" }}

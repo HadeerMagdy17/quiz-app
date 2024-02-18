@@ -11,6 +11,7 @@ interface LoginState {
     islogged: null;
     success: boolean; // Add this line if not already present
 
+
 }
 const storedUserRole = localStorage.getItem("userRole");
 

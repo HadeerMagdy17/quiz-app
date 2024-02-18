@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { logoutUrl} from "../../../Services/api";
+import { logoutUrl, requestHeaders} from "../../../Services/api";
 import axios from "axios";
 // import { toast } from "react-toastify";
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-      const response = await axios.post("http://upskilling-egypt.com:3005/api/auth/logout");
+      const response = await axios.get(`${logoutUrl}`,{
+        headers: requestHeaders,
+      });
     console.log(response)
         return response.data;
-  
+
   });
   const logoutSlice = createSlice({
     name: "auth",
@@ -29,5 +31,5 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
       });
     },
   });
-  
+
   export default logoutSlice.reducer;
