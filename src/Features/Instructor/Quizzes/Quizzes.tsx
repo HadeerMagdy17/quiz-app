@@ -52,6 +52,7 @@ const Quizzes = () => {
     dispatch(fetchGroups());
   }, [dispatch]);
   // Add Quizz
+
   const handleCreateQuiz = (formData) => {
     const newQuizzData = {
       title: formData.title,
@@ -67,6 +68,7 @@ const Quizzes = () => {
 
     // Dispatch the fetchCreateQuizz action
     dispatch(fetchCreateQuizz(newQuizzData));
+
     dispatch(fetchQuizzesData());
   };
   // ******* Modals***********
@@ -82,34 +84,6 @@ const Quizzes = () => {
     setIsModalOpen(true);
   };
 
-  //Modal --- Upadte the Answer
-  // const openUpdateModal = (question) => {
-  //     setModalType('update');
-
-  //     // Check if question._id exists before setting the value
-  //     if (question._id !== undefined) {
-  //         setQuestionId(question._id);
-  //         setValue("answer", question.answer || ''); // Set the answer if available
-  //         setIsModalOpen(true);
-  //     } else {
-  //         console.error('Question ID is undefined:', question);
-  //     }
-  // };
-
-  //Modal --- Detials
-  // const openDetailsModal = (question) => {
-  //     setModalType('details');
-
-  //     if (question._id !== undefined) {
-  //         setQuestionId(question._id);
-  //         setIsModalOpen(true);
-
-  //         // Dispatch the action to fetch details
-  //         dispatch(getQuestionDetails(question._id));
-  //     } else {
-  //         console.error('Question ID is undefined:', question);
-  //     }
-  // };
 
   //Modal --- Delete Question
   const openDeleteModal = (quiz) => {
@@ -216,8 +190,10 @@ const Quizzes = () => {
                           borderRadius: "10px",
 
                         }} />
-                      <p className="text-lg font-semibold">{`${quiz.title}`}</p>
-                      {/* <p className="text font-semibold">{`${quiz.status}`}</p> */}
+                      <div className="flex space-x-4">
+                        <p className="text-lg font-semibold">{`${quiz.title}`}</p>
+                        <p className="text-lg font-semibold">Code:{`${quiz.code}`}</p>
+                      </div>
                       <div className="flex space-x-2">
                         <button
                           className="cursor-pointer"
@@ -243,24 +219,14 @@ const Quizzes = () => {
         {/* Right side */}
         <div className="col-span-1">
           {/* Left upcoming quizzes */}
-          <div className={style["left"]}>
-            <div className={style["details"]}>
+          <div className=''
+          // className={style["left"]}
+          >
+            <div
+              className={style["details"]}
+            >
               <h2 className="font-medium">Upcoming quizzes</h2>
             </div>
-            {/* <CustomLeftCard
-              title={data1.title}
-              date={data1.date}
-              time={data1.time}
-              enrolledStudents={data1.enrolledStudents}
-              image={data1.image}
-            />
-            <CustomLeftCard
-              title={data1.title}
-              date={data1.date}
-              time={data1.time}
-              enrolledStudents={data1.enrolledStudents}
-              image={data1.image}
-            /> */}
             <div>
               {incommingquiz.map((quiz) => (
                 <CustomLeftCard
@@ -278,54 +244,11 @@ const Quizzes = () => {
               ))}
             </div>
           </div>
-
           {/* Right table */}
-          {/* <div className="overflow-x-auto mt-4">
-            <table
-              style={{ width: '500px' }}
-              className="w-full text-sm border-separate table-fixed border">
-              <thead>
-                <tr>
-                  <th className="border border-slate-400 rounded-l-md bg-black text-white">Title</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">Group name</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">No. of persons in group</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">Participants</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border border-slate-300 px-2 rounded-l-md">IndianaRRRRRRR</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-300 px-2 rounded-l-md">IndianaRRRRRRR</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-300 px-2 rounded-l-md">IndianaRRRRRRR</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-300 px-2 rounded-l-md">IndianaRRRRRRR</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                  <td className="border border-slate-400 px-2">ffanapolis</td>
-                </tr>
-
-
-              </tbody>
-
-            </table>
-          </div> */}
           <div
-            className={style["left"]}
+
+          // className={style["left"]}
+
           >
             <div
             // className={style["details"]}
@@ -340,7 +263,9 @@ const Quizzes = () => {
                 }))}
               />
             </div>
-            {/* <div className="overflow-x-auto mt-4">
+
+            <div className="overflow-x-auto mt-4">
+
               <table
                 style={{ width: '500px' }} className="w-full text-sm border-separate table-fixed border">
                 <thead>
@@ -362,7 +287,9 @@ const Quizzes = () => {
                   ))}
                 </tbody>
               </table>
-            </div> */}
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -375,18 +302,21 @@ const Quizzes = () => {
             width="1/2"
             onHide={closeModal}>
             {/* First Row: Input Title */}
-            <div className="mb-4">
+            <div className="mb-4 ">
               <label htmlFor="title" className="block text-sm font-medium text-gray-600">Title</label>
-              <input
-                type="text"
-                id="title"
-                className="mt-1 p-2 pl-20 w-full border rounded-md"
-                {...register('title', { required: "Title is required" })}
-              />
-              {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+              <div className="mb-1 relative">
+                <input
+                  type="text"
+                  id="title"
+                  className="p-2  w-full relative  border rounded-md"
+                  {...register('title', { required: "Title is required" })}
+                />
+                {/* <div className="absolute left-1 top-1 bottom-1 bg-orange-200 rounded-md" style={{ width: '130px' }}></div> */}
 
+                {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+
+              </div>
             </div>
-
             {/* Second Row: 3 Dropdowns */}
             <div className="flex mb-4">
               <div className="w-1/3 mr-2">
@@ -396,6 +326,9 @@ const Quizzes = () => {
                   id="duration"
                   {...register('duration', { required: "duration is required" })}
                   className="mt-1 p-2 w-full border rounded-md"
+                  // className="block w-full py-2.5 px-4 text-sm font-medium  dark:text-black bg-white dark:bg-orange-100
+                  // border border-gray-300  rounded-lg
+                  //   focus:outline-none"
                 >
                   {durationOptions.map((value) => (
                     <option key={value} value={value}>
@@ -420,7 +353,6 @@ const Quizzes = () => {
                   ))}
                 </select>
                 {errors.questions_number && <p className="text-red-500">{errors.questions_number.message}</p>}
-
               </div>
               <div className="w-1/3 ml-2">
                 <label htmlFor="dropdown3" className="block text-sm font-medium text-gray-600">Score Per Question</label>
