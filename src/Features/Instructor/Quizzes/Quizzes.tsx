@@ -6,7 +6,7 @@ import Modal from '../../../Shared/Modal/Modal';
 import { ArrowCircleRightIcon, ArrowRightIcon, ClockIcon } from "@heroicons/react/solid";
 import newQuiz from '../../../assets/images/new quiz icon.png';
 import questionBank from '../../../assets/images/Vault icon.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuizzesData } from '../../../Redux/Features/Instructor/Quizzes/getQuizzesSlice';
 import { fetchCreateQuizz } from '../../../Redux/Features/Instructor/Quizzes/createQuizzesSlice';
@@ -20,7 +20,7 @@ import { TrashIcon } from '@heroicons/react/solid';
 import { fetchIncommingQuizzes } from '../../../Redux/Features/Instructor/Quizzes/incommingQuizSlice';
 import { fetchcompletedQuizzes } from '../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice';
 import { ClipboardListIcon } from '@heroicons/react/outline';
-
+// import { Link } from 'react-router-dom';
 
 
 const Quizzes = () => {
@@ -72,6 +72,7 @@ const Quizzes = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('add'); // 'add' or 'update'
   const [quizId, setQuizId] = useState(0);
+  // const { quizzId } = useParams();
 
 
   //Modal --- Add Questions
@@ -147,7 +148,16 @@ const Quizzes = () => {
     time: "09:00 AM",
     enrolledStudents: 32,
     image: imagCard,
+
   };
+
+  const navigate = useNavigate();
+  const navigateToDetails = (quizId) => {
+    navigate(`/dashboard/quizzes/quiz-details/${quizId}`);
+
+    console.log("Navigate to  details with ID:", quizId);
+  };
+
 
 
   return (
@@ -214,9 +224,12 @@ const Quizzes = () => {
                         >
                           <TrashIcon className="h-6 w-6 text-yellow-500 ml-2 " onClick={() => openDeleteModal(question)} />
                         </button>
-                        <button>
-                          <ArrowCircleRightIcon className="h-6 w-6 text-green-800 ml-2" />
-                        </button>
+                        {/* <Link to={`/dashboard/quizzes/quiz-details/${quiz._id}`}> */}
+                          <button  onClick={() => navigateToDetails(quiz._id)}>
+                            <ArrowCircleRightIcon className="h-6 w-6 text-green-800 ml-2" />
+                          </button>
+                        {/* </Link> */}
+
                       </div>
                     </div>
                   </div>
@@ -311,36 +324,36 @@ const Quizzes = () => {
             </table>
           </div> */}
           <div
-          className={style["left"]}
+            className={style["left"]}
           >
             <div
             // className={style["details"]}
             >
               <h2 className="font-medium">Completed quizzes</h2>
             </div>
-          <div className="overflow-x-auto mt-4">
-            <table
-              style={{ width: '500px' }} className="w-full text-sm border-separate table-fixed border">
-              <thead>
-                <tr>
-                  <th className="border border-slate-400 rounded-l-md bg-black text-white">Title</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">Status</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">Schadule</th>
-                  <th className="border border-slate-400 px-2 bg-black text-white">Participants</th>
-                </tr>
-              </thead>
-              <tbody>
-                {completequiz.map((quiz) => (
-                  <tr key={quiz._id}>
-                    <td className="border border-slate-300 px-2 rounded-l-md">{quiz.title}</td>
-                    <td className="border border-slate-400 px-2">{quiz.status}</td>
-                    <td className="border border-slate-400 px-2">{new Date(quiz.schadule).toLocaleString()}</td>
-                    <td className="border border-slate-400 px-2">{quiz.participants}</td>
+            <div className="overflow-x-auto mt-4">
+              <table
+                style={{ width: '500px' }} className="w-full text-sm border-separate table-fixed border">
+                <thead>
+                  <tr>
+                    <th className="border border-slate-400 rounded-l-md bg-black text-white">Title</th>
+                    <th className="border border-slate-400 px-2 bg-black text-white">Status</th>
+                    <th className="border border-slate-400 px-2 bg-black text-white">Schadule</th>
+                    <th className="border border-slate-400 px-2 bg-black text-white">Participants</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {completequiz.map((quiz) => (
+                    <tr key={quiz._id}>
+                      <td className="border border-slate-300 px-2 rounded-l-md">{quiz.title}</td>
+                      <td className="border border-slate-400 px-2">{quiz.status}</td>
+                      <td className="border border-slate-400 px-2">{new Date(quiz.schadule).toLocaleString()}</td>
+                      <td className="border border-slate-400 px-2">{quiz.participants}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -350,8 +363,8 @@ const Quizzes = () => {
       {
         isModalOpen && modalType === 'add' && (
           <SharedModal closeModal={closeModal} onSave={handleSubmit(handleCreateQuiz)}
-          width="1/2"
-          onHide={closeModal}>
+            width="1/2"
+            onHide={closeModal}>
             {/* First Row: Input Title */}
             <div className="mb-4">
               <label htmlFor="title" className="block text-sm font-medium text-gray-600">Title</label>
