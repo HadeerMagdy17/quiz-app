@@ -5,20 +5,28 @@ import groupsImg from "../../../assets/images/groups.png";
 import { fetchGroups } from "../../../Redux/Features/Instructor/Groups/GroupsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
-import {deleteGroup} from '../../../Redux/Features/Instructor/Groups/DeleteGroupSlice'
+import { deleteGroup } from '../../../Redux/Features/Instructor/Groups/DeleteGroupSlice'
+import { fetchStudents } from "../../../Redux/Features/Instructor/Students/GetAllStudentsSlice";
+import { useForm } from "react-hook-form";
+import { addGroup } from "../../../Redux/Features/Instructor/Groups/AddGroupSlice";
+import { updateGroup } from "../../../Redux/Features/Instructor/Groups/UpdateGroupeSlice";
 const Groups: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdatModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [groupIdToDelete, setGroupIdToDelete] = useState(""); // Initializing state for student ID to delete
+  const [groupIdToUpdate, setGroupIdToUpdate] = useState(""); // Initializing state for student ID to delete
+  const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
+  const [quizId, setQuizId] = useState(0);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  const openUpdateModal = () => {
+  const openUpdateModal = (groupId: string) => {
     setIsUpdatModalOpen(true);
-    setIsDeleteModalOpen(false); // Close delete modal if it's open
+    setIsDeleteModalOpen(false);
+    setGroupIdToUpdate(groupId);
   };
   const openDeleteModal = (groupId: string) => {
     setIsDeleteModalOpen(true);
@@ -35,15 +43,15 @@ const Groups: React.FC = () => {
     console.log("Button clicked!");
     // Handle the button click logic here
   };
-  const handleDeleteGroup = () => { 
+  const handleDeleteGroup = () => {
     console.log('gg')
-    dispatch(deleteGroup({ id: groupIdToDelete})); // Dispatching action to delete student
-    setIsDeleteModalOpen(false); 
+    dispatch(deleteGroup({ id: groupIdToDelete })); // Dispatching action to delete student
+    setIsDeleteModalOpen(false);
     setGroupIdToDelete(""); // Resetting student ID to delete
 
-    // Retrigger loading of groups after deletion 
+    // Retrigger loading of groups after deletion
     //Redéclencher le chargement des groupes après la suppression
-  dispatch(fetchGroups());
+    dispatch(fetchGroups());
   }
   const dispatch = useDispatch();
   const {
@@ -56,6 +64,55 @@ const Groups: React.FC = () => {
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
+
+
+
+
+  const { data: students } = useSelector((state) => state.studentsData) || {};
+
+  useEffect(() => {
+    dispatch(fetchStudents());
+  }, [dispatch]);
+
+  const handleAddGroup = async (data) => {
+    try {
+      console.log('Selected students:', data.students);
+
+      if (!Array.isArray(data.students)) {
+        throw new Error('Students must be selected');
+      }
+
+      dispatch(addGroup({
+        name: data.groupName,
+        students: data.students || [],
+      }));
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error adding group:', error);
+    }
+  };
+
+  const handleUpdateGroup = async (data) => {
+    try {
+      console.log('Updated group data:', data);
+
+      if (!Array.isArray(data.updatedStudents)) {
+        throw new Error('Students must be selected');
+      }
+
+      dispatch(updateGroup({
+        groupId: groupIdToUpdate,
+        groupData: {
+          name: data.updatedGroupName,
+          students: data.updatedStudents || [],
+        },
+      }));
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error updating group:', error);
+    }
+  };
+
 
   console.log(groups);
   return (
@@ -88,7 +145,7 @@ const Groups: React.FC = () => {
                       <PencilIcon
                         className="h-6 w-6 text-yellow-500"
                         onClick={() => openUpdateModal(group)}
-                        // onClick={openUpdateModal}
+                      // onClick={openUpdateModal}
                       />
                       <TrashIcon
                         className="h-6 w-6 text-yellow-500"
@@ -111,7 +168,9 @@ const Groups: React.FC = () => {
           <CustomModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
+            // onButtonClick={handleButtonClick}
+            onButtonClick={handleSubmit(handleAddGroup)}
+
             buttonLabel="Add Group"
             width="100%"
             height="350px"
@@ -131,24 +190,32 @@ const Groups: React.FC = () => {
                 id="groupName"
                 type="text"
                 placeholder="Group name"
+                {...register('groupName', { required: 'Group name is required' })}  // Use register to associate the field with React Hook Form
               />
             </div>
+            {/* Select Option Field */}
             {/* Select Option Field */}
             <div className="mb-2">
               <select
                 style={{ width: "410px" }}
                 className="border rounded w-full py-2 px-3 mb-5"
                 id="groupType"
-                defaultValue="" // You can set a default value if needed
+                defaultValue=""
+                {...register('students', { required: 'Students must be selected' })}
+                multiple
               >
                 <option value="" disabled>
                   Students List
                 </option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                {/* Add more options as needed */}
+                {students.map((student) => (
+                  <option key={student._id} value={student._id}>
+                    {student.first_name}
+                  </option>
+                ))}
               </select>
+              {errors.student && <p className="text-red-500">{errors.student.message}</p>}
             </div>
+
           </CustomModal>
         </div>
         {/* //add custom modal */}
@@ -157,7 +224,7 @@ const Groups: React.FC = () => {
           <CustomModal
             isOpen={isUpdateModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
+            onButtonClick={handleSubmit(handleUpdateGroup)}
             buttonLabel="update Group"
             width="100%"
             height="350px"
@@ -177,23 +244,30 @@ const Groups: React.FC = () => {
                 id="groupName"
                 type="text"
                 placeholder="Group name"
+                {...register('updatedGroupName', { required: 'Group name is required' })}
               />
             </div>
+            {/* Select Option Field */}
             {/* Select Option Field */}
             <div className="mb-2">
               <select
                 style={{ width: "410px" }}
                 className="border rounded w-full py-2 px-3 mb-5"
                 id="groupType"
-                defaultValue="" // You can set a default value if needed
+                defaultValue=""
+                {...register('updatedStudents', { required: 'Students must be selected' })}
+                multiple
               >
                 <option value="" disabled>
                   Students List
                 </option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                {/* Add more options as needed */}
+                {students.map((student) => (
+                  <option key={student._id} value={student._id}>
+                    {student.first_name}
+                  </option>
+                ))}
               </select>
+              {errors.updatedStudents && <p className="text-red-500">{errors.updatedStudents.message}</p>}
             </div>
           </CustomModal>
         </div>

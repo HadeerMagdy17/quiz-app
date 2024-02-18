@@ -26,6 +26,8 @@ const SideBar = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
 
@@ -34,7 +36,8 @@ const SideBar = () => {
       <Sidebar collapsed={isCollapsed} className={` ${styles["bg-sidbar"]}`}>
         <Menu>
           <MenuItem
-            className="border-b border-gray-500 pb-1 br-2"
+          style={{height:"63px"}}
+            className="border-b border-gray-500 pb-1 br-2 "
             onClick={handleToggle}
           >
             <div className="flex items-center">

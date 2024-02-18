@@ -14,9 +14,12 @@ import deleteQuestionReducer from './Features/Instructor/Questions/DeleteQuestio
 import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuestionsSlice'
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
 import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
+import questionWithoutAnswersReducer from "./Features/Learner/QuestionsWithoutAnswerSlice"
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
-
-
+import quizzessReducer from './Features/Instructor/Quizzes/getQuizzesSlice'
+import deleteQuizReducer from './Features/Instructor/Quizzes/deleteQuizzesSlice'
+import incommingQuizdeleteQuiz from './Features/Instructor/Quizzes/incommingQuizSlice'
+import completedQuizdeleteQuiz from './Features/Instructor/Quizzes/completedQuizzesSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -33,8 +36,16 @@ const store = configureStore({
     questionsDetails:detailsQuestionReducer,
     changePassword: changePasswordReducer,
     studentsData: studentsReducer,
+
+
+
+    questionWithoutAnswers: questionWithoutAnswersReducer,
     // deleteItem: deleteItemReducer,
 
+    quizzesData: quizzessReducer,
+    deleteQuiz: deleteQuizReducer,
+    incommingQuizData:incommingQuizdeleteQuiz,
+    completedQuizData:completedQuizdeleteQuiz,
   },
 });
 

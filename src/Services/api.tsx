@@ -23,8 +23,11 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
-// ******** Results APIs ********
+
+
 export const  getResultsUrl = `${baseUrl}/quiz/result`;
+export const questionsWithoutAnswers =`${baseUrl}/quiz/without-answers`
+// export const questionsWithoutAnswers =`${baseUrl}/quiz/without-answers/65cf3f748f25f1b30030c90b`
 
 
 
@@ -33,7 +36,8 @@ export const  getResultsUrl = `${baseUrl}/quiz/result`;
 
 
 
-
+// ******** Quizzes APIs ********
+export const  quizzesUrl = `${baseUrl}/quiz`;
 
 
 
@@ -68,3 +72,6 @@ export const allGroupUrl = `${baseUrl}/group`;
 // ******** deleteGroupUrl  ********
 export const deleteGroupUrl = `${baseUrl}/group`; //with Id
 
+// ******** first incoming  & completed quiz ***********
+export const incommingQuiz = `${baseUrl}/quiz/incomming`
+export const completedQuiz = `${baseUrl}/quiz/completed`
