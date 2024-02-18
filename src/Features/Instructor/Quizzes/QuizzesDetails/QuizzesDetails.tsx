@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { quizDetails } from '../../../../Redux/Features/Instructor/Quizes/QuizesDetaiksSlice';
 import { useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import SharedModal from '../../../../Shared/SharedModal/SharedModal';
+import { updateQuizesTitle } from '../../../../Redux/Features/Instructor/Quizes/QuizesUpdateSlice';
+import updateImg from '../../../../assets/images/QuestionUpdateIcon.svg'
+
 
 export default function QuizzesDetails() {
+    const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
 
     const [isChecked, setIsChecked] = useState(false);
     const { quizzId } = useParams();
@@ -60,6 +66,51 @@ export default function QuizzesDetails() {
             fetchQuizDetails();
         }
     }, [dispatch, quizzId]);
+    // ******* Modals***********
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState('add'); // 'add' or 'update'
+    const [quizId, setQuizId] = useState(0);
+
+    //Modal --- Upadte the Answer
+    const openUpdateModal = (quiz) => {
+        setModalType('update');
+
+        // Check if question._id exists before setting the value
+        if (quiz._id !== undefined) {
+            setQuizId(quiz._id);
+            setValue("title", quiz.title || ''); // Set the answer if available
+            setIsModalOpen(true);
+        } else {
+            console.error('Quiz ID is undefined:', quiz);
+        }
+    };
+    // Close
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalType('add'); // Reset modal type to 'add' when closing
+    };
+
+
+    // Update the Answer
+    const handleUpdateTitle = async () => {
+        try {
+            const updatedTitle = getValues("title");
+
+            // Ensure quizId is defined before dispatching
+            if (quizId !== undefined) {
+                await dispatch(updateQuizesTitle({ quizesId: quizId, newTitle: updatedTitle }));
+                // Optionally, you can handle success here
+                // dispatch(quizDetails());
+                closeModal();
+            } else {
+                throw new Error("quizId is undefined");
+            }
+        } catch (error) {
+            // Handle error
+            console.error("Error updating quiz title:", error);
+        }
+    };
+
     return (
         <>
 
@@ -109,6 +160,7 @@ export default function QuizzesDetails() {
                         </div>
                         <div className="relative flex ">
                             <button
+                                onClick={() => openUpdateModal(details)}
                                 type="submit"
                                 className="flex items-center justify-center w-20 bg-slate-950 text-white hover:bg-slate-950 p-2 mt-6 font-semibold rounded-md"
                             >
@@ -123,6 +175,21 @@ export default function QuizzesDetails() {
                 </div>
             )}
 
+
+            {/* Update Modal */}
+
+            {isModalOpen && modalType === 'update' && (
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleUpdateTitle)} onHide={closeModal}>
+
+                    <div className="mb-4 text-center">
+                        <img src={updateImg} width={100} alt="Update Image" className="mx-auto" />
+                        <label className="block text-gray-700 font-bold mb-2">New Title:</label>
+                        <input {...register("title", { required: "Title is required" })} type="text" id="correctTitle" className="w-full border p-2 rounded
+                             focus:outline-none focus:border-blue-500"/>
+                        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                    </div>
+                </SharedModal>
+            )}
         </>
     )
 }

@@ -19,7 +19,7 @@ const initialState: Props = {
 
 export const updateQuizesTitle= createAsyncThunk(
   "UpdateQuizess/updateQuizesTitle",
-  async ({ quizesId, newAnswer }) => {
+  async ({ quizesId, newTitle }) => {
     // eslint-disable-next-line no-useless-catch
     try {
       if (!quizesId) {
@@ -28,7 +28,7 @@ export const updateQuizesTitle= createAsyncThunk(
 
       const response = await axios.put(
         `${UpdateQuizessUrl}/${quizesId}`,
-        { answer: newAnswer },
+        { title: newTitle },
         {
           headers: requestHeaders,
         }
