@@ -68,3 +68,6 @@ export const allGroupUrl = `${baseUrl}/group`;
 // ******** deleteGroupUrl  ********
 export const deleteGroupUrl = `${baseUrl}/group`; //with Id
 
+// ******** first incoming  & completed quiz ***********
+export const incommingQuiz = `${baseUrl}/quiz/incomming`
+export const completedQuiz = `${baseUrl}/quiz/completed`

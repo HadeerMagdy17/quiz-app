@@ -35,3 +35,8 @@
   padding-left: 5px;
   color: var(--main-color);
 }
+
+.custom-width-card {
+  width: 300px; /* Adjust the width as needed */
+  /* Add any additional styles for the custom width */
+}
