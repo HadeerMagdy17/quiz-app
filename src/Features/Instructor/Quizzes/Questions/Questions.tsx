@@ -12,6 +12,7 @@ import updateImg from '../../../../assets/images/QuestionUpdateIcon.svg'
 import deleteImg from '../../../../assets/images/QuestionDeleteIcon.svg'
 import detailsImg from '../../../../assets/images/illust58-6486-01-removebg-preview.png'
 import style from './Questions.module.css'
+import { Link } from 'react-router-dom';
 const Questions = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.questionsData) || {};
@@ -164,8 +165,17 @@ const Questions = () => {
 
     return (
         <>
+
             <div className="header flex justify-between px-4 py-2">
-                <h3>Bank Of Questions</h3>
+                <div className="flex items-center mb-10 ">
+                    <p className="mr-2 text-base">
+                        <Link to="/dashboard/quizzes" className="text-black no-underline">
+                            Quizes
+                        </Link>
+                    </p>
+                    <p className="mr-2 text-base">/</p>
+                    <p className="text-base text-blue-800">Bank Of Questions</p>
+                </div>
                 <button
                     onClick={openAddModal}
                     className="bg-white text-black border border-gray-900 px-4 py-2 rounded-md flex items-center"
