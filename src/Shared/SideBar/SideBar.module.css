@@ -3,9 +3,11 @@ height: 100vh;
 background-color: red;
 }
 */
-/* .bg-sidbar{
- background-color: #fff !important;
-} */
+.bg-sidbar{
+ /* background-color: #fff !important; */
+ transition: all .7s ease-in-out;
+
+}
 
 /**sidbar bg*/
 .css-dip3t8{
@@ -15,7 +17,7 @@ background-color: red;
     background-color: var(--second-color);
     padding: .8rem;
     border-radius: 10px;
-} 
+}
 
 .bg-menu-item{
    padding: 1rem;
@@ -59,7 +61,7 @@ background-color: red;
   .bold-and-large {
     font-weight: bold;
     font-size: 1.5rem;
-    
+
   }
 
   .css-1t8x7v1 >.ps-menu-button{
@@ -67,7 +69,7 @@ background-color: red;
   }
   /* .css-1t8x7v1 >.ps-menu-button:hover::after{ */
   /* .css-1t8x7v1 >.ps-menu-button::after{
-    
+
 content:"";
 width: 10px;
 height: 5px;
