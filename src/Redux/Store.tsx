@@ -17,9 +17,14 @@ import quizzessReducer from './Features/Instructor/Quizzes/getQuizzesSlice'
 import deleteQuizReducer from './Features/Instructor/Quizzes/deleteQuizzesSlice'
 import incommingQuizdeleteQuiz from './Features/Instructor/Quizzes/incommingQuizSlice'
 import completedQuizdeleteQuiz from './Features/Instructor/Quizzes/completedQuizzesSlice'
+
+import resultsDataReducer from './Features/Instructor/Results/GetAllResultsSlice'
+
 import quizDetailsReducer from './Features/Instructor/Quizes/QuizesDetaiksSlice'
 import updateQuizesReducer from './Features/Instructor/Quizes/QuizesUpdateSlice'
+
 import incommingStdentQuiz from './Features/Instructor/Students/incommingStudentSlice'
+
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -48,6 +53,7 @@ const store = configureStore({
     incommingQuizData:incommingQuizdeleteQuiz,
     completedQuizData:completedQuizdeleteQuiz,
     incommingStudentData:incommingStdentQuiz,
+    resultsData:resultsDataReducer,
 
   },
 });
