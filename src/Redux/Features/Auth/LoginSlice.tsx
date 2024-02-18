@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 interface LoginState {
-    role: string | null;
+    role: string | null ;
     data: [];
     loading: boolean;
     errors: string | null;
