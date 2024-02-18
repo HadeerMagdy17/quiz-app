@@ -173,7 +173,7 @@ const Groups: React.FC = () => {
 
             buttonLabel="Add Group"
             width="100%"
-            height="350px"
+            height="370px"
           >
             <div
               style={{ width: "410px" }}
@@ -227,7 +227,7 @@ const Groups: React.FC = () => {
             onButtonClick={handleSubmit(handleUpdateGroup)}
             buttonLabel="update Group"
             width="100%"
-            height="350px"
+            height="370px"
           >
             <div
               style={{ width: "410px" }}
