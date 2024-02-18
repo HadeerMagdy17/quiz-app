@@ -23,6 +23,9 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
+// ******** Results APIs ********
+export const  getResultsUrl = `${baseUrl}/quiz/result`;
+
 
 
 
