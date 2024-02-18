@@ -280,10 +280,10 @@ const Quizzes = () => {
                 <input
                   type="text"
                   id="title"
-                  className="p-2 pl-36 w-full relative  border rounded-md"
+                  className="p-2  w-full relative  border rounded-md"
                   {...register('title', { required: "Title is required" })}
                 />
-                <div className="absolute left-1 top-1 bottom-1 bg-orange-200 rounded-md" style={{ width: '130px' }}></div>
+                {/* <div className="absolute left-1 top-1 bottom-1 bg-orange-200 rounded-md" style={{ width: '130px' }}></div> */}
 
                 {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
@@ -297,10 +297,10 @@ const Quizzes = () => {
                 <select
                   id="duration"
                   {...register('duration', { required: "duration is required" })}
-                  // className="mt-1 p-2 w-full border rounded-md"
-                  className="block w-full py-2.5 px-4 text-sm font-medium  dark:text-black bg-white dark:bg-orange-100
-                  border border-gray-300  rounded-lg
-                    focus:outline-none"
+                  className="mt-1 p-2 w-full border rounded-md"
+                  // className="block w-full py-2.5 px-4 text-sm font-medium  dark:text-black bg-white dark:bg-orange-100
+                  // border border-gray-300  rounded-lg
+                  //   focus:outline-none"
                 >
                   {durationOptions.map((value) => (
                     <option key={value} value={value}>
