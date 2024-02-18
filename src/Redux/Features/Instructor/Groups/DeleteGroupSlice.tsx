@@ -1,6 +1,7 @@
 import { deleteGroupUrl, requestHeaders } from "../../../../Services/api";
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 
 const initialState = { data: [], loading: false, error: null };
@@ -22,7 +23,7 @@ const deleteGroupSlice = createSlice({
       })
       .addCase(deleteGroup.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message|| "An error occurred";
+        state.error = action.error.message || "An error occurred";
       });
   },
 });
@@ -35,10 +36,20 @@ export const deleteGroup = createAsyncThunk(
       const response = await axios.delete(`${deleteGroupUrl}/${id}`, {
         headers: requestHeaders,
       });
-      console.log(response);
+      toast.success(response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
       return response;
     } catch (error) {
-        console.log(error)
+      toast.error(
+        error.response?.data?.message || "An error occurred during Update",
+        {
+          autoClose: 2000,
+          theme: "colored",
+        }
+      );
+      console.log(error)
       return rejectWithValue(error?.message);
     }
   }
