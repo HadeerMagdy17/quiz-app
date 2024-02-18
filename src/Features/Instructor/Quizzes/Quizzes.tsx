@@ -264,7 +264,7 @@ const Quizzes = () => {
               />
             </div>
 
-            <div className="overflow-x-auto mt-4">
+            {/* <div className="overflow-x-auto mt-4">
 
               <table
                 style={{ width: '500px' }} className="w-full text-sm border-separate table-fixed border">
@@ -288,7 +288,7 @@ const Quizzes = () => {
                 </tbody>
               </table>
 
-            </div>
+            </div> */}
 
           </div>
         </div>

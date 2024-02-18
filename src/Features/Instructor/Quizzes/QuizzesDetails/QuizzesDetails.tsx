@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { quizDetails } from '../../../../Redux/Features/Instructor/Quizes/QuizesDetaiksSlice';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import SharedModal from '../../../../Shared/SharedModal/SharedModal';
 import { updateQuizesTitle } from '../../../../Redux/Features/Instructor/Quizes/QuizesUpdateSlice';
@@ -113,7 +113,15 @@ export default function QuizzesDetails() {
 
     return (
         <>
-
+            <div className="flex items-center mb-10 ">
+                <p className="mr-2 text-base pl-6">
+                    <Link to="/dashboard/quizzes" className="text-black no-underline">
+                        Quizes
+                    </Link>
+                </p>
+                <p className="mr-2 text-base">/</p>
+                <p className="text-base text-blue-800">Quizzes Details</p>
+            </div>
             {details && (
                 <div key={details._id} className="flex items-center justify-center  bg-white">
                     <div className="w-full md:w-1/2 p-12 bg-white border rounded-xl border-stone-400 text-slate-950">
