@@ -1,12 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
-
 import groupsReducer from "./Features/Instructor/Groups/GroupsSlice"
 import deleteGroupReducer from './Features/Instructor/Groups/DeleteGroupSlice'
-
 import logoutReducer from './Features/Auth/LogoutSlice'
-
 import questionsReducer from "./Features/Instructor/Questions/GetQuestionsSlice"
 import createQuestionReducer from "./Features/Instructor/Questions/CreateQuestionsSlice"
 import updateQuestionReducer from './Features/Instructor/Questions/UpdateQuestionsSlice'
@@ -20,6 +17,8 @@ import quizzessReducer from './Features/Instructor/Quizzes/getQuizzesSlice'
 import deleteQuizReducer from './Features/Instructor/Quizzes/deleteQuizzesSlice'
 import incommingQuizdeleteQuiz from './Features/Instructor/Quizzes/incommingQuizSlice'
 import completedQuizdeleteQuiz from './Features/Instructor/Quizzes/completedQuizzesSlice'
+import quizDetailsReducer from './Features/Instructor/Quizes/QuizesDetaiksSlice'
+import updateQuizesReducer from './Features/Instructor/Quizes/QuizesUpdateSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -32,6 +31,7 @@ const store = configureStore({
     questionsData: questionsReducer,
     createQuestionData: createQuestionReducer,
     updateQuestionData:updateQuestionReducer,
+    updateQuizesData:updateQuizesReducer,
     deleteQuestion: deleteQuestionReducer,
     questionsDetails:detailsQuestionReducer,
     changePassword: changePasswordReducer,
@@ -41,7 +41,7 @@ const store = configureStore({
 
     questionWithoutAnswers: questionWithoutAnswersReducer,
     // deleteItem: deleteItemReducer,
-
+    quizDetailsData:quizDetailsReducer,
     quizzesData: quizzessReducer,
     deleteQuiz: deleteQuizReducer,
     incommingQuizData:incommingQuizdeleteQuiz,

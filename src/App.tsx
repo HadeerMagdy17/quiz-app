@@ -60,7 +60,7 @@ function App() {
         // { path: "tasks", element: <Tasks /> },
         // { path: "tasks/add-task", element: <AddTask /> },
         { path: "quizzes", element: <Quizzes /> },
-        { path: "quizzes/quiz-details", element: <QuizzesDetails /> },
+        { path: "quizzes/quiz-details/:quizzId", element: <QuizzesDetails /> },
         { path: "learnerquiz", element: <LearnerQuizzes /> },
         { path: "quizwithoutans", element: <QuizWithoutAnswer /> },
       ],

@@ -23,45 +23,17 @@ export const logoutUrl = `${baseUrl}/auth/logout`;
 // ******** Students APIs ********
 export const  getAllStudentsUrl = `${baseUrl}/student`;
 export const  deleteStudentUrl = `${baseUrl}/student`;
+export const  quizDetailsUrl = `${baseUrl}/quiz`;
+export const UpdateQuizessUrl =`${baseUrl}/quiz`; //with id
 export const questionsWithoutAnswers =`${baseUrl}/quiz/without-answers`
 // export const questionsWithoutAnswers =`${baseUrl}/quiz/without-answers/65cf3f748f25f1b30030c90b`
-
-
-
-
-
-
-
 // ******** Quizzes APIs ********
 export const  quizzesUrl = `${baseUrl}/quiz`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ******** Questions API ********
 export const  getAllQuestionsUrl = `${baseUrl}/question`;
 // ******** Update Questions API ********
 export const updateQuestionUrl =`${baseUrl}/question`; //with id
 export const QuestionUrl =`${baseUrl}/question`; //with id
-
-
-
-
-
-
-
-
-
 
 // ******** Group Url ********
 export const allGroupUrl = `${baseUrl}/group`;
