@@ -145,7 +145,7 @@ const ChangePassword = () => {
               type="submit"
               className="flex items-center justify-center w-40 bg-white text-slate-950 hover:bg-white p-2 mt-6 font-semibold rounded-md"
             >
-              Send
+              Change Password
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

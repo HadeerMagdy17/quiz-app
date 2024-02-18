@@ -11,7 +11,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const { isRegister } = useSelector((state) => state.register);
   const navigate = useNavigate();
-  
+
   const {
     register,
     handleSubmit,
@@ -23,8 +23,8 @@ const Register = () => {
     const data = getValues();
     dispatch(registerUser(data));
   };
-  
-  
+
+
   useEffect(() => {
     console.log("isRegister:", isRegister);
     if (isRegister) {
@@ -224,7 +224,7 @@ const Register = () => {
               id="groupType"
               defaultValue=""
               {...register("role", {
-                required: true,             
+                required: true,
               })}
             >
               <option value="" disabled>
@@ -297,7 +297,7 @@ const Register = () => {
               type="submit"
               className="flex items-center justify-center w-40 bg-white text-slate-950 hover:bg-white p-2 mt-6 font-semibold rounded-md"
             >
-              Sign In
+              Sign Up
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
