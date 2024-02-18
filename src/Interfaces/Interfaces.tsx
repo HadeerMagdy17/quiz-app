@@ -11,6 +11,8 @@ export interface CustomLeftCardProps {
   export interface CustomRightCardProps{
     name: string;
     classRank: string;
+    status:string;
+    email:string;
     score: number;
     image: string;
   }
@@ -21,6 +23,8 @@ export interface CustomLeftCardProps {
   personsNo:string,
   participants:string,
   date:number
+  schadule:string
+  status:string
   }
 
 

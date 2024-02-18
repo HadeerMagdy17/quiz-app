@@ -6,7 +6,7 @@ import Modal from '../../../Shared/Modal/Modal';
 import { ArrowCircleRightIcon, ArrowRightIcon, ClockIcon } from "@heroicons/react/solid";
 import newQuiz from '../../../assets/images/new quiz icon.png';
 import questionBank from '../../../assets/images/Vault icon.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuizzesData } from '../../../Redux/Features/Instructor/Quizzes/getQuizzesSlice';
 import { fetchCreateQuizz } from '../../../Redux/Features/Instructor/Quizzes/createQuizzesSlice';
@@ -20,7 +20,8 @@ import { TrashIcon } from '@heroicons/react/solid';
 import { fetchIncommingQuizzes } from '../../../Redux/Features/Instructor/Quizzes/incommingQuizSlice';
 import { fetchcompletedQuizzes } from '../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice';
 import { ClipboardListIcon } from '@heroicons/react/outline';
-
+import Table from '../../../Shared/CustomComponents/Table/Table';
+// import { Link } from 'react-router-dom';
 
 
 const Quizzes = () => {
@@ -74,6 +75,7 @@ const Quizzes = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('add'); // 'add' or 'update'
   const [quizId, setQuizId] = useState(0);
+  // const { quizzId } = useParams();
 
 
   //Modal --- Add Questions
@@ -121,7 +123,16 @@ const Quizzes = () => {
     time: "09:00 AM",
     enrolledStudents: 32,
     image: imagCard,
+
   };
+
+  const navigate = useNavigate();
+  const navigateToDetails = (quizId) => {
+    navigate(`/dashboard/quizzes/quiz-details/${quizId}`);
+
+    console.log("Navigate to  details with ID:", quizId);
+  };
+
 
 
   return (
@@ -190,9 +201,12 @@ const Quizzes = () => {
                         >
                           <TrashIcon className="h-6 w-6 text-yellow-500 ml-2 " onClick={() => openDeleteModal(question)} />
                         </button>
-                        <button>
-                          <ArrowCircleRightIcon className="h-6 w-6 text-green-800 ml-2" />
-                        </button>
+                        {/* <Link to={`/dashboard/quizzes/quiz-details/${quiz._id}`}> */}
+                          <button  onClick={() => navigateToDetails(quiz._id)}>
+                            <ArrowCircleRightIcon className="h-6 w-6 text-green-800 ml-2" />
+                          </button>
+                        {/* </Link> */}
+
                       </div>
                     </div>
                   </div>
@@ -232,14 +246,26 @@ const Quizzes = () => {
           </div>
           {/* Right table */}
           <div
+
           // className={style["left"]}
+
           >
             <div
             // className={style["details"]}
             >
               <h2 className="font-medium">Completed quizzes</h2>
+              <Table
+                data={completequiz.map((quiz) => ({
+                  title: quiz.title,
+                  status: quiz.status,
+                  schadule: quiz.schadule,
+                  participants: quiz.participants,
+                }))}
+              />
             </div>
+
             <div className="overflow-x-auto mt-4">
+
               <table
                 style={{ width: '500px' }} className="w-full text-sm border-separate table-fixed border">
                 <thead>
@@ -261,7 +287,9 @@ const Quizzes = () => {
                   ))}
                 </tbody>
               </table>
+
             </div>
+
           </div>
         </div>
       </div>

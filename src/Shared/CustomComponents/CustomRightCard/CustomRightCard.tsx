@@ -4,6 +4,8 @@ import styles from "./CustomRightCard.module.css";
 const CustomRightCard: React.FC<CustomRightCardProps> = ({
   name,
   classRank,
+  status,
+  email,
   score,
   image,
 }) => {
@@ -17,8 +19,8 @@ const CustomRightCard: React.FC<CustomRightCardProps> = ({
         <div className={styles["card-details"]}>
           <div className="text pl-4">
             <h3 className="font-medium pb-2">{name}</h3>
-            <span className="pr-2 border-r-2 ">{classRank}</span>
-            <span className="pl-2">{score}</span>
+            <span className="pr-2 border-r-2 ">{status}</span>
+            <span className="pl-2">{email}</span>
           </div>
           <div className="icon-right  ml-14">
             <i className={`${styles["opan-icon"]}`}>

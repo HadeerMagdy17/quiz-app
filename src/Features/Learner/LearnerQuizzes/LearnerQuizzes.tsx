@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomLeftCard from "../../../Shared/CustomComponents/CustomLeftCard/CustomLeftCard";
 import Table from "../../../Shared/CustomComponents/Table/Table";
 import imagCard from "../../../assets/images/Quiz img.png";
 import newQuiz from "../../../assets/images/new quiz icon.png";
 import styles from "./LearnerQuizes.module.css";
 import CustomModal from './../../../Shared/CustomModal/CustomModal';
+import { fetchIncommingQuizzes } from "../../../Redux/Features/Instructor/Quizzes/incommingQuizSlice";
+import { fetchcompletedQuizzes } from "../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const LearnerQuizzes = () => {
+  const dispatch = useDispatch();
+
+  const { data: incommingquiz } = useSelector((state) => state.incommingQuizData) || {};
+  const { data: completequiz } = useSelector((state) => state.completedQuizData) || {};
+  console.log(completequiz);
+
+  useEffect(() => {
+    // dispatch(fetchQuizzesData());
+    dispatch(fetchIncommingQuizzes());
+    dispatch(fetchcompletedQuizzes());
+
+
+
+  }, [dispatch]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -56,7 +73,7 @@ const LearnerQuizzes = () => {
                 <h2 className="font-medium">Upcoming quizzes</h2>
               </div>
 
-              <CustomLeftCard
+              {/* <CustomLeftCard
                 title={data1.title}
                 date={data1.date}
                 time={data1.time}
@@ -69,7 +86,21 @@ const LearnerQuizzes = () => {
                 time={data1.time}
                 enrolledStudents={data1.enrolledStudents}
                 image={data1.image}
-              />
+              /> */}
+                {incommingquiz.map((quiz) => (
+            <CustomLeftCard
+              key={quiz._id}
+              title={quiz.title}
+              date={quiz.schadule}
+              time={quiz.duration}
+              enrolledStudents={quiz.participants}
+              // image={quiz.image}
+              image={data1.image}
+              customWidth="500px"
+
+
+            />
+          ))}
             </div>
 
             {/*  upcoming quizes   */}
@@ -77,13 +108,16 @@ const LearnerQuizzes = () => {
             <div className={styles["right"]}>
               <div className="flex flex-col">
                 <h2 className="font-medium mb-3">Completed quizzes</h2>
+                {/* {completequiz.map((quiz) => ( */}
                 <Table
-                  title={data.title}
-                  name={data.name}
-                  personsNo={data.personsNo}
-                  participants={data.participants}
-                  date={data.date}
-                />
+                data={completequiz.map((quiz) => ({
+                  title: quiz.title,
+                  status: quiz.status,
+                  schadule: quiz.schadule,
+                  participants: quiz.participants,
+                }))}
+              />
+                {/* ))} */}
               </div>
             </div>
             {/* // right table */}
@@ -93,12 +127,12 @@ const LearnerQuizzes = () => {
           <CustomModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
-            onButtonClick={handleButtonClick} 
+            onButtonClick={handleButtonClick}
             buttonLabel="Join"
             width="100%"
             height="350px"
           >
-            
+
             <div
               style={{ width: "410px" }}
               className=" bg-orange-200 bg-opacity-100 p-4 flex items-center justify-center"
@@ -117,7 +151,7 @@ const LearnerQuizzes = () => {
                 placeholder="Enter Code"
               />
             </div>
-         
+
           </CustomModal>
         </div>
         {/* //custom modal */}
