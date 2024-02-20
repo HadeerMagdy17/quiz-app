@@ -35,6 +35,8 @@ export const joinQuiz = createAsyncThunk(
 const initialState = {
   creating: false,
   error: null,
+  responseData: null, // Add this property if you need to store the response data
+
 };
 
 const joinMyQuizSlice = createSlice({

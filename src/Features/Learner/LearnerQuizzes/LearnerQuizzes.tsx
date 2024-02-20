@@ -9,18 +9,19 @@ import { fetchIncommingQuizzes } from "../../../Redux/Features/Instructor/Quizze
 import { fetchcompletedQuizzes } from "../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import joinQuiz from "../../../Redux/Features/Learner/joinQuiz";
+// import joinQuiz from "../../../Redux/Features/Learner/joinQuiz";
 import { useForm } from "react-hook-form";
 import SharedModal from "../../../Shared/SharedModal/SharedModal";
+import { joinQuiz } from './../../../Redux/Features/Learner/joinQuiz';
 
 const LearnerQuizzes = () => {
-     // ******* Modals***********
-     const [isModalOpen, setIsModalOpen] = useState(false);
-     const [modalType, setModalType] = useState('add'); // 'add' or 'update'
-       // Close
-    const closeModal = () => {
-      setIsModalOpen(false);
-      setModalType('add'); // Reset modal type to 'add' when closing
+  // ******* Modals***********
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('add'); // 'add' or 'update'
+  // Close
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalType('add'); // Reset modal type to 'add' when closing
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,6 +60,20 @@ const LearnerQuizzes = () => {
       console.error("Error adding code:", error);
     }
   };
+  // const handleSubmitcodetoJoinQuiz = async (code) => {
+  //   try {
+  //     console.log("quiz code:", code);
+
+  //     const response = await dispatch(joinQuiz(code));
+  //     const quizId = response.data._id; // Assuming your response has the quiz ID
+  //     navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`); // Include the quiz ID in the URL
+  //     console.log("navigate:", quizId);// Pass the quiz ID as a parameter
+  //     console.log("navigate:", code);
+  //   } catch (error) {
+  //     console.error("Error adding code:", error);
+  //   }
+  // };
+
 
   useEffect(() => {
     // dispatch(fetchQuizzesData());
@@ -181,7 +196,7 @@ const LearnerQuizzes = () => {
                 <h1 className="text-2xl font-bold ">Join Quiz</h1>
               </div>
 
-             
+
               <div className="mb-4">
                 <p className="mb-2">
                   Input the code received for the quiz below to join
@@ -198,20 +213,20 @@ const LearnerQuizzes = () => {
             </CustomModal> */}
           </div>
           {/* //custom modal */}
-           {/* add code Modal */}
+          {/* add code Modal */}
 
-           {isModalOpen && modalType === 'add' && (
-                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleSubmitcodetoJoinQuiz)} onHide={closeModal}>
+          {isModalOpen && modalType === 'add' && (
+            <SharedModal closeModal={closeModal} onSave={handleSubmit(handleSubmitcodetoJoinQuiz)} onHide={closeModal}>
 
-                    <div className="mb-4 text-center">
-                        {/* <img src={updateImg} width={100} alt="Update Image" className="mx-auto" /> */}
-                        <label className="block text-gray-700 font-bold mb-2">code</label>
-                        <input {...register("code", { required: "code is required" })} type="text" id="correctcode" className="w-full border p-2 rounded
+              <div className="mb-4 text-center">
+                {/* <img src={updateImg} width={100} alt="Update Image" className="mx-auto" /> */}
+                <label className="block text-gray-700 font-bold mb-2">code</label>
+                <input {...register("code", { required: "code is required" })} type="text" id="correctcode" className="w-full border p-2 rounded
                              focus:outline-none focus:border-blue-500"/>
-                        {errors.code && <p className="text-red-500">{errors.code.message}</p>}
-                    </div>
-                </SharedModal>
-            )}
+                {errors.code && <p className="text-red-500">{errors.code.message}</p>}
+              </div>
+            </SharedModal>
+          )}
         </div>
       </div>
     </div>

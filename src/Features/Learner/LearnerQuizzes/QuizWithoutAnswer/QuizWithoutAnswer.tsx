@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestionsWithoutAnswers } from "../../../../Redux/Features/Learner/QuestionsWithoutAnswerSlice";
 import joinQuiz from "../../../../Redux/Features/Learner/joinQuiz";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const QuizWithoutAnswer = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const { quizId } = useParams();
+
   // const { data, loading, error } = useSelector((state) => state.joinQuizData) || {};
 
   const {
@@ -21,9 +23,12 @@ const QuizWithoutAnswer = () => {
   console.log(quiz?.title);
 
 
+  // useEffect(() => {
+  //   dispatch(fetchQuestionsWithoutAnswers(quizId));
+  // }, [dispatch, quizId]);
 
   useEffect(() => {
-    dispatch(fetchQuestionsWithoutAnswers("65d4bda8ef9b2594e36846a5"));
+    dispatch(fetchQuestionsWithoutAnswers());
   }, [dispatch]);
 
   //   const handleAnswerSelect = (questionId, selectedAnswer) => {

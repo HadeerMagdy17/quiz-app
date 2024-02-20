@@ -19,8 +19,6 @@ export const fetchIncommingQuizzes = createAsyncThunk<any, void>(
 
 
       });
-      console.log(requestHeaders);
-      console.log(data);
       return data.data;
 
 
