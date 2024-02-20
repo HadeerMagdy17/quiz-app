@@ -4,27 +4,68 @@ import Table from "../../../Shared/CustomComponents/Table/Table";
 import imagCard from "../../../assets/images/Quiz img.png";
 import newQuiz from "../../../assets/images/new quiz icon.png";
 import styles from "./LearnerQuizes.module.css";
-import CustomModal from './../../../Shared/CustomModal/CustomModal';
+import CustomModal from "./../../../Shared/CustomModal/CustomModal";
 import { fetchIncommingQuizzes } from "../../../Redux/Features/Instructor/Quizzes/incommingQuizSlice";
 import { fetchcompletedQuizzes } from "../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import joinQuiz from "../../../Redux/Features/Learner/joinQuiz";
+import { useForm } from "react-hook-form";
+import SharedModal from "../../../Shared/SharedModal/SharedModal";
 
 const LearnerQuizzes = () => {
+     // ******* Modals***********
+     const [isModalOpen, setIsModalOpen] = useState(false);
+     const [modalType, setModalType] = useState('add'); // 'add' or 'update'
+       // Close
+    const closeModal = () => {
+      setIsModalOpen(false);
+      setModalType('add'); // Reset modal type to 'add' when closing
+  };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { data, loading, error } = useSelector((state) => state.joinQuizData) || {};
 
-  const { data: incommingquiz } = useSelector((state) => state.incommingQuizData) || {};
-  const { data: completequiz } = useSelector((state) => state.completedQuizData) || {};
-  console.log(completequiz);
+  const { data: incommingquiz } =
+    useSelector((state) => state.incommingQuizData) || {};
+  const { data: completequiz } =
+    useSelector((state) => state.completedQuizData) || {};
+  // console.log(completequiz);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = useForm();
+  // Add code
+  // const handleSubmitcodetoJoinQuiz = async (code) => {
+  //   try {
+  //     await dispatch(joinQuiz(code));
+  //     navigate("/quizwithoutans");
+  //   } catch (error) {
+  //     console.error("Error creating question:", error);
+  //   }
+  // };
+
+  const handleSubmitcodetoJoinQuiz = async (code) => {
+    try {
+      console.log("quiz code:", code);
+
+      await dispatch(joinQuiz(code));
+      navigate("/dashboard/learnerquiz/quizwithoutans");
+      console.log("navigate:", code);
+    } catch (error) {
+      console.error("Error adding code:", error);
+    }
+  };
 
   useEffect(() => {
     // dispatch(fetchQuizzesData());
     dispatch(fetchIncommingQuizzes());
     dispatch(fetchcompletedQuizzes());
-
-
-
   }, [dispatch]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -87,20 +128,18 @@ const LearnerQuizzes = () => {
                 enrolledStudents={data1.enrolledStudents}
                 image={data1.image}
               /> */}
-                {incommingquiz.map((quiz) => (
-            <CustomLeftCard
-              key={quiz._id}
-              title={quiz.title}
-              date={quiz.schadule}
-              time={quiz.duration}
-              enrolledStudents={quiz.participants}
-              // image={quiz.image}
-              image={data1.image}
-              customWidth="500px"
-
-
-            />
-          ))}
+              {incommingquiz.map((quiz) => (
+                <CustomLeftCard
+                  key={quiz._id}
+                  title={quiz.title}
+                  date={quiz.schadule}
+                  time={quiz.duration}
+                  enrolledStudents={quiz.participants}
+                  // image={quiz.image}
+                  image={data1.image}
+                  customWidth="500px"
+                />
+              ))}
             </div>
 
             {/*  upcoming quizes   */}
@@ -110,51 +149,69 @@ const LearnerQuizzes = () => {
                 <h2 className="font-medium mb-3">Completed quizzes</h2>
                 {/* {completequiz.map((quiz) => ( */}
                 <Table
-                data={completequiz.map((quiz) => ({
-                  title: quiz.title,
-                  status: quiz.status,
-                  schadule: quiz.schadule,
-                  participants: quiz.participants,
-                }))}
-              />
+                  data={completequiz.map((quiz) => ({
+                    title: quiz.title,
+                    status: quiz.status,
+                    schadule: quiz.schadule,
+                    participants: quiz.participants,
+                  }))}
+                />
                 {/* ))} */}
               </div>
             </div>
             {/* // right table */}
           </div>
-             {/* add custom modal */}
-        <div>
-          <CustomModal
-            isOpen={isModalOpen}
-            onClose={handleCloseModal}
-            onButtonClick={handleButtonClick}
-            buttonLabel="Join"
-            width="100%"
-            height="350px"
-          >
-
-            <div
-              style={{ width: "410px" }}
-              className=" bg-orange-200 bg-opacity-100 p-4 flex items-center justify-center"
+          {/* add custom modal */}
+          <div>
+            {/* <CustomModal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+              // onButtonClick={handleButtonClick}
+              onButtonClick={() =>
+                handleSubmitcodetoJoinQuiz(getValues("code"))
+              }
+              buttonLabel="Join"
+              width="100%"
+              height="350px"
             >
-              <h1 className="text-2xl font-bold ">Join Quiz</h1>
-            </div>
-
-            {/* Text name Field */}
-            <div className="mb-4">
-              <p className="mb-2">Input the code received for the quiz below to join</p>
-              <input
+              <div
                 style={{ width: "410px" }}
-                className="border rounded w-full py-2 px-3"
-                id="code"
-                type="text"
-                placeholder="Enter Code"
-              />
-            </div>
+                className=" bg-orange-200 bg-opacity-100 p-4 flex items-center justify-center"
+              >
+                <h1 className="text-2xl font-bold ">Join Quiz</h1>
+              </div>
 
-          </CustomModal>
-        </div>
-        {/* //custom modal */}
+             
+              <div className="mb-4">
+                <p className="mb-2">
+                  Input the code received for the quiz below to join
+                </p>
+                <input
+                  style={{ width: "410px" }}
+                  className="border rounded w-full py-2 px-3"
+                  id="code"
+                  type="text"
+                  placeholder="Enter Code"
+                  {...register("code", { required: "code is required" })}
+                />
+              </div>
+            </CustomModal> */}
+          </div>
+          {/* //custom modal */}
+           {/* add code Modal */}
+
+           {isModalOpen && modalType === 'add' && (
+                <SharedModal closeModal={closeModal} onSave={handleSubmit(handleSubmitcodetoJoinQuiz)} onHide={closeModal}>
+
+                    <div className="mb-4 text-center">
+                        {/* <img src={updateImg} width={100} alt="Update Image" className="mx-auto" /> */}
+                        <label className="block text-gray-700 font-bold mb-2">code</label>
+                        <input {...register("code", { required: "code is required" })} type="text" id="correctcode" className="w-full border p-2 rounded
+                             focus:outline-none focus:border-blue-500"/>
+                        {errors.code && <p className="text-red-500">{errors.code.message}</p>}
+                    </div>
+                </SharedModal>
+            )}
         </div>
       </div>
     </div>

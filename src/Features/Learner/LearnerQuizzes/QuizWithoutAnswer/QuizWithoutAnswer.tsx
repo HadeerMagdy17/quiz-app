@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestionsWithoutAnswers } from "../../../../Redux/Features/Learner/QuestionsWithoutAnswerSlice";
+import joinQuiz from "../../../../Redux/Features/Learner/joinQuiz";
+import { useNavigate } from "react-router-dom";
 
 const QuizWithoutAnswer = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const { data, loading, error } = useSelector((state) => state.joinQuizData) || {};
 
   const {
     questions: quiz,
@@ -17,8 +20,10 @@ const QuizWithoutAnswer = () => {
   console.log(quiz?.questions);
   console.log(quiz?.title);
 
+
+
   useEffect(() => {
-    dispatch(fetchQuestionsWithoutAnswers("65cf3f748f25f1b30030c90b"));
+    dispatch(fetchQuestionsWithoutAnswers("65d4bda8ef9b2594e36846a5"));
   }, [dispatch]);
 
   //   const handleAnswerSelect = (questionId, selectedAnswer) => {
@@ -40,10 +45,10 @@ const QuizWithoutAnswer = () => {
 
   return (
     <div className="pl-5" style={{ backgroundColor: "#fbfbfb", justifyItems: "center" }}>
-      {quiz?.questions.map((question, index) => (
+      {quiz?.questions && quiz?.questions.map((question, index) => (
         <div key={question._id}>
           <p>
-            {index + 1}.{/* {question?.questions} */}
+            {index + 1}.{question?.title}
           </p>
 
           <form>
