@@ -225,9 +225,10 @@ const LearnerQuizzes = () => {
 
               <div className="mb-4 text-center">
                 {/* <img src={updateImg} width={100} alt="Update Image" className="mx-auto" /> */}
-                <label className="block text-gray-700 font-bold mb-2">code</label>
+                <label className="block text-gray-700 font-bold mb-2">Join Quiz</label>
+                <p className="mb-2">Enter the quiz's code  below to join</p>
                 <input {...register("code", { required: "code is required" })} type="text" id="correctcode" className="w-full border p-2 rounded
-                             focus:outline-none focus:border-blue-500"/>
+                             focus:outline-none focus:border-blue-500" placeholder="Enter quiz code"/>
                 {errors.code && <p className="text-red-500">{errors.code.message}</p>}
               </div>
             </SharedModal>
