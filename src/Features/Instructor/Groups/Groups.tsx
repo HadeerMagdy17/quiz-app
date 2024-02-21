@@ -58,7 +58,6 @@ const Groups: React.FC = () => {
 
   const handleAddGroup = async (data) => {
     try {
-      console.log('Adding group:', data);
 
       if (!Array.isArray(data.students)) {
         throw new Error('Students must be selected');

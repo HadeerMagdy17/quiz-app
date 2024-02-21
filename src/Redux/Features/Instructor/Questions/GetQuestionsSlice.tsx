@@ -19,8 +19,7 @@ export const QuestionsData = createAsyncThunk<any, void>(
 
 
       });
-      console.log(requestHeaders);
-      console.log(data.data);
+
       return data.data;
 
 
@@ -52,7 +51,7 @@ export const GetQuestionsSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
         // state.data = true;
-        console.log(state.data);
+      
 
       }
     );
