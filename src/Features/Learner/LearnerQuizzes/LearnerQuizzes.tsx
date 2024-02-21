@@ -49,17 +49,17 @@ const LearnerQuizzes = () => {
   //   }
   // };
 
-  const handleSubmitcodetoJoinQuiz = async (code) => {
-    try {
-      console.log("quiz code:", code);
+  // const handleSubmitcodetoJoinQuiz = async (code) => {
+  //   try {
+  //     console.log("quiz code:", code);
 
-      await dispatch(joinQuiz(code));
-      navigate("/dashboard/learnerquiz/quizwithoutans");
-      console.log("navigate:", code);
-    } catch (error) {
-      console.error("Error adding code:", error);
-    }
-  };
+  //     await dispatch(joinQuiz(code));
+  //     navigate("/dashboard/learnerquiz/quizwithoutans");
+  //     console.log("navigate:", code);
+  //   } catch (error) {
+  //     console.error("Error adding code:", error);
+  //   }
+  // };
   // const handleSubmitcodetoJoinQuiz = async (code) => {
   //   try {
   //     console.log("quiz code:", code);
@@ -74,6 +74,22 @@ const LearnerQuizzes = () => {
   //   }
   // };
 
+  const handleSubmitcodetoJoinQuiz = async (code) => {
+    try {
+      console.log("quiz code:", code);
+
+      // Assuming your joinQuiz action returns the quizId in the response
+      const response = await dispatch(joinQuiz(code));
+      const quizId = response._id;
+      console.log(quizId);
+       // Adjust this based on your actual response structure
+
+      navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`);
+      console.log("navigate:", quizId);
+    } catch (error) {
+      console.error("Error adding code:", error);
+    }
+  };
 
   useEffect(() => {
     // dispatch(fetchQuizzesData());

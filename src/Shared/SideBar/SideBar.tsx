@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 
 const SideBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const navigate = useNavigate();
 
   // Fetching user role from Redux store

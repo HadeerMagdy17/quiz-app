@@ -9,7 +9,8 @@ const QuizWithoutAnswer = () => {
   const [answers, setAnswers] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { quizId } = useParams();
+  const { quizId } = useParams();
+
 
   // const { data, loading, error } = useSelector((state) => state.joinQuizData) || {};
 
@@ -23,13 +24,13 @@ const QuizWithoutAnswer = () => {
   console.log(quiz?.title);
 
 
-  // useEffect(() => {
-  //   dispatch(fetchQuestionsWithoutAnswers(quizId));
-  // }, [dispatch, quizId]);
-
   useEffect(() => {
-    dispatch(fetchQuestionsWithoutAnswers());
-  }, [dispatch]);
+
+    dispatch(fetchQuestionsWithoutAnswers(quizId));
+  }, [dispatch, quizId]);
+
+
+
 
   //   const handleAnswerSelect = (questionId, selectedAnswer) => {
   //     setAnswers(prevState => ({

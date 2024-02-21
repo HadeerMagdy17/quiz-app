@@ -62,7 +62,7 @@ function App() {
         { path: "quizzes", element: <Quizzes /> },
         { path: "quizzes/quiz-details/:quizzId", element: <QuizzesDetails /> },
         { path: "learnerquiz", element: <LearnerQuizzes /> },
-        { path: "learnerquiz/quizwithoutans", element: <QuizWithoutAnswer /> },
+        { path: "learnerquiz/quizwithoutans/:quizId", element: <QuizWithoutAnswer /> },
       ],
     },
   ]);
