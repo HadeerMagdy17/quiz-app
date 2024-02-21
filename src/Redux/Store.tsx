@@ -12,6 +12,7 @@ import detailsQuestionReducer from './Features/Instructor/Questions/DetailsQuest
 import changePasswordReducer from "./Features/Auth/ChangePasswordSlice";
 import studentsReducer from "./Features/Instructor/Students/GetAllStudentsSlice"
 import questionWithoutAnswersReducer from "./Features/Learner/QuestionsWithoutAnswerSlice"
+import joinMyQuizReducer from "./Features/Learner/joinQuiz"
 // import deleteItemReducer from "./Features/Instructor/Students/DeleteStudentsSlice"; // Import the delete students reducer
 import quizzessReducer from './Features/Instructor/Quizzes/getQuizzesSlice'
 import deleteQuizReducer from './Features/Instructor/Quizzes/deleteQuizzesSlice'
@@ -46,6 +47,7 @@ const store = configureStore({
 
 
     questionWithoutAnswers: questionWithoutAnswersReducer,
+    joinQuizData: joinMyQuizReducer,
     // deleteItem: deleteItemReducer,
     quizDetailsData:quizDetailsReducer,
     quizzesData: quizzessReducer,
