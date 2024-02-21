@@ -15,7 +15,7 @@ export const fetchcompletedQuizzes = createAsyncThunk<any, void>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get(`${completedQuiz}`, {
-        headers: requestHeaders,
+        headers: {Authorization: `Bearer ${localStorage.getItem("authToken")}`},
 
 
       });
@@ -51,7 +51,7 @@ export const completedQuizzesSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
         // state.data = true;
-       
+
 
       }
     );

@@ -17,7 +17,7 @@ export const fetchIncommingStudent = createAsyncThunk<any, void>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get(`${incommingStudent}`, {
-        headers: requestHeaders,
+        headers: {Authorization: `Bearer ${localStorage.getItem("authToken")}`},
 
 
       });

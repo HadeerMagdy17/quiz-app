@@ -52,7 +52,7 @@ export const GroupsSlice = createSlice({
     );
     builder.addCase(fetchGroups.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message|| "An error occurred";
+      state.error = action.error.message || "An error occurred";
     });
   },
 });
@@ -63,7 +63,7 @@ export const fetchGroups = createAsyncThunk<Group[]>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get<Group[]>(`${allGroupUrl}`, {
-        headers: requestHeaders,
+        headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
       });
       // console.log(requestHeaders);
       // console.log(data.data);

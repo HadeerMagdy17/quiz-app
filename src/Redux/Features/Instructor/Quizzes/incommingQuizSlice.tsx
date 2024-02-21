@@ -15,11 +15,11 @@ export const fetchIncommingQuizzes = createAsyncThunk<any, void>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get(`${incommingQuiz}`, {
-        headers: requestHeaders,
+        headers: {Authorization: `Bearer ${localStorage.getItem("authToken")}`},
 
 
       });
-    
+
       return data.data;
 
 

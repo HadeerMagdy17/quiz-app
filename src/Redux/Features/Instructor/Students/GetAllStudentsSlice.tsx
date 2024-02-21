@@ -35,7 +35,7 @@ export const fetchStudents = createAsyncThunk<Student[]>(
   "students/fetchStudents",
   async () => {
     const response = await axios.get<Student[]>(`${getAllStudentsUrl}`,{
-      headers: requestHeaders,
+      headers: {Authorization: `Bearer ${localStorage.getItem("authToken")}`},
     });
     return response.data;
   }
