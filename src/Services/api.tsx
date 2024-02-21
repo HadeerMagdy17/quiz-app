@@ -6,6 +6,8 @@ export const requestHeaders = {
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
 
   };
+  
+
 
 // ******** Login ********
 export const loginUrl = `${baseUrl}/auth/login`;

@@ -15,12 +15,11 @@ export const QuestionsData = createAsyncThunk<any, void>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get(`${getAllQuestionsUrl}`, {
-        headers: requestHeaders,
+        headers: {Authorization: `Bearer ${localStorage.getItem("authToken")}`},
 
 
       });
-      console.log(requestHeaders);
-      console.log(data.data);
+
       return data.data;
 
 
@@ -52,7 +51,7 @@ export const GetQuestionsSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
         // state.data = true;
-        console.log(state.data);
+
 
       }
     );

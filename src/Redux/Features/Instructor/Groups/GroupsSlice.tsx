@@ -15,7 +15,7 @@ export interface Group {
   status: string;
   instructor: string;
   students?: [
-    _id: string, 
+    _id: string,
   ];
   max_students: 25;
 }
@@ -33,7 +33,7 @@ export const GroupsSlice = createSlice({
   name: "GroupsData",
   initialState,
   reducers: {
-    
+
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGroups.pending, (state) => {
@@ -45,14 +45,14 @@ export const GroupsSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
         // state.data = true;
-        console.log(state.data);
+        // console.log(state.data);
         state.error = null;
 
       }
     );
     builder.addCase(fetchGroups.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message|| "An error occurred";
+      state.error = action.error.message || "An error occurred";
     });
   },
 });
@@ -63,10 +63,10 @@ export const fetchGroups = createAsyncThunk<Group[]>(
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await axios.get<Group[]>(`${allGroupUrl}`, {
-        headers: requestHeaders,
+        headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
       });
-      console.log(requestHeaders);
-      console.log(data.data);
+      // console.log(requestHeaders);
+      // console.log(data.data);
       return data.data;
 
 

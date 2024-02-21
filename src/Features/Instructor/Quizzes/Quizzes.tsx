@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import imagCard from '../../../assets/images/computer.jpg';
 import style from './Quizzes.module.css';
 import CustomLeftCard from '../../../Shared/CustomComponents/CustomLeftCard/CustomLeftCard';
-import Modal from '../../../Shared/Modal/Modal';
-import { ArrowCircleRightIcon, ArrowRightIcon, ClockIcon } from "@heroicons/react/solid";
+import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import newQuiz from '../../../assets/images/new quiz icon.png';
 import questionBank from '../../../assets/images/Vault icon.png';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuizzesData } from '../../../Redux/Features/Instructor/Quizzes/getQuizzesSlice';
 import { fetchCreateQuizz } from '../../../Redux/Features/Instructor/Quizzes/createQuizzesSlice';
 import SharedModal from '../../../Shared/SharedModal/SharedModal';
 import { useForm } from 'react-hook-form';
 import { fetchGroups } from '../../../Redux/Features/Instructor/Groups/GroupsSlice';
-import quizImg from '../../../assets/images/quizImg.png'
 import { fetchDeleteQuiz } from '../../../Redux/Features/Instructor/Quizzes/deleteQuizzesSlice';
 import deleteImg from '../../../assets/images/QuestionDeleteIcon.svg'
+import codeImg from '../../../assets/images/codeImg.png'
 import { TrashIcon } from '@heroicons/react/solid';
 import { fetchIncommingQuizzes } from '../../../Redux/Features/Instructor/Quizzes/incommingQuizSlice';
 import { fetchcompletedQuizzes } from '../../../Redux/Features/Instructor/Quizzes/completedQuizzesSlice';
-import { ClipboardListIcon } from '@heroicons/react/outline';
+import { ClipboardCopyIcon, ClipboardListIcon } from '@heroicons/react/outline';
 import Table from '../../../Shared/CustomComponents/Table/Table';
+import { toast } from 'react-toastify';
 // import { Link } from 'react-router-dom';
 
 
@@ -29,53 +29,50 @@ const Quizzes = () => {
   const dispatch = useDispatch();
   const durationOptions = [10, 15, 30, 45, 60, 90, 120]; // Add more values as needed
 
+  // Selector
   const { data: quiz, loading, error } = useSelector((state) => state.quizzesData) || {};
   const { data: incommingquiz } = useSelector((state) => state.incommingQuizData) || {};
   const { data: completequiz } = useSelector((state) => state.completedQuizData) || {};
-  console.log(completequiz);
-
-  useEffect(() => {
-    dispatch(fetchQuizzesData());
-    dispatch(fetchIncommingQuizzes());
-    dispatch(fetchcompletedQuizzes());
 
 
 
-  }, [dispatch]);
   // Groups
   const groups = useSelector((state) => state.groupsSlice.data); // Assuming your slice is named GroupsData
   const questionNumbers = Array.from({ length: 10 }, (_, index) => index + 1); // Create an array from 1 to 10
   const scorePerQuestion = Array.from({ length: 10 }, (_, index) => index + 1); // Create an array from 1 to 10
 
   // Fetch groups on component mount
-  useEffect(() => {
-    dispatch(fetchGroups());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchGroups());
+  // }, [dispatch]);
   // Add Quizz
 
-  const handleCreateQuiz = (formData) => {
-    const newQuizzData = {
-      title: formData.title,
-      description: formData.description,
-      group: formData.group,
-      questions_number: formData.questions_number,
-      difficulty: formData.difficulty,
-      type: formData.type,
-      schadule: formData.schadule,
-      duration: formData.duration,
-      score_per_question: formData.score_per_question,
-    };
+  // const handleCreateQuiz = (formData) => {
+  //   const newQuizzData = {
+  //     title: formData.title,
+  //     description: formData.description,
+  //     group: formData.group,
+  //     questions_number: formData.questions_number,
+  //     difficulty: formData.difficulty,
+  //     type: formData.type,
+  //     schadule: formData.schadule,
+  //     duration: formData.duration,
+  //     score_per_question: formData.score_per_question,
+  //   };
 
-    // Dispatch the fetchCreateQuizz action
-    dispatch(fetchCreateQuizz(newQuizzData));
+  //   // Dispatch the fetchCreateQuizz action
+  //   dispatch(fetchCreateQuizz(newQuizzData));
 
-    dispatch(fetchQuizzesData());
-  };
+  //   dispatch(fetchQuizzesData());
+  // };
   // ******* Modals***********
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('add'); // 'add' or 'update'
   const [quizId, setQuizId] = useState(0);
-  // const { quizzId } = useParams();
+  const [selectedQuizCode, setSelectedQuizCode] = useState('');
+  const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
+  const [createdQuizCode, setCreatedQuizCode] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
 
 
   //Modal --- Add Questions
@@ -98,9 +95,50 @@ const Quizzes = () => {
       console.error('Question ID is undefined:', quiz);
     }
   };
-  // Delete Question
+
+  //Function  Add Quizz
+  const handleCreateQuiz = (formData) => {
+    const newQuizzData = {
+      title: formData.title,
+      description: formData.description,
+      group: formData.group,
+      questions_number: formData.questions_number,
+      difficulty: formData.difficulty,
+      type: formData.type,
+      schadule: formData.schadule,
+      duration: formData.duration,
+      score_per_question: formData.score_per_question,
+    };
+
+    // Dispatch the fetchCreateQuizz action
+    dispatch(fetchCreateQuizz(newQuizzData))
+      .then((response) => {
+        // Successfully created quiz
+        const createdQuiz = response.payload.data;
+        console.log(createdQuiz);
+        setCreatedQuizCode(createdQuiz.code);
+        closeModal();
+        setIsCodeModalOpen(true);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error creating quiz:", error);
+      });
+  };
+
+  // Function to handle copy action
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(createdQuizCode);
+      setCopySuccess(true);
+      toast.success("Code copied success")
+    } catch (error) {
+      console.error('Error copying code to clipboard:', error);
+    }
+  };
+  // Function Delete Question
   const handleDeleteQuestion = async (quiz) => {
-    console.log("Question object:", quiz);
+    // console.log("Question object:", quiz);
     try {
       await dispatch(fetchDeleteQuiz(quizId));
       // Optionally, you can handle success here
@@ -118,26 +156,27 @@ const Quizzes = () => {
 
 
   const data1 = {
-    title: "Cours 1",
-    date: "12 / 03 / 2023",
-    time: "09:00 AM",
-    enrolledStudents: 32,
     image: imagCard,
-
   };
 
   const navigate = useNavigate();
   const navigateToDetails = (quizId) => {
     navigate(`/dashboard/quizzes/quiz-details/${quizId}`);
 
-    console.log("Navigate to  details with ID:", quizId);
+    // console.log("Navigate to  details with ID:", quizId);
   };
 
-
+  useEffect(() => {
+    dispatch(fetchQuizzesData());
+    dispatch(fetchIncommingQuizzes());
+    dispatch(fetchcompletedQuizzes());
+    dispatch(fetchGroups());
+  }, [dispatch]);
 
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
+
         {/* Left side */}
         <div className="col-span-1">
           {/* First card (25%) */}
@@ -173,17 +212,6 @@ const Quizzes = () => {
                 <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
                   <div className="p-4">
                     <div className="flex justify-between items-center">
-                      {/* <img
-
-                        src={quizImg}
-                        alt="Student Image"
-                        className="w-10 h-10"
-                        style={{
-                          backgroundColor: "#FFEDDF",
-                          borderRadius: "10px",
-                          width:'80px'
-                        }}
-                      /> */}
                       <ClipboardListIcon className="h-8 w-8 text-black"
                         style={{
                           backgroundColor: "#FFEDDF",
@@ -192,7 +220,6 @@ const Quizzes = () => {
                         }} />
                       <div className="flex space-x-4">
                         <p className="text-lg font-semibold">{`${quiz.title}`}</p>
-                        <p className="text-lg font-semibold">Code:{`${quiz.code}`}</p>
                       </div>
                       <div className="flex space-x-2">
                         <button
@@ -202,9 +229,9 @@ const Quizzes = () => {
                           <TrashIcon className="h-6 w-6 text-yellow-500 ml-2 " onClick={() => openDeleteModal(question)} />
                         </button>
                         {/* <Link to={`/dashboard/quizzes/quiz-details/${quiz._id}`}> */}
-                          <button  onClick={() => navigateToDetails(quiz._id)}>
-                            <ArrowCircleRightIcon className="h-6 w-6 text-green-800 ml-2" />
-                          </button>
+                        <button onClick={() => navigateToDetails(quiz._id)}>
+                          <ArrowCircleRightIcon className="h-6 w-6 text-[#C5D86D] ml-2" />
+                        </button>
                         {/* </Link> */}
 
                       </div>
@@ -326,9 +353,9 @@ const Quizzes = () => {
                   id="duration"
                   {...register('duration', { required: "duration is required" })}
                   className="mt-1 p-2 w-full border rounded-md"
-                  // className="block w-full py-2.5 px-4 text-sm font-medium  dark:text-black bg-white dark:bg-orange-100
-                  // border border-gray-300  rounded-lg
-                  //   focus:outline-none"
+                // className="block w-full py-2.5 px-4 text-sm font-medium  dark:text-black bg-white dark:bg-orange-100
+                // border border-gray-300  rounded-lg
+                //   focus:outline-none"
                 >
                   {durationOptions.map((value) => (
                     <option key={value} value={value}>
@@ -450,6 +477,53 @@ const Quizzes = () => {
           <div className="mb-4 text-center">
             <img src={deleteImg} width={100} alt="Update Image" className="mx-auto" />
             <p>Are you sure to delete this ?</p>
+          </div>
+        </SharedModal>
+      )}
+      {/*
+      {isModalOpen && modalType === 'code' && (
+        <SharedModal closeModal={closeModal} onSave={handleSubmit()} onHide={closeModal}>
+          <div className="mb-4 text-center">
+            <img src={deleteImg} width={100} alt="Update Image" className="mx-auto" />
+            <div className="mb-4">
+              <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex space-x-4">
+                      <p className="text-lg font-semibold">Code: {selectedQuizCode}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SharedModal>
+      )} */}
+
+      {isCodeModalOpen && (
+        <SharedModal closeModal={() => setIsCodeModalOpen(false)}  onHide={() => setIsCodeModalOpen(false)}>
+          <div className="mb-4 text-center">
+            <img src={codeImg} width={100} alt="Update Image" className="mx-auto" />
+            <p>Quiz was successfully created</p>
+            <div className="mb-4">
+              <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex space-x-4">
+
+                      <p className="text-lg font-semibold">{createdQuizCode}</p>
+                      <button
+                        onClick={handleCopyCode}
+                        className="cursor-pointer"
+                      >
+                        <ClipboardCopyIcon className="h-6 w-6 text-yellow-500 ml-56" />
+                      </button>
+                    </div>
+                    {copySuccess && <p className="text-green-500">Copied!</p>}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </SharedModal>
       )}

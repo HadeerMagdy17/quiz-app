@@ -33,7 +33,6 @@ const loginUser = createAsyncThunk(
             localStorage.setItem("userRole", response?.data?.data?.profile.role);
             localStorage.setItem("authToken", response?.data?.data?.accessToken);
             localStorage.setItem("userId", response?.data?.data?.profile?._id);
-            console.log("response", response);
 
             toast.success(response.data.message, {
                 autoClose: 2000,
