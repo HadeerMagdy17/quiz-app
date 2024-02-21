@@ -11,7 +11,7 @@ export const joinQuiz = createAsyncThunk(
     // eslint-disable-next-line no-useless-catch
     try {
       const response = await axios.post(joinQuizUrl, code,{
-        headers: requestHeaders,
+        headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
       });
       toast.success(response.data.message, {
         autoClose: 2000,

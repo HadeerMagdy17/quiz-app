@@ -13,9 +13,9 @@ const initialState = {
 export const fetchQuestionsWithoutAnswers = createAsyncThunk(
   "questionsWithoutAnswers/fetchQuestions",
   async (quizId) => {
-    const response = await axios.get(`${questionsWithoutAnswers}/${quizId}`,{
-        headers: requestHeaders,
-      });
+    const response = await axios.get(`${questionsWithoutAnswers}/${quizId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
+    });
     return response.data.data;
   }
 );
