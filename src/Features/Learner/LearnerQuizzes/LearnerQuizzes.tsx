@@ -60,19 +60,7 @@ const LearnerQuizzes = () => {
   //     console.error("Error adding code:", error);
   //   }
   // };
-  // const handleSubmitcodetoJoinQuiz = async (code) => {
-  //   try {
-  //     console.log("quiz code:", code);
 
-  //     const response = await dispatch(joinQuiz(code));
-  //     const quizId = response.data._id; // Assuming your response has the quiz ID
-  //     navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`); // Include the quiz ID in the URL
-  //     console.log("navigate:", quizId);// Pass the quiz ID as a parameter
-  //     console.log("navigate:", code);
-  //   } catch (error) {
-  //     console.error("Error adding code:", error);
-  //   }
-  // };
 
   const handleSubmitcodetoJoinQuiz = async (code) => {
     try {
@@ -80,7 +68,8 @@ const LearnerQuizzes = () => {
 
       // Assuming your joinQuiz action returns the quizId in the response
       const response = await dispatch(joinQuiz(code));
-      const quizId = response._id;
+      // const quizId = response._id;
+      const quizId = response.data._id;
       console.log(quizId);
        // Adjust this based on your actual response structure
 
