@@ -16,6 +16,8 @@ export const fetchQuestionsWithoutAnswers = createAsyncThunk(
     const response = await axios.get(`${questionsWithoutAnswers}/${quizId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
     });
+    console.log(response);
+    
     return response.data.data;
   }
 );

@@ -68,11 +68,8 @@ const LearnerQuizzes = () => {
 
       // Assuming your joinQuiz action returns the quizId in the response
       const response = await dispatch(joinQuiz(code));
-      // const quizId = response._id;
-      const quizId = response.data._id;
-      console.log(quizId);
-       // Adjust this based on your actual response structure
-
+      const quizId = response?.payload?.quiz;
+      console.log(response);
       navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`);
       console.log("navigate:", quizId);
     } catch (error) {
