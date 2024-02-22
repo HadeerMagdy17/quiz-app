@@ -57,3 +57,8 @@ export const incommingQuiz = `${baseUrl}/quiz/incomming`
 export const completedQuiz = `${baseUrl}/quiz/completed`
 
 export const incommingStudent = `${baseUrl}/student/top-five`
+// *************submit quiz************
+export const submitQuizUrl = `${baseUrl}/quiz/submit`
+
+
+

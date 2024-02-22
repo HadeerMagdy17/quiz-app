@@ -39,39 +39,26 @@ const LearnerQuizzes = () => {
     setValue,
     getValues,
   } = useForm();
-  // Add code
-  // const handleSubmitcodetoJoinQuiz = async (code) => {
-  //   try {
-  //     await dispatch(joinQuiz(code));
-  //     navigate("/quizwithoutans");
-  //   } catch (error) {
-  //     console.error("Error creating question:", error);
-  //   }
-  // };
-
-  // const handleSubmitcodetoJoinQuiz = async (code) => {
-  //   try {
-  //     console.log("quiz code:", code);
-
-  //     await dispatch(joinQuiz(code));
-  //     navigate("/dashboard/learnerquiz/quizwithoutans");
-  //     console.log("navigate:", code);
-  //   } catch (error) {
-  //     console.error("Error adding code:", error);
-  //   }
-  // };
-
 
   const handleSubmitcodetoJoinQuiz = async (code) => {
     try {
       console.log("quiz code:", code);
-
+  
       // Assuming your joinQuiz action returns the quizId in the response
       const response = await dispatch(joinQuiz(code));
-      const quizId = response?.payload?.quiz;
       console.log(response);
-      navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`);
-      console.log("navigate:", quizId);
+  
+      // Check if the response indicates successful joining
+      if (response && response.payload && response.payload.quiz) {
+        // If the code was successfully joined, navigate to the quiz
+        const quizId = response.payload.quiz;
+        navigate(`/dashboard/learnerquiz/quizwithoutans/${quizId}`);
+        console.log("navigate:", quizId);
+      } else {
+        // If joining was unsuccessful, handle the error (code already joined)
+        console.log("Quiz code already joined or invalid.");
+        // You can display an error message or handle it as required
+      }
     } catch (error) {
       console.error("Error adding code:", error);
     }
