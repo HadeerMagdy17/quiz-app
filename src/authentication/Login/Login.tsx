@@ -197,6 +197,11 @@ const Login = () => {
                 </svg>
               </button>
             </div>
+            <div className="form-group my-3 d-flex justify-content-between">
+              <Link
+                to='/forget-password'
+                className='text-white text-decoration-none'>Forgot Password?</Link>
+            </div>
           </form>
         </div>
 
